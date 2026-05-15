@@ -1,16 +1,69 @@
-# React + Vite
+# AULIA Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend oficial de AULIA, una plataforma académica orientada al acompañamiento socioemocional y la gestión educativa para equipos de orientación escolar.
 
-Currently, two official plugins are available:
+El proyecto busca facilitar la detección temprana, el seguimiento y la intervención institucional mediante una experiencia digital moderna, accesible y centrada en las personas.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Tecnologías utilizadas
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- Vite
+- React Router DOM
+- JavaScript (ES6+)
+- CSS
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Instalación
+
+Clonar el repositorio:
+
+```bash
+git clone <url-del-repo>
+```
+
+Ingresar a la carpeta:
+
+```bash
+cd aulia-frontend
+```
+
+Instalar dependencias:
+
+```bash
+npm install
+```
+
+Ejecutar entorno de desarrollo:
+
+```bash
+npm run dev
+```
+
+---
+
+## Convenciones del proyecto
+
+- Arquitectura modular y escalable.
+- Componentes reutilizables.
+- CSS desacoplado de JSX.
+- Uso de variables globales para estilos y colores.
+- Flujo de trabajo basado en ramas (`main`, `develop`, `feature/*`).
+
+---
+
+## Equipo
+
+Proyecto desarrollado como trabajo académico integrador para la carrera de Desarrollo de Software.
+
+- Nazarena Macre
+- Andrea Purriños
+- Martín Lemberger
+
+---
+
+## Estado del proyecto
+
+🚧 En desarrollo.
