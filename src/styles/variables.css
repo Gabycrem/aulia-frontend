@@ -1,0 +1,22 @@
+:root {
+  --color-primary: #559e9a;
+  --color-secondary: #8e8282;
+
+  --color-background: #f4f1ee;
+  --color-surface: #eae5e1;
+  --color-accent-soft: #d7edea;
+
+  --color-text: #3e3e3e;
+  --color-text-soft: #7a7272;
+
+  --color-white-soft: #faf8f6;
+
+  --font-main: 'Nunito', 'Segoe UI', sans-serif;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
