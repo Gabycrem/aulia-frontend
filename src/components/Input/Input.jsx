@@ -6,6 +6,8 @@ function Input({
   value,
   onChange,
   name,
+  id,
+  required= false,
 }) {
   return (
     <input
@@ -15,6 +17,8 @@ function Input({
       value={value}
       onChange={onChange}
       name={name}
+      id={id}
+      required={required}
     />
   );
 }

@@ -16,8 +16,8 @@ function AppRouter() {
         <Route path="/login" element={<Login />} />
 
         <Route path="/dashboard/gabinete" element={<GabDashboard />} />
-        <Route path="/dashboard/teacher" element={<TeacherDashboard />} />
-        <Route path="/dashboard/student" element={<StudentDashboard />} />
+        <Route path="/dashboard/docente" element={<TeacherDashboard />} />
+        <Route path="/dashboard/estudiante" element={<StudentDashboard />} />
         <Route path="/dashboard/directivo" element={<DirectDashboard />} />
         <Route path="/dashboard/admin" element={<AdminDashboard />} />
 
