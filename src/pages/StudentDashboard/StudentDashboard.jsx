@@ -1,7 +1,11 @@
-function StudentDashboard(){
+import DashboardLayout from "../../layouts/DashboardLayout/DashboardLayout";
+
+function StudentDashboard() {
     return (
         <main>
-            <h1>Dashboard de Estudiantes</h1>
+            <DashboardLayout role="student">
+                <h1>Dashboard de Estudiantes</h1>
+            </DashboardLayout>
         </main>
     );
 }

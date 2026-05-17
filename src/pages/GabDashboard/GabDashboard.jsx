@@ -1,7 +1,11 @@
-function GabDashboard(){
+import DashboardLayout from "../../layouts/DashboardLayout/DashboardLayout";
+
+function GabDashboard() {
     return (
         <main>
-            <h1>Dashboard de Gabinete</h1>
+            <DashboardLayout role="gab">
+                <h1>Dashboard de Gabinete</h1>
+            </DashboardLayout>
         </main>
     );
 }

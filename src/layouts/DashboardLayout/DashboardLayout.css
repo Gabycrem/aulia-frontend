@@ -1,0 +1,16 @@
+.dashboard-layout{
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    column-gap: 0.5rem;
+    min-height: 100vh;
+}
+
+.dashboard-main {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.dashboard-content{
+    flex: 1;
+}

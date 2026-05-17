@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Card from '../../components/Card/Card';
 import Button from '../../components/Button/Button';
 import Input from '../../components/Input/Input';
-import logoAulia from '../../assets/logos/logo-aulia.png';
+import Logo from '../../components/Logo/Loco';
 
 import './Login.css';
 
@@ -11,15 +11,15 @@ function Login() {
     const navigate = useNavigate();
 
     const fakeUser = {
-        role: 'estudiante',
+        role: 'teacher',
     };
 
     const routesByRole = {
         admin: '/dashboard/admin',
-        gabinete: '/dashboard/gabinete',
-        docente: '/dashboard/docente',
-        estudiante: '/dashboard/estudiante',
-        directivo: '/dashboard/directivo',
+        gab: '/dashboard/gabinete',
+        teacher: '/dashboard/docente',
+        student: '/dashboard/estudiante',
+        direct: '/dashboard/directivo',
     };
 
     const handleLogin = (event) => {
@@ -31,11 +31,7 @@ function Login() {
     return (
         <main className="login-page">
             <Card className="login-card">
-                <img
-                    src={logoAulia}
-                    alt="Logo AULIA"
-                    className="login-logo"
-                />
+                <Logo className="login-logo" />
 
                 <p className="login-text">
                     Ingresa tus credenciales para acceder a tu cuenta

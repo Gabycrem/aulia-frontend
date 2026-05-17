@@ -1,7 +1,10 @@
+import DashboardLayout from "../../layouts/DashboardLayout/DashboardLayout";
 function AdminDashboard(){
     return (
         <main>
-            <h1>Dashboard de Admin</h1>
+            <DashboardLayout role="admin">
+                <h1>Dashboard de Admin</h1>
+            </DashboardLayout>
         </main>
     );
 }

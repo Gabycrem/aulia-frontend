@@ -1,0 +1,19 @@
+.sidebar-nav-item {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--color-text);
+    transition:
+        transform 0.2s ease,
+        font-weight 0.2s ease;
+}
+
+.sidebar-nav-item:hover {
+    transform: scale(1.03);
+    font-weight: 600;
+}
+
+.sidebar-nav-item.active {
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: underline;
+}
