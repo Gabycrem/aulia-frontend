@@ -1,11 +1,12 @@
 import DashboardLayout from "../../layouts/DashboardLayout/DashboardLayout";
-function DirectDashboard(){
+import './DirectDashboard.css';
+function DirectDashboard() {
     return (
-        <main>
-            <DashboardLayout role="direct">
+        <DashboardLayout role="direct">
+            <section className="direct-dashboard">
                 <h1>Dashboard de Directivos</h1>
-            </DashboardLayout>
-        </main>
+            </section>
+        </DashboardLayout>
     );
 }
 

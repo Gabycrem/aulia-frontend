@@ -1,12 +1,14 @@
 import DashboardLayout from "../../layouts/DashboardLayout/DashboardLayout";
-
+import './StudentDashboard.css';
 function StudentDashboard() {
     return (
-        <main>
-            <DashboardLayout role="student">
-                <h1>Dashboard de Estudiantes</h1>
-            </DashboardLayout>
-        </main>
+        <DashboardLayout role="student">
+            <section className="student-dashboard">
+                <h1 className="student-dashboard-title">
+                    ¿Cómo te sientís hoy?
+                </h1>
+            </section>
+        </DashboardLayout>
     );
 }
 

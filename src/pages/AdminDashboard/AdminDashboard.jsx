@@ -1,11 +1,12 @@
 import DashboardLayout from "../../layouts/DashboardLayout/DashboardLayout";
-function AdminDashboard(){
+import './AdminDashboard.css';
+function AdminDashboard() {
     return (
-        <main>
-            <DashboardLayout role="admin">
+        <DashboardLayout role="admin">
+            <section className="admin-dashboard">
                 <h1>Dashboard de Admin</h1>
-            </DashboardLayout>
-        </main>
+            </section>
+        </DashboardLayout>
     );
 }
 

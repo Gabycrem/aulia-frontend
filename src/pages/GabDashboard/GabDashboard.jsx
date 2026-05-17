@@ -1,12 +1,12 @@
 import DashboardLayout from "../../layouts/DashboardLayout/DashboardLayout";
-
+import './GabDashboard.css';
 function GabDashboard() {
     return (
-        <main>
-            <DashboardLayout role="gab">
+        <DashboardLayout role="gab">
+            <section className="student-dashboard">
                 <h1>Dashboard de Gabinete</h1>
-            </DashboardLayout>
-        </main>
+            </section>
+        </DashboardLayout>
     );
 }
 
