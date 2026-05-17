@@ -1,11 +1,18 @@
 import './Header.css';
 
-function Header() {
+function Header({ role }) {
+    const roleLabels = {
+        admin: 'ADMINISTRADOR',
+        gab: 'GABINETE',
+        teacher: 'DOCENTE',
+        student: 'ESTUDIANTE',
+        direct: 'DIRECTIVO',
+    };
     return (
         <header className="header">
 
             <div className="header-role">
-                GABINETE
+                {roleLabels[role]}
             </div>
 
             <div className="header-user">

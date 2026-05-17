@@ -1,0 +1,80 @@
+.student-dashboard{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    padding: 0.5rem 1rem;
+}
+
+.student-dashboard-subtitle{
+    color: var(--color-white-soft);
+}
+
+.emotion-options-container {
+    width: 80%;
+    max-width: 800px;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.emotion-options{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.emotion-card {
+    width: 100%;
+    max-width: 100px;
+    height: 100px;
+    border: none;
+    border-radius: var(--radius-md);
+    background-color: var(--color-text);
+    color: var(--color-white-soft);
+    font-weight: 600;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.emotion-card:hover {
+    transform: translateY(-4px);
+    background-color: var(--color-primary);
+}
+
+.emotion-options-txt{
+    margin: 1.5rem;
+}
+
+div .select-subject{
+    width: 80%;
+}
+
+.coment-txt-area{
+    resize: none;
+    display: block;
+    width: 80%;
+    min-height: 100px;
+    padding: .5rem;
+    border: none;
+    border-radius: var(--radius-md);
+    background-color: var(--color-background-soft);
+}
+
+.buttons-container{
+    width: 100%;
+    display: flex;
+    gap: 3rem;
+    justify-content: flex-end;
+    padding: 0.5rem;
+}
+
+.btn-primary, .btn-secondary{
+    max-width: 120px;
+}

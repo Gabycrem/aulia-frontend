@@ -1,6 +1,7 @@
 .card {
     width: 100%;
-    background-color: var(--color-secundary);
+    padding: 0.5rem;
+    background-color: var(--color-secondary);
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-soft);
 }
