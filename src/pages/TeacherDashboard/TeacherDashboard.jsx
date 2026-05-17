@@ -1,11 +1,11 @@
 import DashboardLayout from "../../layouts/DashboardLayout/DashboardLayout";
 function TeacherDashboard() {
     return (
-        <main>
-            <DashboardLayout role="teacher">
+        <DashboardLayout role="teacher">
+            <section className="teacher-dashboard">
                 <h1>Dashboard de Docentes</h1>
-            </DashboardLayout>
-        </main>
+            </section>
+        </DashboardLayout>
     );
 }
 
