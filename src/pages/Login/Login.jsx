@@ -11,7 +11,7 @@ function Login() {
     const navigate = useNavigate();
 
     const fakeUser = {
-        role: 'teacher',
+        role: 'gab',
     };
 
     const routesByRole = {

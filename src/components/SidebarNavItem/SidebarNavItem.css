@@ -2,6 +2,9 @@
     display: inline-block;
     text-decoration: none;
     color: var(--color-text);
+    min-width: 200px;
+    padding: .7rem;
+    border-radius: var(--radius-md);
     transition:
         transform 0.2s ease,
         font-weight 0.2s ease;
@@ -14,6 +17,7 @@
 
 .sidebar-nav-item.active {
     font-weight: 700;
-    color: var(--color-primary);
     text-decoration: underline;
+    background-color: var(--color-secondary);
+    color: var(--color-white-soft);
 }

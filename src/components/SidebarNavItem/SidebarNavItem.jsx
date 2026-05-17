@@ -9,6 +9,7 @@ function SidebarNavItem({
         <NavLink
             className='sidebar-nav-item'
             to={to}
+            end
         >
             {children}
         </NavLink>

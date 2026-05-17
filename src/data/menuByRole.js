@@ -1,6 +1,6 @@
 export const menuByRole = {
   student: [
-    { label: 'Check-in de emociones', path: '/dashboard/estudiante/checkin' },
+    { label: 'Check-in de emociones', path: '/dashboard/estudiante' },
   ],
 
   gab: [
