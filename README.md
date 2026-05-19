@@ -45,6 +45,22 @@ npm run dev
 
 ---
 
+## Usuarios de prueba
+
+Mientras la autenticación con backend está en desarrollo, el login utiliza usuarios mock para probar los distintos roles.
+
+| Rol | Usuario | Contraseña |
+| --- | --- | --- |
+| Admin | admin | admin123 |
+| Gabinete | gabinete | gab123 |
+| Docente | docente | docente123 |
+| Alumno | alumno | alumno123 |
+| Directivo | directivo | directivo123 |
+
+Estos datos son solo para entorno de desarrollo y serán reemplazados cuando se integre la autenticación con backend.
+
+---
+
 ## Convenciones del proyecto
 
 - Arquitectura modular y escalable.
