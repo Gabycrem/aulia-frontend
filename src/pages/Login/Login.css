@@ -28,3 +28,11 @@
     flex-direction: column;
     gap: 24px;
 }
+
+.login-error {
+    color: var(--color-text);
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-align: center;
+}
