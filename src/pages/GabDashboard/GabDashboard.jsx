@@ -5,99 +5,146 @@ import DataTable from "../../components/DataTable/DataTable";
 import Badge from "../../components/Badge/Badge";
 import "./GabDashboard.css";
 
+const dashboardSummary = {
+  openCaseFiles: 12,
+  activeAlerts: 5,
+  pendingReferrals: 3,
+  todayInterventions: 4,
+};
+
 const dashboardMetrics = [
   {
-    title: "Alumnos en seguimiento",
-    value: "12",
+    id: "open-case-files",
+    title: "Legajos abiertos",
+    value: dashboardSummary.openCaseFiles,
   },
   {
+    id: "active-alerts",
     title: "Alertas activas",
-    value: "5",
+    value: dashboardSummary.activeAlerts,
   },
   {
-    title: "Clima emocional",
-    value: "Regular",
+    id: "pending-referrals",
+    title: "Derivaciones pendientes",
+    value: dashboardSummary.pendingReferrals,
   },
   {
+    id: "today-interventions",
     title: "Intervenciones de hoy",
-    value: "3",
+    value: dashboardSummary.todayInterventions,
   },
 ];
 
-const cases = [
+const priorityCases = [
   {
     id: 1,
-    student: "Juan Pérez",
-    reason: "Inasistencias reiteradas",
-    priority: "Baja",
-    status: "Resuelta",
-    lastActivity: "Hace 2 hs.",
+    studentName: "Juan Pérez",
+    source: "Alerta",
+    reason: "Ausentismo",
+    priority: "Alta",
+    status: "En revisión",
+    lastUpdate: "Hace 2 hs.",
   },
   {
     id: 2,
-    student: "Martina Gómez",
-    reason: "Bajo rendimiento académico",
+    studentName: "Martina Gómez",
+    source: "Derivación",
+    reason: "Dificultades de Aprendizaje",
     priority: "Alta",
-    status: "En revisión",
-    lastActivity: "Hace 25 min.",
+    status: "Pendiente de aceptación",
+    lastUpdate: "Hace 25 min.",
   },
   {
     id: 3,
-    student: "Lucas Fernández",
-    reason: "Problemas de conducta",
-    priority: "Media",
-    status: "Activo",
-    lastActivity: "Hoy",
+    studentName: "Lucas Fernández",
+    source: "Legajo",
+    reason: "Conducta y Convivencia",
+    priority: "Baja",
+    status: "Abierto",
+    lastUpdate: "Hoy",
   },
   {
     id: 4,
-    student: "Sofía Ramírez",
-    reason: "Dificultades de aprendizaje",
+    studentName: "Sofía Ramírez",
+    source: "Check-in",
+    reason: "Socioemocional",
     priority: "Alta",
-    status: "Activo",
-    lastActivity: "Ayer",
+    status: "Pendiente",
+    lastUpdate: "Hoy",
   },
   {
     id: 5,
-    student: "Valentina Ruiz",
-    reason: "Situación familiar compleja",
+    studentName: "Valentina Ruiz",
+    source: "Derivación",
+    reason: "Socioemocional/Familiar",
     priority: "Alta",
-    status: "En revisión",
-    lastActivity: "Ayer",
+    status: "Aceptado - En curso",
+    lastUpdate: "Ayer",
   },
 ];
 
-const activityItems = [
-  "Juan cargó un check-in emocional",
-  "Nueva derivación creada para Martina Gómez",
-  "Intervención registrada para Sofía Ramírez",
-  "Estado actualizado a En revisión",
-  "Seguimiento programado para mañana",
+const recentActivity = [
+  {
+    id: 1,
+    description: "Derivación creada para Martina Gómez",
+    detail: "Creado",
+    createdAt: "Hace 25 min.",
+  },
+  {
+    id: 2,
+    description: "Alerta de ausentismo asignada a Juan Pérez",
+    detail: "En revisión",
+    createdAt: "Hace 2 hs.",
+  },
+  {
+    id: 3,
+    description: "Intervención registrada para Sofía Ramírez",
+    detail: "Entrevista Individual con Alumno",
+    createdAt: "Hoy",
+  },
+  {
+    id: 4,
+    description: "Legajo actualizado para Lucas Fernández",
+    detail: "Abierto",
+    createdAt: "Hoy",
+  },
 ];
 
-const agendaItems = [
+const todayAgenda = [
   {
+    id: 1,
     time: "10:00",
-    title: "Intervención con Juan",
+    studentName: "Juan Pérez",
+    type: "Entrevista Individual con Alumno",
   },
   {
+    id: 2,
     time: "11:30",
-    title: "Reunión con familia",
+    studentName: "Martina Gómez",
+    type: "Reunión Familiar",
   },
   {
+    id: 3,
     time: "14:00",
-    title: "Seguimiento Lucas",
+    studentName: "Lucas Fernández",
+    type: "Observación de Aula",
   },
   {
+    id: 4,
     time: "16:00",
-    title: "Entrevista individual",
+    studentName: "Sofía Ramírez",
+    type: "Reunión de Equipo / Articulación Interna",
   },
 ];
 
 const columns = [
   {
-    key: "student",
+    key: "studentName",
     label: "Alumno",
+  },
+  {
+    key: "source",
+    label: "Origen",
   },
   {
     key: "reason",
@@ -111,11 +158,11 @@ const columns = [
   {
     key: "status",
     label: "Estado",
-    render: (row) => <Badge variant="default">{row.status}</Badge>,
+    render: (row) => <Badge>{row.status}</Badge>,
   },
   {
-    key: "lastActivity",
-    label: "Última actividad",
+    key: "lastUpdate",
+    label: "Última actualización",
   },
   {
     key: "action",
@@ -132,11 +179,10 @@ function GabDashboard() {
   return (
     <DashboardLayout role="gab">
       <section className="gab-dashboard">
-
         <div className="gab-dashboard-metrics">
           {dashboardMetrics.map((metric) => (
             <DashboardMetric
-              key={metric.title}
+              key={metric.id}
               title={metric.title}
               value={metric.value}
             />
@@ -144,7 +190,7 @@ function GabDashboard() {
         </div>
 
         <Card className="gab-dashboard-table-card">
-          <DataTable columns={columns} rows={cases} />
+          <DataTable columns={columns} rows={priorityCases} />
         </Card>
 
         <div className="gab-dashboard-bottom">
@@ -152,8 +198,13 @@ function GabDashboard() {
             <h2>Actividad reciente</h2>
 
             <ul className="gab-dashboard-activity-list">
-              {activityItems.map((item) => (
-                <li key={item}>{item}</li>
+              {recentActivity.map((activity) => (
+                <li key={activity.id}>
+                  <span>{activity.description}</span>
+                  <small>
+                    {activity.detail} · {activity.createdAt}
+                  </small>
+                </li>
               ))}
             </ul>
           </Card>
@@ -162,10 +213,12 @@ function GabDashboard() {
             <h2>Agenda de hoy</h2>
 
             <ul className="gab-dashboard-agenda-list">
-              {agendaItems.map((item) => (
-                <li key={`${item.time}-${item.title}`}>
-                  <strong>{item.time}</strong>
-                  <span>{item.title}</span>
+              {todayAgenda.map((agendaItem) => (
+                <li key={agendaItem.id}>
+                  <strong>{agendaItem.time}</strong>
+                  <span>
+                    {agendaItem.type} - {agendaItem.studentName}
+                  </span>
                 </li>
               ))}
             </ul>

@@ -61,6 +61,20 @@
   font-weight: 700;
 }
 
+.gab-dashboard-activity-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.gab-dashboard-activity-list small {
+  color: var(--color-text-soft);
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+
 .gab-dashboard-agenda-list li {
   display: grid;
   grid-template-columns: 64px 1fr;
