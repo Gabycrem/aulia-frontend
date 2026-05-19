@@ -7,7 +7,9 @@ function DataTable({ columns = [], rows = [], emptyMessage = "No hay datos dispo
         <thead>
           <tr>
             {columns.map((column) => (
-              <th key={column.key}>{column.label}</th>
+              <th key={column.key} style={{ width: column.width }}>
+                {column.label}
+              </th>
             ))}
           </tr>
         </thead>
@@ -17,7 +19,7 @@ function DataTable({ columns = [], rows = [], emptyMessage = "No hay datos dispo
             rows.map((row, rowIndex) => (
               <tr key={row.id || rowIndex}>
                 {columns.map((column) => (
-                  <td key={column.key}>
+                  <td key={column.key} style={{ width: column.width }}>
                     {column.render ? column.render(row) : row[column.key]}
                   </td>
                 ))}

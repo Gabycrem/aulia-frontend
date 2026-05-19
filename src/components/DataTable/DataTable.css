@@ -1,11 +1,12 @@
 .data-table-wrapper {
   width: 100%;
-  overflow-x: auto;
+  overflow-x: hidden;
   border-radius: var(--radius-md);
 }
 
 .data-table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   font-family: var(--font-main);
   color: var(--color-text);
@@ -15,17 +16,22 @@
   padding: 12px 16px;
   background-color: var(--color-text);
   color: var(--color-white-soft);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 700;
   text-align: left;
-  white-space: nowrap;
 }
 
 .data-table td {
   padding: 12px 16px;
   background-color: var(--color-secondary);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   vertical-align: middle;
+}
+
+.data-table th,
+.data-table td {
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .data-table-empty {
