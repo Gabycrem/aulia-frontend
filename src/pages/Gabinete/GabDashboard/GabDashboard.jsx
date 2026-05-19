@@ -1,8 +1,8 @@
-import DashboardLayout from "../../layouts/DashboardLayout/DashboardLayout";
-import Card from "../../components/Card/Card";
-import DashboardMetric from "../../components/DashboardMetric/DashboardMetric";
-import DataTable from "../../components/DataTable/DataTable";
-import Badge from "../../components/Badge/Badge";
+import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
+import Card from "../../../components/Card/Card";
+import DashboardMetric from "../../../components/DashboardMetric/DashboardMetric";
+import DataTable from "../../../components/DataTable/DataTable";
+import Badge from "../../../components/Badge/Badge";
 import "./GabDashboard.css";
 
 const dashboardSummary = {
