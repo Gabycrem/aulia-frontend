@@ -11,6 +11,7 @@ function Sidebar({ role }) {
     const navigate = useNavigate();
 
     const handleLogout = () => {
+        sessionStorage.removeItem('aulia_user');
         navigate('/login');
     };
     return (

@@ -1,6 +1,10 @@
 import './Header.css';
 
 function Header({ role }) {
+
+    const storedUser = sessionStorage.getItem('aulia_user');
+    const user = storedUser ? JSON.parse(storedUser) : null;
+
     const roleLabels = {
         admin: 'ADMINISTRADOR',
         gab: 'GABINETE',
@@ -8,11 +12,17 @@ function Header({ role }) {
         student: 'ESTUDIANTE',
         direct: 'DIRECTIVO',
     };
+
+    const fullName = user
+        ? `${user.firstName} ${user.lastName}`
+        : 'Usuario';
+    const email = user?.email || '';
+
     return (
         <header className="header">
 
             <div className="header-role">
-                {roleLabels[role]}
+                {roleLabels[user?.role || role]}
             </div>
 
             <div className="header-user">
@@ -26,11 +36,11 @@ function Header({ role }) {
                 <div className="header-user-info">
 
                     <span className="header-user-name">
-                        Usuario Prueba
+                        {fullName}
                     </span>
 
                     <span className="header-user-email">
-                        usuarioprueba@gmail.com
+                        {email}
                     </span>
 
                 </div>
