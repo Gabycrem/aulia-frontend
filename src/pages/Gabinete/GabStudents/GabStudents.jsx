@@ -6,6 +6,8 @@ import Input from "../../../components/Input/Input";
 import Button from "../../../components/Button/Button";
 import PageToolbar from "../../../components/PageToolbar/PageToolbar";
 import "./GabStudents.css";
+import { Eye, Pencil, Search } from "lucide-react";
+
 
 const cases = [
   {
@@ -60,69 +62,122 @@ const cases = [
   },
 ];
 
-const columns = [
-  {
-    key: "studentName",
-    label: "Alumno",
-    width: "12%",
-  },
-  {
-    key: "course",
-    label: "Curso",
-    width: "8%",
-  },
-  {
-    key: "source",
-    label: "Origen",
-    width: "12%",
-  },
-  {
-    key: "reason",
-    label: "Motivo",
-    width: "22%",
-  },
-  {
-    key: "priority",
-    label: "Prioridad",
-    width: "12%",
-    render: (row) => <Badge variant="muted">{row.priority}</Badge>,
-  },
-  {
-    key: "status",
-    label: "Estado",
-    width: "18%",
-    render: (row) => <Badge>{row.status}</Badge>,
-  },
-  {
-    key: "lastUpdate",
-    label: "Última actualización",
-    width: "10%",
-  },
-  {
-    key: "action",
-    label: "Acción",
-    width: "10%",
-    render: () => (
-      <button type="button" className="gab-students-table-action">
-        Ver/Editar
-      </button>
-    ),
-  },
-];
-
 
 function GabStudents() {
+  const handleSearch = () => {
+    window.alert("Buscar alumno");
+  };
+
+  const handleViewCase = (caseItem) => {
+    window.alert(`Ver caso de ${caseItem.studentName}`);
+  };
+
+  const handleEditCase = (caseItem) => {
+    window.alert(`Editar caso de ${caseItem.studentName}`);
+  };
+
+  const handleCreateCase = () => {
+    window.alert("Crear nuevo caso");
+  };
+
+  const columns = [
+    {
+      key: "studentName",
+      label: "Alumno",
+      width: "12%",
+    },
+    {
+      key: "course",
+      label: "Curso",
+      width: "8%",
+    },
+    {
+      key: "source",
+      label: "Origen",
+      width: "12%",
+    },
+    {
+      key: "reason",
+      label: "Motivo",
+      width: "22%",
+    },
+    {
+      key: "priority",
+      label: "Prioridad",
+      width: "12%",
+      render: (row) => <Badge variant="muted">{row.priority}</Badge>,
+    },
+    {
+      key: "status",
+      label: "Estado",
+      width: "18%",
+      render: (row) => <Badge>{row.status}</Badge>,
+    },
+    {
+      key: "lastUpdate",
+      label: "Última actualización",
+      width: "10%",
+    },
+    {
+      key: "action",
+      label: "Acción",
+      width: "10%",
+      render: (row) => (
+        <div className="gab-students-actions">
+          <button
+            type="button"
+            className="gab-students-icon-button"
+            aria-label="Ver caso"
+            title="Ver caso"
+            onClick={() => handleViewCase(row)}
+          >
+            <Eye size={18} strokeWidth={2} />
+          </button>
+
+          <button
+            type="button"
+            className="gab-students-icon-button"
+            aria-label="Editar caso"
+            title="Editar caso"
+            onClick={() => handleEditCase(row)}
+          >
+            <Pencil size={18} strokeWidth={2} />
+          </button>
+        </div>
+      ),
+    },
+  ];
   return (
     <DashboardLayout role="gab">
       <section className="gab-students">
         <PageToolbar title="Alumnos">
-          <Input
-            type="search"
-            placeholder="Buscar alumno..."
-            className="gab-students-search"
-          />
+          <div className="gab-students-search-field">
+            <Input
+              type="search"
+              placeholder="Buscar alumno..."
+              className="gab-students-search"
+              oneKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  handleSearch();
+                }
+              }}
+            />
 
-          <Button className="gab-students-new-case-button">
+            <button
+              type="button"
+              className="gab-students-search-button"
+              aria-label="Buscar alumno"
+              title="Buscar alumno"
+              onClick={handleSearch}
+            >
+              <Search size={18} strokeWidth={2} />
+            </button>
+          </div>
+
+          <Button
+            className="gab-students-new-case-button"
+            onClick={handleCreateCase}
+          >
             + Nuevo caso
           </Button>
         </PageToolbar>

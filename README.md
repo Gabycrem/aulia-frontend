@@ -11,6 +11,7 @@ El proyecto busca facilitar la detección temprana, el seguimiento y la interven
 - React
 - Vite
 - React Router DOM
+- Lucide React
 - JavaScript (ES6+)
 - CSS
 
@@ -21,7 +22,7 @@ El proyecto busca facilitar la detección temprana, el seguimiento y la interven
 Clonar el repositorio:
 
 ```bash
-git clone <url-del-repo>
+git clone https://github.com/Gabycrem/aulia-frontend.git
 ```
 
 Ingresar a la carpeta:

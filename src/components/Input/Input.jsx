@@ -5,6 +5,7 @@ function Input({
   placeholder = '',
   value,
   onChange,
+  onKeyDown,
   name,
   id,
   required= false,
@@ -17,6 +18,7 @@ function Input({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      onKeyDown={onKeyDown}
       name={name}
       id={id}
       required={required}
