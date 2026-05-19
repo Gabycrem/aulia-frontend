@@ -8,10 +8,11 @@ function Input({
   name,
   id,
   required= false,
+  className= '',
 }) {
   return (
     <input
-      className="input"
+      className={`input ${className}`}
       type={type}
       placeholder={placeholder}
       value={value}
