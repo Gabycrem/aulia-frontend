@@ -54,3 +54,42 @@
     font-size: 0.8rem;
     color: var(--color-text-soft);
 }
+
+@media (max-width: 768px) {
+    .header {
+        height: auto;
+        min-height: 96px;
+        position: static;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .header-role {
+        position: static;
+        right: auto;
+        width: 100%;
+        max-width: 220px;
+    }
+
+    .header-user {
+        width: 100%;
+        justify-content: center;
+        padding-right: 0;
+        min-width: 0;
+    }
+
+    .header-user-info {
+        min-width: 0;
+    }
+
+    .header-user-email {
+        max-width: 220px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}

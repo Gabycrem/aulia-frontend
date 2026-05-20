@@ -11,6 +11,13 @@
     gap: 8px;
 }
 
-.dashboard-content{
+.dashboard-content {
     flex: 1;
+    min-width: 0;
+}
+
+@media (max-width: 768px) {
+    .dashboard-layout {
+        grid-template-columns: 1fr;
+    }
 }

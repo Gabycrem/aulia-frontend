@@ -21,3 +21,11 @@
     background-color: var(--color-background);
     color: var(--color-white-soft);
 }
+
+@media (max-width: 768px) {
+    .sidebar-nav-item {
+        min-width: 0;
+        width: 100%;
+        text-align: center;
+    }
+}
