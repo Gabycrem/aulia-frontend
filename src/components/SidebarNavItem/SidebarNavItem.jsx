@@ -4,10 +4,14 @@ import './SidebarNavItem.css';
 function SidebarNavItem({
     to,
     children,
+    onClick,
 }) {
     return (
         <NavLink
-            className='sidebar-nav-item'
+            onClick={onClick}
+            className={({ isActive }) =>
+                isActive ? 'sidebar-nav-item active' : 'sidebar-nav-item'
+            }
             to={to}
             end
         >
