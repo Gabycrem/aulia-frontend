@@ -16,9 +16,6 @@ function Login() {
         password: '',
     });
     const [error, setError] = useState('');
-    const fakeUser = {
-        role: 'gab',
-    };
 
     const routesByRole = {
         admin: '/dashboard/admin',
@@ -43,7 +40,6 @@ function Login() {
 
     const handleLogin = (event) => {
         event.preventDefault();
-        const formData = new FormData(event.currentTarget);
         const username = credentials.username.trim();
         const password = credentials.password;
 
