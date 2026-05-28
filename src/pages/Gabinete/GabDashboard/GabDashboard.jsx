@@ -5,6 +5,12 @@ import DataTable from "../../../components/DataTable/DataTable";
 import Badge from "../../../components/Badge/Badge";
 import "./GabDashboard.css";
 
+/* descomentar para integración
+import { useEffect, useState } from "react";
+
+import { getHelpRequests, getDailyCheckInSummary } from "../../../services/checkInService";
+*/
+
 const dashboardSummary = {
   openCaseFiles: 12,
   activeAlerts: 5,
@@ -176,6 +182,45 @@ const columns = [
 ];
 
 function GabDashboard() {
+
+  /*
+    const [summary, setSummary] = useState(dashboardSummary);
+    const [priorityCasesData, setPriorityCasesData] = useState(priorityCases);
+    const [recentActivityData, setRecentActivityData] = useState(recentActivity);
+    const [todayAgendaData, setTodayAgendaData] = useState(todayAgenda);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
+    const [dashboardMetricsData, setDashboardMetricsData] = useState(dashboardMetrics);
+    const [priorityCasesData, setPriorityCasesData] = useState(priorityCases);
+    const [recentActivityData, setRecentActivityData] = useState(recentActivity);
+    const [todayAgendaData, setTodayAgendaData] = useState(todayAgenda);
+  
+    useEffect(() => {
+      async function loadDashboardData() {
+        try {
+          setLoading(true);
+  
+          const helpRequests = await getHelpRequests();
+          const checkInSummary = await getDailyCheckInSummary();
+  
+          console.log(helpRequests);
+          console.log(checkInSummary);
+  
+          // setSummary(...)
+          // setPriorityCasesData(...)
+          // setRecentActivityData(...)
+          // setTodayAgendaData(...)
+  
+        } catch (error) {
+          setError(error.message);
+        } finally {
+          setLoading(false);
+        }
+      }
+  
+      loadDashboardData();
+    }, []);
+  */
   return (
     <DashboardLayout role="gab">
       <section className="gab-dashboard">
@@ -187,10 +232,20 @@ function GabDashboard() {
               value={metric.value}
             />
           ))}
+          {/*
+          {dashboardMetricsData.map((metric) => (
+            <DashboardMetric
+              key={metric.id}
+              title={metric.title}
+              value={metric.value}
+            />
+          ))}
+            */}
         </div>
 
         <Card className="gab-dashboard-table-card">
           <DataTable columns={columns} rows={priorityCases} />
+          {/* <DataTable columns={columns} rows={priorityCasesData} /> */}
         </Card>
 
         <div className="gab-dashboard-bottom">
@@ -206,6 +261,16 @@ function GabDashboard() {
                   </small>
                 </li>
               ))}
+              {/*
+              {recentActivityData.map((activity) => (
+                <li key={activity.id}>
+                  <span>{activity.description}</span>
+                  <small>
+                    {activity.detail} · {activity.createdAt}
+                  </small>
+                </li>
+              ))}
+              */}
             </ul>
           </Card>
 
@@ -221,6 +286,16 @@ function GabDashboard() {
                   </span>
                 </li>
               ))}
+              {/*
+              {todayAgendaData.map((agendaItem) => (
+                <li key={agendaItem.id}>
+                  <strong>{agendaItem.time}</strong>
+                  <span>
+                    {agendaItem.type} - {agendaItem.studentName}
+                  </span>
+                </li>
+              ))}
+              */}
             </ul>
           </Card>
         </div>
