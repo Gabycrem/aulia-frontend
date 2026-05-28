@@ -22,52 +22,52 @@ function AppRouter() {
         <Route
           path="/dashboard/gabinete"
           element={
-            <RoleRoute allowedRoles={['gab']}>
+            <RoleRoute allowedRoles={['Gabinete']}>
               <GabDashboard />
             </RoleRoute>} />
         <Route
           path="/dashboard/gabinete/alumnos"
           element={
-            <RoleRoute allowedRoles={['gab']}>
+            <RoleRoute allowedRoles={['Gabinete']}>
               <GabStudents />
             </RoleRoute>} />
         <Route
           path="/dashboard/docente"
           element={
-            <RoleRoute allowedRoles={['teacher']}>
+            <RoleRoute allowedRoles={['Docente']}>
               <TeacherDashboard />
             </RoleRoute>} />
         <Route
           path="/dashboard/docente/mis-alumnos"
           element={
-            <RoleRoute allowedRoles={['teacher']}>
+            <RoleRoute allowedRoles={['Docente']}>
               <TeacherStudents/>
             </RoleRoute>} />
         <Route
           path="/dashboard/estudiante"
           element={
-            <RoleRoute allowedRoles={['student']}>
+            <RoleRoute allowedRoles={['Estudiante']}>
               <StudentDashboard />
             </RoleRoute>
           } />
         <Route
           path="/dashboard/directivo"
           element={
-            <RoleRoute allowedRoles={['direct']}>
+            <RoleRoute allowedRoles={['Directivo']}>
               <DirectDashboard />
             </RoleRoute>
           } />
         <Route
           path="/dashboard/admin"
           element={
-            <RoleRoute allowedRoles={['admin']}>
+            <RoleRoute allowedRoles={['Admin']}>
               <AdminDashboard />
             </RoleRoute>
           } />
           <Route
           path="/dashboard/admin/gestionar-alumnos"
           element={
-            <RoleRoute allowedRoles={['admin']}>
+            <RoleRoute allowedRoles={['Admin']}>
               <AdminStudents />
             </RoleRoute>
           } />

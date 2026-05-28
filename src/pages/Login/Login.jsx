@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { mockUsers } from '../../data/mockUsers';
+import { login } from '../../services/authService';
 
 import Card from '../../components/Card/Card';
 import Button from '../../components/Button/Button';
@@ -18,11 +18,11 @@ function Login() {
     const [error, setError] = useState('');
 
     const routesByRole = {
-        admin: '/dashboard/admin',
-        gab: '/dashboard/gabinete',
-        teacher: '/dashboard/docente',
-        student: '/dashboard/estudiante',
-        direct: '/dashboard/directivo',
+        Admin: '/dashboard/admin',
+        Gabinete: '/dashboard/gabinete',
+        Docente: '/dashboard/docente',
+        Estudiante: '/dashboard/estudiante',
+        Directivo: '/dashboard/directivo',
     };
 
     const handleInputChange = (event) => {
@@ -38,40 +38,33 @@ function Login() {
         }
     };
 
-    const handleLogin = (event) => {
+    const handleLogin = async (event) => {
         event.preventDefault();
-        const username = credentials.username.trim();
-        const password = credentials.password;
 
-        const user = mockUsers.find(
-            (mockUser) =>
-                mockUser.username === username &&
-                mockUser.password === password &&
-                mockUser.active
-        );
+        try {
+            setError("");
+            const data = await login({
+                username: credentials.username.trim(),
+                password: credentials.password,
+            });
+            
+            console.log("LOGIN OK:", data);
+            const sessionUser = {
+                role: data.role,
+            }
+            sessionStorage.setItem("aulia_user", JSON.stringify(sessionUser));
 
-        if (!user) {
-            setError('Usuario o contraseña incorrectos');
+            const redirectPath = routesByRole[data.role] || "/login";
+            console.log("ROLE BACK:", data.role);
+            
+            navigate(redirectPath);
+        } catch (error) {
+            setError(error.message || "Usuario o contraseña incorrectos");
             setCredentials((currentCredentials) => ({
                 ...currentCredentials,
-                password: '',
+                password: "",
             }));
-            return;
         }
-
-        const sessionUser = {
-            id: user.id,
-            username: user.username,
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            role: user.role.key,
-            roleName: user.role.name,
-        };
-
-        sessionStorage.setItem('aulia_user', JSON.stringify(sessionUser));
-        const redirectPath = routesByRole[sessionUser.role] || '/login';
-        navigate(redirectPath);
     };
 
     return (

@@ -6,17 +6,19 @@ function Header({ role }) {
     const user = storedUser ? JSON.parse(storedUser) : null;
 
     const roleLabels = {
-        admin: 'ADMINISTRADOR',
-        gab: 'GABINETE',
-        teacher: 'DOCENTE',
-        student: 'ESTUDIANTE',
-        direct: 'DIRECTIVO',
+        Admin: 'ADMINISTRADOR',
+        Gabinete: 'GABINETE',
+        Docente: 'DOCENTE',
+        Estudiante: 'ESTUDIANTE',
+        Directivo: 'DIRECTIVO',
     };
 
-    const fullName = user
-        ? `${user.firstName} ${user.lastName}`
-        : 'Usuario';
-    const email = user?.email || '';
+    // [ ] Endpoint para obtener usuario autenticado (/auth/me)
+    const fullName =
+        user?.firstName && user?.lastName
+            ? `${user.firstName} ${user.lastName}`
+            : 'Usuario De Prueba';
+    const email = user?.email || 'unEmail@email.com';
 
     return (
         <header className="header">
