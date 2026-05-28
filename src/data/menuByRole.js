@@ -10,7 +10,6 @@ export const menuByRole = {
     { label: 'Intervenciones', path: '/dashboard/gabinete/intervenciones' },
     { label: 'Agenda', path: '/dashboard/gabinete/agenda' },
     { label: 'Reporte', path: '/dashboard/gabinete/reporte' },
-    { label: 'Configuración', path: '/dashboard/gabinete/configuracion' },
   ],
 
   teacher: [
@@ -18,7 +17,6 @@ export const menuByRole = {
     { label: 'Mis Alumnos', path: '/dashboard/docente/mis-alumnos' },
     { label: 'Solicitar Intervención', path: '/dashboard/docente/solicitar-intervencion' },
     { label: 'Agenda', path: '/dashboard/docente/agenda' },
-    { label: 'Configuración', path: '/dashboard/docente/configuración' },
   ],
 
   admin: [

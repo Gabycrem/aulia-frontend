@@ -6,7 +6,7 @@
 
 .data-table {
   width: 100%;
-  table-layout: fixed;
+  table-layout: auto;
   border-collapse: collapse;
   font-family: var(--font-main);
   color: var(--color-text);
@@ -32,6 +32,7 @@
 .data-table td {
   overflow-wrap: anywhere;
   word-break: normal;
+  white-space: nowrap;
 }
 
 .data-table-empty {

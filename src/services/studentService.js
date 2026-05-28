@@ -8,7 +8,7 @@ export function saveStudent(studentData) {
 }
 
 export function getStudentById(id) {
-    return apiRequest(`/api/student/subjectId/${id}`);
+    return apiRequest(`/api/student/studentId/${id}`);
 }
 
 export function getActiveStudents(page = 1) {
