@@ -2,11 +2,11 @@ import { Navigate } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 
 const routesByRole = {
-  admin: '/dashboard/admin',
-  gab: '/dashboard/gabinete',
-  teacher: '/dashboard/docente',
-  student: '/dashboard/estudiante',
-  direct: '/dashboard/directivo',
+  Admin: '/dashboard/admin',
+  Gabinete: '/dashboard/gabinete',
+  Docente: '/dashboard/docente',
+  Estudiante: '/dashboard/estudiante',
+  Directivo: '/dashboard/directivo',
 };
 
 function RoleRoute({ children, allowedRoles }) {
