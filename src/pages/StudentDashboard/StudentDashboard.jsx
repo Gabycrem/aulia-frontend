@@ -3,8 +3,46 @@ import './StudentDashboard.css';
 import Card from '../../components/Card/Card';
 import Select from "../../components/CustomSelect/CustomSelect";
 import Button from "../../components/Button/Button";
+/*
+import { useState , useEffect  } from 'react';
+
+import { saveCheckIn } from '../../services/checkInService';
+*/
 
 function StudentDashboard() {
+    /*
+   const [loading, setLoading] = useState(false);
+   const [error, setError] = useState('');
+   
+
+    const [formData, setFormData] = useState({
+        emotionalState: '',
+        context: '',
+        comment: '',
+        helpRequested: false,
+    });
+
+    
+    async function handleSubmit(event) {
+        event.preventDefault();
+
+        try {
+            setLoading(true);
+
+            await saveCheckIn({
+                ...formData,
+                studentId: 1,
+                courseId: 1,
+            });
+
+        } catch (error) {
+            setError(error.message);
+
+        } finally {
+            setLoading(false);
+        }
+    }
+    */
     return (
         <DashboardLayout role="student">
             <section className="student-dashboard">
