@@ -4,10 +4,12 @@ import RoleRoute from './RoleRoute';
 import Login from '../pages/Login/Login';
 import GabDashboard from '../pages/Gabinete/GabDashboard/GabDashboard';
 import GabStudents from "../pages/Gabinete/GabStudents/GabStudents";
-import TeacherDashboard from '../pages/TeacherDashboard/TeacherDashboard';
+import TeacherDashboard from '../pages/Teacher/TeacherDashboard/TeacherDashboard';
+import TeacherStudents from '../pages/Teacher/TeacherStudents/TeacherStudents';
 import StudentDashboard from '../pages/StudentDashboard/StudentDashboard';
 import DirectDashboard from '../pages/DirectDashboard/DirectDashboard';
-import AdminDashboard from '../pages/AdminDashboard/AdminDashboard';
+import AdminDashboard from '../pages/Admin/AdminDashboard/AdminDashboard';
+import AdminStudents from '../pages/Admin/AdminStudents/AdminStudents';
 
 function AppRouter() {
   return (
@@ -27,13 +29,19 @@ function AppRouter() {
           path="/dashboard/gabinete/alumnos"
           element={
             <RoleRoute allowedRoles={['gab']}>
-              <GabDashboard />
+              <GabStudents />
             </RoleRoute>} />
         <Route
           path="/dashboard/docente"
           element={
             <RoleRoute allowedRoles={['teacher']}>
               <TeacherDashboard />
+            </RoleRoute>} />
+        <Route
+          path="/dashboard/docente/mis-alumnos"
+          element={
+            <RoleRoute allowedRoles={['teacher']}>
+              <TeacherStudents/>
             </RoleRoute>} />
         <Route
           path="/dashboard/estudiante"
@@ -54,6 +62,13 @@ function AppRouter() {
           element={
             <RoleRoute allowedRoles={['admin']}>
               <AdminDashboard />
+            </RoleRoute>
+          } />
+          <Route
+          path="/dashboard/admin/gestionar-alumnos"
+          element={
+            <RoleRoute allowedRoles={['admin']}>
+              <AdminStudents />
             </RoleRoute>
           } />
 

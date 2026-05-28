@@ -1,0 +1,122 @@
+.admin-students {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.admin-students-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.admin-students-header h1 {
+  color: var(--color-text);
+
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+
+.admin-students-header p {
+  margin-top: 0.25rem;
+
+  color: var(--color-text-soft);
+}
+
+.admin-students-primary-button {
+  border: none;
+  border-radius: var(--radius-md);
+
+  padding: 0.75rem 1.2rem;
+
+  font-family: var(--font-main);
+  font-weight: 800;
+
+  background-color: var(--color-primary);
+  color: var(--color-white-soft);
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.admin-students-primary-button:hover {
+  opacity: 0.9;
+}
+
+.admin-students-filters-card,
+.admin-students-table-card {
+  padding: 1.5rem;
+
+  background-color: var(--color-surface);
+
+  box-shadow: var(--shadow-soft);
+}
+
+.admin-students-filters {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 1rem;
+}
+
+.admin-students-filters label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.admin-students-filters input,
+.admin-students-filters select {
+  border: none;
+  border-radius: var(--radius-md);
+
+  padding: 0.75rem 1rem;
+
+  font-family: var(--font-main);
+
+  color: var(--color-text);
+
+  background-color: var(--color-white-soft);
+}
+
+.admin-students-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.admin-students-actions button {
+  border: none;
+  border-radius: var(--radius-sm);
+
+  padding: 0.45rem 0.75rem;
+
+  font-family: var(--font-main);
+  font-weight: 700;
+
+  background-color: var(--color-background-soft);
+  color: var(--color-text);
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.admin-students-actions button:hover {
+  opacity: 0.9;
+}
+
+@media (max-width: 900px) {
+  .admin-students-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-students-filters {
+    grid-template-columns: 1fr;
+  }
+}

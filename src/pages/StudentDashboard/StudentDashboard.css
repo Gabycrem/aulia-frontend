@@ -19,6 +19,13 @@
     align-items: center;
 }
 
+.emotion-options-form{
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .emotion-options{
     display: flex;
     flex-direction: row;
@@ -46,6 +53,12 @@
 .emotion-card:hover {
     transform: translateY(-4px);
     background-color: var(--color-primary);
+}
+
+.emotion-card-active {
+  border: 2px solid var(--color-primary);
+  background-color: var(--color-background);
+  transform: scale(1.02);
 }
 
 .emotion-options-txt{
