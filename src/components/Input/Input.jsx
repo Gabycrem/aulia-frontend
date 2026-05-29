@@ -8,8 +8,10 @@ function Input({
   onKeyDown,
   name,
   id,
-  required= false,
-  className= '',
+  required = false,
+  disabled = false,
+  readOnly = false,
+  className = '',
 }) {
   return (
     <input
@@ -22,6 +24,8 @@ function Input({
       name={name}
       id={id}
       required={required}
+      disabled={disabled}
+      readOnly={readOnly}
     />
   );
 }

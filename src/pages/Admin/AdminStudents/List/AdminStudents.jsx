@@ -1,48 +1,61 @@
-import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
-import Card from "../../../components/Card/Card";
-import DataTable from "../../../components/DataTable/DataTable";
-import Badge from "../../../components/Badge/Badge";
-import useAdminStudents from "../../../hooks/useAdminStudents";
+import DashboardLayout from "../../../../layouts/DashboardLayout/DashboardLayout";
+import Card from "../../../../components/Card/Card";
+import DataTable from "../../../../components/DataTable/DataTable";
+import Badge from "../../../../components/Badge/Badge";
+import useAdminStudents from "../../../../hooks/AdminStudents/useAdminStudents";
 import "./AdminStudents.css";
 
-const columns = [
-  {
-    key: "studentName",
-    label: "Alumno",
-  },
-  {
-    key: "course",
-    label: "Curso",
-  },
-  {
-    key: "email",
-    label: "Email",
-  },
-  {
-    key: "familyConsent",
-    label: "Consentimiento",
-  },
-  {
-    key: "status",
-    label: "Estado",
-    render: (row) => (
-      <Badge variant={row.status === "Activo" ? "primary" : "muted"}>
-        {row.status}
-      </Badge>
-    ),
-  },
-  {
-    key: "action",
-    label: "Acciones",
-    render: () => (
-      <div className="admin-students-actions">
-        <button type="button">Ver</button>
-        <button type="button">Editar</button>
-        <button type="button">Desactivar</button>
-      </div>
-    ),
-  },
-];
+function createColumns({
+  handleViewStudent,
+  handleEditStudent,
+}) {
+  return [
+    {
+      key: "studentName",
+      label: "Alumno",
+    },
+    {
+      key: "course",
+      label: "Curso",
+    },
+    {
+      key: "email",
+      label: "Email",
+    },
+    {
+      key: "familyConsent",
+      label: "Consentimiento",
+    },
+    {
+      key: "status",
+      label: "Estado",
+      render: (row) => (
+        <Badge variant={row.status === "Activo" ? "primary" : "muted"}>
+          {row.status}
+        </Badge>
+      ),
+    },
+    {
+      key: "action",
+      label: "Acciones",
+      render: (row) => (
+        <div className="admin-students-actions">
+          <button type="button" onClick={() => handleViewStudent(row.id)}>
+            Ver
+          </button>
+
+          <button type="button" onClick={() => handleEditStudent(row.id)}>
+            Editar
+          </button>
+
+          <button type="button">
+            Desactivar
+          </button>
+        </div>
+      ),
+    },
+  ];
+}
 
 function AdminStudents() {
   const {
@@ -55,7 +68,17 @@ function AdminStudents() {
     courseOptions,
     statusOptions,
     filteredStudents,
+    handleCreateStudent,
+    handleViewStudent,
+    handleEditStudent,
+    loading,
+    error,
   } = useAdminStudents();
+
+  const columns = createColumns({
+    handleViewStudent,
+    handleEditStudent,
+  });
 
   return (
     <DashboardLayout role="admin">
@@ -66,7 +89,7 @@ function AdminStudents() {
             <p>Alta, edición y administración de alumnos del sistema.</p>
           </div>
 
-          <button type="button" className="admin-students-primary-button">
+          <button type="button" className="admin-students-primary-button" onClick={handleCreateStudent}>
             Nuevo alumno
           </button>
         </header>
@@ -114,11 +137,18 @@ function AdminStudents() {
         </Card>
 
         <Card className="admin-students-table-card">
-          <DataTable columns={columns} rows={filteredStudents} />
 
-          {/*
-          <DataTable columns={columns} rows={studentsData} />
-          */}
+          {loading && <p>Cargando alumnos...</p>}
+
+          {error && <p>{error}</p>}
+
+          {!loading && !error && (
+            <DataTable
+              columns={columns}
+              rows={filteredStudents}
+            />
+          )}
+
         </Card>
       </section>
     </DashboardLayout>
