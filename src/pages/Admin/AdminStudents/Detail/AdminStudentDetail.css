@@ -1,0 +1,80 @@
+.admin-student-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.admin-student-detail-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.admin-student-detail-header h1 {
+  margin: 0;
+}
+
+.admin-student-detail-header p {
+  margin: 0.5rem 0 0;
+  color: var(--color-text-muted);
+}
+
+.admin-student-detail-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.admin-student-detail-card {
+  padding: 1.5rem;
+}
+
+.admin-student-detail-form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.input:disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.input-field:disabled {
+  cursor: default;
+  pointer-events: none;
+}
+
+.admin-student-detail-section h2 {
+  margin: 0 0 1rem;
+  font-size: 1.1rem;
+}
+
+.admin-student-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 1.5rem;
+}
+
+.admin-student-detail-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.admin-student-detail-error {
+  color: #842029;
+}
+
+@media (max-width: 768px) {
+  .admin-student-detail-header {
+    flex-direction: column;
+  }
+
+  .admin-student-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}

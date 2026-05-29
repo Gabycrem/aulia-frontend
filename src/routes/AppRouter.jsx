@@ -9,7 +9,9 @@ import TeacherStudents from '../pages/Teacher/TeacherStudents/TeacherStudents';
 import StudentDashboard from '../pages/StudentDashboard/StudentDashboard';
 import DirectDashboard from '../pages/DirectDashboard/DirectDashboard';
 import AdminDashboard from '../pages/Admin/AdminDashboard/AdminDashboard';
-import AdminStudents from '../pages/Admin/AdminStudents/AdminStudents';
+import AdminStudents from '../pages/Admin/AdminStudents/List/AdminStudents';
+import AdminStudentDetail from "../pages/Admin/AdminStudents/Detail/AdminStudentDetail";
+import AdminStudentForm from "../pages/Admin/AdminStudents/Form/AdminStudentForm";
 
 function AppRouter() {
   return (
@@ -41,7 +43,7 @@ function AppRouter() {
           path="/dashboard/docente/mis-alumnos"
           element={
             <RoleRoute allowedRoles={['Docente']}>
-              <TeacherStudents/>
+              <TeacherStudents />
             </RoleRoute>} />
         <Route
           path="/dashboard/estudiante"
@@ -64,13 +66,39 @@ function AppRouter() {
               <AdminDashboard />
             </RoleRoute>
           } />
-          <Route
+        <Route
           path="/dashboard/admin/gestionar-alumnos"
           element={
             <RoleRoute allowedRoles={['Admin']}>
               <AdminStudents />
             </RoleRoute>
           } />
+        <Route
+          path="/dashboard/admin/alumnos/nuevo"
+          element={
+            <RoleRoute allowedRoles={["Admin"]}>
+              <AdminStudentForm />
+            </RoleRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/admin/alumnos/:id"
+          element={
+            <RoleRoute allowedRoles={["Admin"]}>
+              <AdminStudentDetail />
+            </RoleRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/admin/alumnos/:id/editar"
+          element={
+            <RoleRoute allowedRoles={["Admin"]}>
+              <AdminStudentForm />
+            </RoleRoute>
+          }
+        />
 
         <Route
           path="*"
