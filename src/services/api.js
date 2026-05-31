@@ -13,7 +13,10 @@ export async function apiRequest(endpoint, options = {}) {
     const data = await response.json().catch(() => null);
 
     if (!response.ok) {
-        throw new Error(data?.message || 'Error en la petición');
+        const error = new Error(data?.message || 'Error en la petición');
+        error.status = response.status;
+        error.data = data;
+        throw error;
     }
 
     return data;

@@ -18,3 +18,8 @@
   opacity: 0.9;
   cursor: pointer;
 }
+
+.button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
