@@ -6,6 +6,10 @@ import Badge from "../../../components/Badge/Badge";
 import "./GabDashboard.css";
 import useGabDashboard from "../../../hooks/Gabinete/useGabDashboard";
 
+//Probando agenda
+import TodayAgenda from "../../../components/TodayAgenda/TodayAgenda";
+import { todayAgendaMock } from "../../../data/todayAgendaMock";
+//---
 const columns = [
   {
     key: "studentName",
@@ -49,7 +53,6 @@ function GabDashboard() {
     dashboardMetrics,
     priorityCases,
     recentActivity,
-    todayAgenda,
   } = useGabDashboard();
   return (
     <DashboardLayout role="gab">
@@ -105,6 +108,10 @@ function GabDashboard() {
           </Card>
 
           <Card className="gab-dashboard-panel">
+            <TodayAgenda items={todayAgendaMock} />
+          </Card>
+
+          {/* <Card className="gab-dashboard-panel">
             <h2>Agenda de hoy</h2>
 
             <ul className="gab-dashboard-agenda-list">
@@ -116,7 +123,7 @@ function GabDashboard() {
                   </span>
                 </li>
               ))}
-              {/*
+              
               {todayAgendaData.map((agendaItem) => (
                 <li key={agendaItem.id}>
                   <strong>{agendaItem.time}</strong>
@@ -125,9 +132,9 @@ function GabDashboard() {
                   </span>
                 </li>
               ))}
-              */}
+              
             </ul>
-          </Card>
+          </Card> */}
         </div>
       </section>
     </DashboardLayout>
