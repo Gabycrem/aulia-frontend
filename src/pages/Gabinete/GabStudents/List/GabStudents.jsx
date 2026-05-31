@@ -1,13 +1,13 @@
-import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
-import Card from "../../../components/Card/Card";
-import DataTable from "../../../components/DataTable/DataTable";
-import Badge from "../../../components/Badge/Badge";
-import Input from "../../../components/Input/Input";
-import Button from "../../../components/Button/Button";
-import PageToolbar from "../../../components/PageToolbar/PageToolbar";
+import DashboardLayout from "../../../../layouts/DashboardLayout/DashboardLayout";
+import Card from "../../../../components/Card/Card";
+import DataTable from "../../../../components/DataTable/DataTable";
+import Badge from "../../../../components/Badge/Badge";
+import Input from "../../../../components/Input/Input";
+import Button from "../../../../components/Button/Button";
+import PageToolbar from "../../../../components/PageToolbar/PageToolbar";
 import "./GabStudents.css";
 import { Eye, Pencil, Search } from "lucide-react";
-import useGabStudents from "../../../hooks/useGabStudents";
+import useGabStudents from "../../../../hooks/Gabinete/useGabStudents";
 
 function createColumns(handleViewCase, handleEditCase){
   return [
@@ -71,14 +71,18 @@ function createColumns(handleViewCase, handleEditCase){
   ];
 }
 
-function GabStudents() {
-  const {
-    cases,
-    handleSearch,
-    handleViewCase,
-    handleEditCase,
-    handleCreateCase,
-  } = useGabStudents();
+function GabStudents(){
+const {
+  cases,
+  searchTerm,
+  loading,
+  error,
+  handleSearchChange,
+  handleSearch,
+  handleViewCase,
+  handleEditCase,
+  handleCreateCase,
+} = useGabStudents();
 
   const columns = createColumns(handleViewCase, handleEditCase);
 
@@ -91,7 +95,8 @@ function GabStudents() {
               type="search"
               placeholder="Buscar alumno..."
               className="gab-students-search"
-              oneKeyDown={(e) => {
+              onChange={handleSearchChange}
+              onKeyDown={(e) => {
                 if (e.key === "Enter") {
                   handleSearch();
                 }
@@ -118,7 +123,8 @@ function GabStudents() {
         </PageToolbar>
 
         <Card className="gab-students-table-card">
-          <DataTable columns={columns} rows={cases} />
+          {error && <p className="gab-students-error">{error}</p>}
+          <DataTable columns={columns} rows={cases} emptyMessage={loading ? "Cargando alumnos..." : "No hay alumnos disponibles"} />
         </Card>
       </section>
     </DashboardLayout>

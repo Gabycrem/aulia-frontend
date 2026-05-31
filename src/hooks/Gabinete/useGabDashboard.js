@@ -3,7 +3,7 @@ import {
   priorityCases,
   recentActivity,
   todayAgenda,
-} from "../data/gabDashboardMock";
+} from "../../data/gabDashboardMock";
 
 /*
 DESCOMENTAR AL INTEGRAR

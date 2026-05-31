@@ -4,7 +4,7 @@ import DashboardMetric from "../../../components/DashboardMetric/DashboardMetric
 import DataTable from "../../../components/DataTable/DataTable";
 import Badge from "../../../components/Badge/Badge";
 import "./GabDashboard.css";
-import useGabDashboard from "../../../hooks/useGabDashboard";
+import useGabDashboard from "../../../hooks/Gabinete/useGabDashboard";
 
 const columns = [
   {
