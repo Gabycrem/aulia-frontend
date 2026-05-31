@@ -47,16 +47,21 @@ function Login() {
                 username: credentials.username.trim(),
                 password: credentials.password,
             });
-            
+
             console.log("LOGIN OK:", data);
+            
+            if (!data.token) {
+                throw new Error("No se recibió token de autenticación");
+            }
             const sessionUser = {
                 role: data.role,
+                token: data.token,
             }
             sessionStorage.setItem("aulia_user", JSON.stringify(sessionUser));
 
             const redirectPath = routesByRole[data.role] || "/login";
             console.log("ROLE BACK:", data.role);
-            
+
             navigate(redirectPath);
         } catch (error) {
             setError(error.message || "Usuario o contraseña incorrectos");

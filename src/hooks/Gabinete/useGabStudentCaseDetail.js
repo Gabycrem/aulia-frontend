@@ -8,7 +8,7 @@ import {
 import { getInterventionsByCaseFile } from "../../services/interventionService";
 
 function normalizeResponse(response, key) {
-  return response?.data || response?.[key] || response;
+  return response?.data || response?.[key] || response || null;
 }
 
 function normalizeListResponse(response, key) {
@@ -20,10 +20,6 @@ function normalizeListResponse(response, key) {
     [];
 
   return Array.isArray(data) ? data : [];
-}
-
-function isNotFoundError(error) {
-  return error?.status === 404;
 }
 
 function useGabStudentCaseDetail() {
@@ -42,9 +38,12 @@ function useGabStudentCaseDetail() {
   async function loadInterventions(caseFileId) {
     const interventionsResponse = await getInterventionsByCaseFile(caseFileId);
 
-    const interventionsData = normalizeListResponse(response, "interventions");
+    const interventionsData = normalizeListResponse(
+      interventionsResponse,
+      "interventions"
+    );
 
-    setInterventions(data);
+    setInterventions(interventionsData);
   }
 
   useEffect(() => {
@@ -74,7 +73,11 @@ function useGabStudentCaseDetail() {
           setCaseFile(caseFileData || null);
 
           if (caseFileData?.id) {
-            await loadInterventions(caseFileData.id);
+            try {
+              await loadInterventions(caseFileData.id);
+            } catch {
+              setInterventions([]);
+            }
           }
         } catch (error) {
           setCaseFile(null);
@@ -104,6 +107,7 @@ function useGabStudentCaseDetail() {
       setCaseFileError("No se encontró el alumno para crear el legajo");
       return;
     }
+
     try {
       setCreatingCaseFile(true);
       setCaseFileError("");
@@ -115,7 +119,11 @@ function useGabStudentCaseDetail() {
       setInterventions([]);
 
       if (createdCaseFile?.id) {
-        await loadInterventions(createdCaseFile.id);
+        try {
+          await loadInterventions(createdCaseFile.id);
+        } catch {
+          setInterventions([]);
+        }
       }
     } catch (error) {
       setCaseFileError(error.message || "No se pudo crear el legajo");
