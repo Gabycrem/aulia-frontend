@@ -4,28 +4,6 @@
   gap: 1.5rem;
 }
 
-.admin-student-detail-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  align-items: flex-start;
-}
-
-.admin-student-detail-header h1 {
-  margin: 0;
-}
-
-.admin-student-detail-header p {
-  margin: 0.5rem 0 0;
-  color: var(--color-text-muted);
-}
-
-.admin-student-detail-actions {
-  display: flex;
-  gap: 0.75rem;
-  flex-wrap: wrap;
-}
-
 .admin-student-detail-card {
   padding: 1.5rem;
 }

@@ -5,6 +5,7 @@ import Login from '../pages/Login/Login';
 import GabDashboard from '../pages/Gabinete/GabDashboard/GabDashboard';
 import GabStudents from "../pages/Gabinete/GabStudents/List/GabStudents";
 import GabStudentCaseDetail from "../pages/Gabinete/GabStudents/Detail/GabStudentCaseDetail";
+import GabAgenda from '../pages/Gabinete/GabAgenda/GabAgenda';
 import TeacherDashboard from '../pages/Teacher/TeacherDashboard/TeacherDashboard';
 import TeacherStudents from '../pages/Teacher/TeacherStudents/TeacherStudents';
 import StudentDashboard from '../pages/StudentDashboard/StudentDashboard';
@@ -40,6 +41,12 @@ function AppRouter() {
             <RoleRoute allowedRoles={["Gabinete"]}>
               <GabStudentCaseDetail />
             </RoleRoute>} />
+        <Route
+          path="/dashboard/gabinete/agenda"
+          element={
+            <RoleRoute allowedRoles={['Gabinete']}>
+              <GabAgenda />
+            </RoleRoute> } />
         <Route
           path="/dashboard/docente"
           element={
