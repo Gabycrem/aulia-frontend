@@ -2,6 +2,7 @@ import DashboardLayout from "../../../../layouts/DashboardLayout/DashboardLayout
 import Card from "../../../../components/Card/Card";
 import Button from "../../../../components/Button/Button";
 import Input from "../../../../components/Input/Input";
+import PageToolbar from "../../../../components/PageToolbar/PageToolbar";
 import useAdminStudentDetail from "../../../../hooks/AdminStudents/useAdminStudentDetail";
 import "./AdminStudentDetail.css";
 
@@ -17,25 +18,17 @@ function AdminStudentDetail() {
   return (
     <DashboardLayout role="admin">
       <section className="admin-student-detail">
-        <header className="admin-student-detail-header">
-          <div>
-            <h1>Detalle del alumno</h1>
-            <p>Información completa del alumno seleccionado.</p>
-          </div>
+        <PageToolbar title="Detalle del alumno">
+          <Button type="button" className="btn-secondary" onClick={handleBack}>
+            Volver
+          </Button>
 
-          <div className="admin-student-detail-actions">
-            <Button type="button" className="btn-secondary" onClick={handleBack}>
-              Volver
+          {student && (
+            <Button type="button" className="btn-primary" onClick={handleEdit}>
+              Editar
             </Button>
-
-            {student && (
-              <Button type="button" className="btn-primary" onClick={handleEdit}>
-                Editar
-              </Button>
-            )}
-          </div>
-        </header>
-
+          )}
+        </PageToolbar>
         {loading && (
           <Card className="admin-student-detail-card">
             <p>Cargando alumno...</p>
@@ -105,22 +98,6 @@ function AdminStudentDetail() {
                   <label>
                     Estado
                     <Input value={student.active} disabled readOnly />
-                  </label>
-                </div>
-              </div>
-
-              <div className="admin-student-detail-section">
-                <h2>Información del registro</h2>
-
-                <div className="admin-student-detail-grid">
-                  <label>
-                    Fecha de creación
-                    <Input value={student.createdAt} disabled readOnly />
-                  </label>
-
-                  <label>
-                    Última actualización
-                    <Input value={student.updatedAt} disabled readOnly />
                   </label>
                 </div>
               </div>

@@ -1,0 +1,89 @@
+.day-schedule {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.day-schedule-header h2 {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 1.2rem;
+  font-weight: 800;
+}
+
+.day-schedule-header p {
+  margin: 6px 0 0;
+  color: var(--color-text-soft);
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.day-schedule-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.day-schedule-slot {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.day-schedule-slot strong {
+  padding-top: 8px;
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.day-schedule-slot-content {
+  min-height: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-secondary);
+}
+
+.day-schedule-empty {
+  color: var(--color-text-soft);
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.day-schedule-event {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-main);
+  text-align: left;
+  cursor: pointer;
+}
+
+.day-schedule-event span {
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.day-schedule-event small {
+  color: var(--color-text-soft);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.day-schedule-event:hover span {
+  text-decoration: underline;
+}

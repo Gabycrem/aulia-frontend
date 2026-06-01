@@ -40,7 +40,6 @@ function GabStudentCaseDetail() {
                 <header className="gab-case-detail-header">
                     <div>
                         <h1>Detalle del caso</h1>
-                        <p>Legajo y seguimiento del alumno seleccionado.</p>
                     </div>
 
                     <div className="gab-case-detail-actions">

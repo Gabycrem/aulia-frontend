@@ -8,7 +8,7 @@ import useGabDashboard from "../../../hooks/Gabinete/useGabDashboard";
 
 //Probando agenda
 import TodayAgenda from "../../../components/TodayAgenda/TodayAgenda";
-import { todayAgendaMock } from "../../../data/todayAgendaMock";
+import { todayAgendaMock } from "../../../data/agendaMock";
 //---
 const columns = [
   {

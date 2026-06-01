@@ -1,0 +1,113 @@
+.calendar-agenda {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr);
+  gap: 24px;
+}
+
+.calendar-agenda-main {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.calendar-agenda-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.calendar-agenda-toolbar h2 {
+  margin: 0;
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 1.35rem;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.calendar-agenda-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.calendar-agenda-controls button {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-primary);
+  color: var(--color-white-soft);
+  font-family: var(--font-main);
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.calendar-agenda-weekdays,
+.calendar-agenda-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.calendar-agenda-weekdays span {
+  color: var(--color-text-soft);
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+.calendar-agenda-empty-day {
+  min-height: 64px;
+}
+
+.calendar-agenda-day {
+  min-height: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 6px;
+  padding: 10px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-secondary);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  cursor: pointer;
+}
+
+.calendar-agenda-day:hover {
+  background-color: var(--color-background-soft);
+}
+
+.calendar-agenda-day-selected {
+  background-color: var(--color-primary);
+  color: var(--color-white-soft);
+}
+
+.calendar-agenda-day span {
+  font-size: 0.95rem;
+  font-weight: 800;
+}
+
+.calendar-agenda-day small {
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-end;
+  border-radius: 999px;
+  background-color: var(--color-accent-soft);
+  color: var(--color-text);
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+@media (max-width: 900px) {
+  .calendar-agenda {
+    grid-template-columns: 1fr;
+  }
+}

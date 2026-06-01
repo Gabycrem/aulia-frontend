@@ -2,6 +2,7 @@ import DashboardLayout from "../../../../layouts/DashboardLayout/DashboardLayout
 import Card from "../../../../components/Card/Card";
 import DataTable from "../../../../components/DataTable/DataTable";
 import Badge from "../../../../components/Badge/Badge";
+import PageToolbar from "../../../../components/PageToolbar/PageToolbar";
 import useAdminStudents from "../../../../hooks/AdminStudents/useAdminStudents";
 import "./AdminStudents.css";
 
@@ -83,16 +84,15 @@ function AdminStudents() {
   return (
     <DashboardLayout role="admin">
       <section className="admin-students">
-        <header className="admin-students-header">
-          <div>
-            <h1>Gestión de alumnos</h1>
-            <p>Alta, edición y administración de alumnos del sistema.</p>
-          </div>
-
-          <button type="button" className="admin-students-primary-button" onClick={handleCreateStudent}>
+        <PageToolbar title="Gestión de alumnos">
+          <button
+            type="button"
+            className="admin-students-primary-button"
+            onClick={handleCreateStudent}
+          >
             Nuevo alumno
           </button>
-        </header>
+        </PageToolbar>
 
         <Card className="admin-students-filters-card">
           <div className="admin-students-filters">
@@ -137,7 +137,6 @@ function AdminStudents() {
         </Card>
 
         <Card className="admin-students-table-card">
-
           {loading && <p>Cargando alumnos...</p>}
 
           {error && <p>{error}</p>}
@@ -148,7 +147,6 @@ function AdminStudents() {
               rows={filteredStudents}
             />
           )}
-
         </Card>
       </section>
     </DashboardLayout>
