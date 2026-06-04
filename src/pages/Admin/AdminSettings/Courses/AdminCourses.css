@@ -1,0 +1,74 @@
+.admin-courses,
+.admin-courses-form-card form,
+.admin-courses-filters-card,
+.admin-courses-table-card,
+.admin-courses-form-grid label,
+.admin-courses-search,
+.admin-courses-context-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.admin-courses-form-card,
+.admin-courses-filters-card,
+.admin-courses-table-card,
+.admin-courses-context-card,
+.admin-courses-table-scroll,
+.admin-courses-search,
+.admin-courses-form-grid {
+  width: 80%;
+}
+
+.admin-courses-form-card h2 {
+  color: var(--color-text);
+}
+
+.admin-courses-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.admin-courses-form-grid label,
+.admin-courses-search {
+  gap: 8px;
+  font-weight: 700;
+}
+
+.admin-courses-form-actions,
+.admin-courses-context-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: nowrap;
+}
+
+.admin-courses-form-button {
+  min-width: fit-content;
+  flex-wrap: nowrap;
+}
+
+.admin-courses-table-scroll {
+  max-height: 360px;
+  overflow: auto;
+}
+
+.admin-courses-selected {
+  color: var(--color-text);
+}
+
+.admin-courses-error {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #fde8e8;
+  color: #9b1c1c;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .admin-courses-form-grid {
+    grid-template-columns: 1fr;
+  }
+}

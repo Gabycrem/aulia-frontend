@@ -6,6 +6,7 @@ import Button from '../Button/Button';
 import SidebarNavItem from '../SidebarNavItem/SidebarNavItem';
 import { menuByRole } from '../../data/menuByRole';
 import { useNavigate } from 'react-router-dom';
+import { clearSession } from "../../utils/session";
 
 function Sidebar({ role }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -13,7 +14,7 @@ function Sidebar({ role }) {
     const navigate = useNavigate();
 
     const handleLogout = () => {
-        sessionStorage.removeItem('aulia_user');
+        clearSession();
         navigate('/login');
     };
 
@@ -65,12 +66,10 @@ function Sidebar({ role }) {
                 <nav className="sidebar-nav">
                     {menuItems.map((item) => (
                         <SidebarNavItem
-                            key={item.path}
-                            to={item.path}
+                            key={item.path || item.label}
+                            item={item}
                             onClick={handleCloseMenu}
-                        >
-                            {item.label}
-                        </SidebarNavItem>
+                        />
                     ))}
                 </nav>
 

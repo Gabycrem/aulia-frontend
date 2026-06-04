@@ -39,13 +39,9 @@
 }
 
 .admin-dashboard-link-button {
-  border: none;
-  background: transparent;
-  color: var(--color-text);
-  font-family: var(--font-main);
+  width: fit-content;
+  padding: 8px 10px;
   font-size: 0.8rem;
-  font-weight: 700;
-  cursor: pointer;
 }
 
 .admin-dashboard-user-list,
@@ -109,6 +105,14 @@
   font-family: var(--font-main);
   font-size: 0.9rem;
   font-weight: 800;
+}
+
+.admin-dashboard-error {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #fde8e8;
+  color: #9b1c1c;
+  font-weight: 700;
 }
 
 @media (max-width: 1100px) {

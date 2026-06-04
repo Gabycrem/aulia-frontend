@@ -1,0 +1,19 @@
+.admin-roles,
+.admin-roles-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.admin-roles-card {
+  width: 80%;
+}
+
+.admin-roles-error {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #fde8e8;
+  color: #9b1c1c;
+  font-weight: 700;
+}
