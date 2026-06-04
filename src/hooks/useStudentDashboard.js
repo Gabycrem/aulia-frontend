@@ -1,42 +1,42 @@
 import { useState } from "react";
+
 import {
+  contextOptions,
   emotionOptions,
-  subjectOptions,
-} from "../data/studentDashboardOptions";
-
-/*
-DESCOMENTAR AL INTEGRAR
-
+} from "../data/checkInOptions";
 import { saveCheckIn } from "../services/checkInService";
-*/
+import { getSessionUser } from "../utils/session";
+import {
+  initialCheckInData,
+  mapCheckInFormToPayload,
+} from "./studentDashboardMappers";
 
 function useStudentDashboard() {
-  const [formData, setFormData] = useState({
-    emotionalState: "",
-    subject: null,
-    comment: "",
-    helpRequested: false,
-  });
+  const sessionUser = getSessionUser();
 
-  /*
-  DESCOMENTAR AL INTEGRAR
-
+  const [formData, setFormData] = useState(initialCheckInData);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  */
+  const [successMessage, setSuccessMessage] = useState("");
 
   function handleEmotionSelect(emotionalState) {
     setFormData((prevFormData) => ({
       ...prevFormData,
       emotionalState,
     }));
+
+    if (error) setError("");
+    if (successMessage) setSuccessMessage("");
   }
 
-  function handleSubjectChange(option) {
+  function handleContextChange(option) {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      subject: option,
+      context: option,
     }));
+
+    if (error) setError("");
+    if (successMessage) setSuccessMessage("");
   }
 
   function handleCommentChange(event) {
@@ -44,6 +44,9 @@ function useStudentDashboard() {
       ...prevFormData,
       comment: event.target.value,
     }));
+
+    if (error) setError("");
+    if (successMessage) setSuccessMessage("");
   }
 
   function handleHelpRequestedChange(event) {
@@ -51,47 +54,65 @@ function useStudentDashboard() {
       ...prevFormData,
       helpRequested: event.target.checked,
     }));
+
+    if (error) setError("");
+    if (successMessage) setSuccessMessage("");
   }
 
   function handleCancel() {
-    setFormData({
-      emotionalState: "",
-      subject: "",
-      comment: "",
-      helpRequested: false,
-    });
+    setFormData(initialCheckInData);
+    setError("");
+    setSuccessMessage("");
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
-    window.alert("Check-in guardado");
+    if (!formData.emotionalState) {
+      setError("Seleccioná cómo te sentís hoy");
+      return;
+    }
 
-    /*
-    DESCOMENTAR AL INTEGRAR
+    if (!formData.comment.trim()) {
+      setError("Escribí un comentario para guardar el check-in");
+      return;
+    }
+
+    const studentData = {
+      studentId: sessionUser?.studentId,
+      courseId: sessionUser?.courseId,
+    };
+
+    if (!studentData.studentId || !studentData.courseId) {
+      setError("No se pudo identificar el alumno o curso para guardar el check-in");
+      return;
+    }
 
     try {
       setLoading(true);
+      setError("");
+      setSuccessMessage("");
 
-      await saveCheckIn({
-        ...formData,
-        studentId: 1,
-        courseId: 1,
-      });
+      await saveCheckIn(mapCheckInFormToPayload(formData, studentData));
+
+      setSuccessMessage("Check-in guardado correctamente");
+      setFormData(initialCheckInData);
     } catch (error) {
-      setError(error.message);
+      setError(error.message || "Error al guardar el check-in");
     } finally {
       setLoading(false);
     }
-    */
   }
 
   return {
     formData,
     emotionOptions,
-    subjectOptions,
+    contextOptions,
+    loading,
+    error,
+    successMessage,
     handleEmotionSelect,
-    handleSubjectChange,
+    handleContextChange,
     handleCommentChange,
     handleHelpRequestedChange,
     handleCancel,

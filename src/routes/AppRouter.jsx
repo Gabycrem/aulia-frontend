@@ -79,7 +79,7 @@ function AppRouter() {
         <Route
           path="/dashboard/estudiante"
           element={
-            <RoleRoute allowedRoles={['Estudiante']}>
+            <RoleRoute allowedRoles={['Alumno']}>
               <StudentDashboard />
             </RoleRoute>
           } />
