@@ -8,6 +8,7 @@ function CustomSelect({
   onChange,
   className = "",
   disabled = false,
+  allowEmpty = false,
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
@@ -26,6 +27,17 @@ function CustomSelect({
 
     if (onChange) {
       onChange(option);
+    }
+  }
+
+  function handleClear() {
+    const emptyOption = null;
+
+    setSelectedOption(emptyOption);
+    setIsOpen(false);
+
+    if (onChange) {
+      onChange(emptyOption);
     }
   }
 
@@ -54,6 +66,17 @@ function CustomSelect({
 
       {isOpen && (
         <ul className="custom-select-options">
+          {allowEmpty && (
+            <li className="custom-select-item">
+              <button
+                type="button"
+                className="custom-select-option"
+                onClick={handleClear}
+              >
+                {placeholder}
+              </button>
+            </li>
+          )}
           {options.map((option) => (
             <li key={option.value} className="custom-select-item">
               <button

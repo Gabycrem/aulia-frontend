@@ -1,56 +1,51 @@
+import { getSessionUser } from '../../utils/session';
 import './Header.css';
 
 function Header({ role }) {
 
-    const storedUser = sessionStorage.getItem('aulia_user');
-    const user = storedUser ? JSON.parse(storedUser) : null;
+    const user = getSessionUser();
 
     const roleLabels = {
         Admin: 'ADMINISTRADOR',
         Gabinete: 'GABINETE',
         Docente: 'DOCENTE',
-        Estudiante: 'ESTUDIANTE',
+        Alumno: 'ESTUDIANTE',
         Directivo: 'DIRECTIVO',
     };
 
-    // [ ] Endpoint para obtener usuario autenticado (/auth/me)
-    const fullName =
+    const roleLabel = roleLabels[user?.role || role] || "USUARIO";
+
+    const displayName =
         user?.firstName && user?.lastName
             ? `${user.firstName} ${user.lastName}`
-            : 'Usuario De Prueba';
-    const email = user?.email || 'unEmail@email.com';
+            : user?.username || "Usuario";
 
+    const displayEmail = user?.email || "Sin email registrado";
     return (
-        <header className="header">
+    <header className="header">
+      <div className="header-role">
+        {roleLabel}
+      </div>
 
-            <div className="header-role">
-                {roleLabels[user?.role || role]}
-            </div>
+      <div className="header-user">
+        <img
+          src="https://i.pravatar.cc/40"
+          alt="Foto de perfil"
+          className="header-user-image"
+        />
 
-            <div className="header-user">
+        <div className="header-user-info">
+          <span className="header-user-name">
+            {displayName}
+          </span>
 
-                <img
-                    src="https://i.pravatar.cc/40"
-                    alt="Foto de perfil"
-                    className="header-user-image"
-                />
-
-                <div className="header-user-info">
-
-                    <span className="header-user-name">
-                        {fullName}
-                    </span>
-
-                    <span className="header-user-email">
-                        {email}
-                    </span>
-
-                </div>
-
-            </div>
-
-        </header>
-    );
+          <span className="header-user-email">
+            {displayEmail}
+          </span>
+        </div>
+      </div>
+    </header>
+  );
 }
 
 export default Header;
