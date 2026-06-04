@@ -1,21 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getStudentById } from "../../services/studentService";
 
-function mapStudentDetail(student) {
-  return {
-    id: student.id,
-    userId: student.userId,
-    courseId: student.courseId,
-    firstName: student.User?.firstName || "",
-    lastName: student.User?.lastName || "",
-    birthDate: student.birthDate || "",
-    familyConsent: student.familyConsent ? "Sí" : "No",
-    active: student.active ? "Activo" : "Inactivo",
-    createdAt: student.createdAt || "",
-    updatedAt: student.updatedAt || "",
-  };
-}
+import { getStudentById } from "../../services/studentService";
+import {
+  mapStudentToDetail,
+  normalizeStudentResponse,
+} from "./adminStudentMappers";
 
 function useAdminStudentDetail() {
   const { id } = useParams();
@@ -32,12 +22,13 @@ function useAdminStudentDetail() {
         setError("");
 
         const response = await getStudentById(id);
+        const studentData = normalizeStudentResponse(response);
 
-        console.log("STUDENT DETAIL RESPONSE:", response);
+        if (!studentData) {
+          throw new Error("No se encontró el alumno");
+        }
 
-        const studentData = response.data || response.student || response;
-
-        setStudent(mapStudentDetail(studentData));
+        setStudent(mapStudentToDetail(studentData));
       } catch (error) {
         setError(error.message || "Error al cargar el alumno");
       } finally {

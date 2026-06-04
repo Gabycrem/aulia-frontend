@@ -19,6 +19,9 @@ import AdminTeachers from "../pages/Admin/AdminTeachers/List/AdminTeachers";
 import AdminTeacherForm from "../pages/Admin/AdminTeachers/Form/AdminTeacherForm";
 import AdminTeacherDetail from "../pages/Admin/AdminTeachers/Detail/AdminTeacherDetail";
 import AdminTeacherAssignments from "../pages/Admin/AdminTeachers/Assignments/AdminTeacherAssignments";
+import AdminGabinete from "../pages/Admin/AdminGab/List/AdminGabinete";
+import AdminGabineteForm from "../pages/Admin/AdminGab/Form/AdminGabineteForm";
+import AdminGabineteDetail from "../pages/Admin/AdminGab/Detail/AdminGabineteDetail";
 
 function AppRouter() {
   return (
@@ -166,6 +169,42 @@ function AppRouter() {
           element={
             <RoleRoute allowedRoles={["Admin"]}>
               <AdminTeacherAssignments />
+            </RoleRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/admin/gestionar-gabinete"
+          element={
+            <RoleRoute allowedRoles={["Admin"]}>
+              <AdminGabinete />
+            </RoleRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/admin/gabinete/nuevo"
+          element={
+            <RoleRoute allowedRoles={["Admin"]}>
+              <AdminGabineteForm />
+            </RoleRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/admin/gabinete/:id"
+          element={
+            <RoleRoute allowedRoles={["Admin"]}>
+              <AdminGabineteDetail />
+            </RoleRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/admin/gabinete/:id/editar"
+          element={
+            <RoleRoute allowedRoles={["Admin"]}>
+              <AdminGabineteForm />
             </RoleRoute>
           }
         />

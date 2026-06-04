@@ -1,33 +1,13 @@
+import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-
-import {
-  courseOptions,
-  statusOptions,
-} from "../../data/adminStudentsMock";
 
 import { getAllStudents } from "../../services/studentService";
+import {
+  mapStudentToTableRow,
+  normalizeStudentsResponse,
+} from "./adminStudentMappers";
 
-function mapStudentToTableRow(student) {
-  return {
-    id: student.id,
-    studentName: `${student.User?.firstName || ""} ${student.User?.lastName || ""}`.trim(),
-
-    // Temporal hasta tener Course integrado
-    course: student.courseId
-      ? `Curso ID ${student.courseId}`
-      : "Sin curso",
-
-    // El endpoint actual no devuelve email
-    email: "-",
-
-    familyConsent: student.familyConsent ? "Sí" : "No",
-
-    status: student.active
-      ? "Activo"
-      : "Inactivo",
-  };
-}
+const statusOptions = ["Todos", "Activo", "Inactivo"];
 
 function useAdminStudents() {
   const navigate = useNavigate();
@@ -35,63 +15,84 @@ function useAdminStudents() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCourse, setSelectedCourse] = useState("Todos");
   const [selectedStatus, setSelectedStatus] = useState("Todos");
+  const [selectedStudentId, setSelectedStudentId] = useState(null);
 
   const [studentsData, setStudentsData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    async function loadStudents() {
-      try {
-        setLoading(true);
-        setError("");
+  async function loadStudents() {
+    try {
+      setLoading(true);
+      setError("");
 
-        const response = await getAllStudents(1);
+      const response = await getAllStudents(1);
+      const mappedStudents = normalizeStudentsResponse(response).map(
+        mapStudentToTableRow
+      );
 
-        console.log("STUDENTS RESPONSE:", response);
-
-        const mappedStudents = (response.data || []).map(
-          mapStudentToTableRow
-        );
-
-        setStudentsData(mappedStudents);
-
-      } catch (error) {
-        setError(error.message || "Error al cargar alumnos");
-      } finally {
-        setLoading(false);
-      }
+      setStudentsData(mappedStudents);
+    } catch (error) {
+      setError(error.message || "Error al cargar alumnos");
+    } finally {
+      setLoading(false);
     }
+  }
 
+  useEffect(() => {
     loadStudents();
   }, []);
 
-  const filteredStudents = studentsData.filter((student) => {
-    const matchesSearch = student.studentName
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
+  const courseOptions = useMemo(() => {
+    const courses = studentsData.map((student) => student.course);
+    return ["Todos", ...new Set(courses)];
+  }, [studentsData]);
 
-    const matchesCourse =
-      selectedCourse === "Todos" ||
-      student.course === selectedCourse;
+  const filteredStudents = useMemo(() => {
+    const normalizedSearch = searchTerm.trim().toLowerCase();
 
-    const matchesStatus =
-      selectedStatus === "Todos" ||
-      student.status === selectedStatus;
+    return studentsData.filter((student) => {
+      const matchesSearch =
+        !normalizedSearch ||
+        [student.studentName, student.email, student.course]
+          .join(" ")
+          .toLowerCase()
+          .includes(normalizedSearch);
 
-    return matchesSearch && matchesCourse && matchesStatus;
-  });
+      const matchesCourse =
+        selectedCourse === "Todos" ||
+        student.course === selectedCourse;
+
+      const matchesStatus =
+        selectedStatus === "Todos" ||
+        student.status === selectedStatus;
+
+      return matchesSearch && matchesCourse && matchesStatus;
+    });
+  }, [studentsData, searchTerm, selectedCourse, selectedStatus]);
+
+  const selectedStudent = filteredStudents.find(
+    (student) => student.id === selectedStudentId
+  );
+
+  function handleSelectStudent(studentId) {
+    setSelectedStudentId((currentSelectedStudentId) =>
+      currentSelectedStudentId === studentId ? null : studentId
+    );
+  }
 
   function handleCreateStudent() {
     navigate("/dashboard/admin/alumnos/nuevo");
   }
 
-  function handleViewStudent(studentId) {
-    navigate(`/dashboard/admin/alumnos/${studentId}`);
+  function handleViewStudent() {
+    if (!selectedStudentId) return;
+    navigate(`/dashboard/admin/alumnos/${selectedStudentId}`);
   }
 
-  function handleEditStudent(studentId) {
-    navigate(`/dashboard/admin/alumnos/${studentId}/editar`);
+  function handleEditStudent() {
+    if (!selectedStudentId) return;
+    navigate(`/dashboard/admin/alumnos/${selectedStudentId}/editar`);
   }
 
   return {
@@ -104,6 +105,9 @@ function useAdminStudents() {
     selectedStatus,
     setSelectedStatus,
 
+    selectedStudentId,
+    selectedStudent,
+
     courseOptions,
     statusOptions,
 
@@ -112,6 +116,7 @@ function useAdminStudents() {
     loading,
     error,
 
+    handleSelectStudent,
     handleCreateStudent,
     handleViewStudent,
     handleEditStudent,

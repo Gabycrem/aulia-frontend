@@ -1,57 +1,51 @@
 .admin-student-detail {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 16px;
 }
 
 .admin-student-detail-card {
-  padding: 1.5rem;
+  width: 100%;
 }
 
 .admin-student-detail-form {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 24px;
 }
 
-.input:disabled {
-  cursor: default;
-  pointer-events: none;
-}
-
-.input-field:disabled {
-  cursor: default;
-  pointer-events: none;
+.admin-student-detail-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 
 .admin-student-detail-section h2 {
-  margin: 0 0 1rem;
-  font-size: 1.1rem;
+  color: var(--color-text);
 }
 
 .admin-student-detail-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1rem 1.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
 }
 
 .admin-student-detail-grid label {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  font-weight: 600;
+  gap: 8px;
+  font-weight: 700;
 }
 
 .admin-student-detail-error {
-  color: #842029;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #fde8e8;
+  color: #9b1c1c;
+  font-weight: 700;
 }
 
-@media (max-width: 768px) {
-  .admin-student-detail-header {
-    flex-direction: column;
-  }
-
+@media (max-width: 900px) {
   .admin-student-detail-grid {
     grid-template-columns: 1fr;
   }

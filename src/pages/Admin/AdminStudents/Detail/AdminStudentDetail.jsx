@@ -29,6 +29,7 @@ function AdminStudentDetail() {
             </Button>
           )}
         </PageToolbar>
+
         {loading && (
           <Card className="admin-student-detail-card">
             <p>Cargando alumno...</p>
@@ -73,6 +74,11 @@ function AdminStudentDetail() {
                     Apellido
                     <Input value={student.lastName} disabled readOnly />
                   </label>
+
+                  <label>
+                    Email
+                    <Input value={student.email} disabled readOnly />
+                  </label>
                 </div>
               </div>
 
@@ -87,7 +93,7 @@ function AdminStudentDetail() {
 
                   <label>
                     Curso
-                    <Input value={`Curso ID ${student.courseId}`} disabled readOnly />
+                    <Input value={student.course} disabled readOnly />
                   </label>
 
                   <label>

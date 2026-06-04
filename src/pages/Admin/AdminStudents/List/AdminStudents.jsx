@@ -3,14 +3,30 @@ import Card from "../../../../components/Card/Card";
 import DataTable from "../../../../components/DataTable/DataTable";
 import Badge from "../../../../components/Badge/Badge";
 import PageToolbar from "../../../../components/PageToolbar/PageToolbar";
+import Button from "../../../../components/Button/Button";
+import Input from "../../../../components/Input/Input";
+import Select from "../../../../components/CustomSelect/CustomSelect";
 import useAdminStudents from "../../../../hooks/AdminStudents/useAdminStudents";
 import "./AdminStudents.css";
 
 function createColumns({
-  handleViewStudent,
-  handleEditStudent,
+  selectedStudentId,
+  handleSelectStudent,
 }) {
   return [
+    {
+      key: "selected",
+      label: "",
+      width: "56px",
+      render: (row) => (
+        <input
+          type="radio"
+          name="selectedStudent"
+          checked={selectedStudentId === row.id}
+          onChange={() => handleSelectStudent(row.id)}
+        />
+      ),
+    },
     {
       key: "studentName",
       label: "Alumno",
@@ -36,71 +52,71 @@ function createColumns({
         </Badge>
       ),
     },
-    {
-      key: "action",
-      label: "Acciones",
-      render: (row) => (
-        <div className="admin-students-actions">
-          <button type="button" onClick={() => handleViewStudent(row.id)}>
-            Ver
-          </button>
-
-          <button type="button" onClick={() => handleEditStudent(row.id)}>
-            Editar
-          </button>
-
-          <button type="button">
-            Desactivar
-          </button>
-        </div>
-      ),
-    },
   ];
+}
+
+function mapFilterOptions(options) {
+  return options.map((option) => ({
+    id: option,
+    value: option,
+    label: option,
+  }));
 }
 
 function AdminStudents() {
   const {
     searchTerm,
     setSearchTerm,
+
     selectedCourse,
     setSelectedCourse,
+
     selectedStatus,
     setSelectedStatus,
+
+    selectedStudentId,
+    selectedStudent,
+
     courseOptions,
     statusOptions,
+
     filteredStudents,
+
+    loading,
+    error,
+
+    handleSelectStudent,
     handleCreateStudent,
     handleViewStudent,
     handleEditStudent,
-    loading,
-    error,
   } = useAdminStudents();
 
   const columns = createColumns({
-    handleViewStudent,
-    handleEditStudent,
+    selectedStudentId,
+    handleSelectStudent,
   });
+
+  const hasSelectedStudent = Boolean(selectedStudent);
 
   return (
     <DashboardLayout role="admin">
       <section className="admin-students">
         <PageToolbar title="Gestión de alumnos">
-          <button
+          <Button
             type="button"
             className="admin-students-primary-button"
             onClick={handleCreateStudent}
           >
             Nuevo alumno
-          </button>
+          </Button>
         </PageToolbar>
 
         <Card className="admin-students-filters-card">
           <div className="admin-students-filters">
             <label>
               Buscar alumno
-              <input
-                type="text"
-                placeholder="Buscar por nombre..."
+              <Input
+                placeholder="Buscar por nombre, email o curso..."
                 value={searchTerm}
                 onChange={(event) => setSearchTerm(event.target.value)}
               />
@@ -108,30 +124,22 @@ function AdminStudents() {
 
             <label>
               Curso
-              <select
+              <Select
+                options={mapFilterOptions(courseOptions)}
                 value={selectedCourse}
-                onChange={(event) => setSelectedCourse(event.target.value)}
-              >
-                {courseOptions.map((course) => (
-                  <option key={course} value={course}>
-                    {course}
-                  </option>
-                ))}
-              </select>
+                placeholder="Seleccionar curso"
+                onChange={(option) => setSelectedCourse(option.value)}
+              />
             </label>
 
             <label>
               Estado
-              <select
+              <Select
+                options={mapFilterOptions(statusOptions)}
                 value={selectedStatus}
-                onChange={(event) => setSelectedStatus(event.target.value)}
-              >
-                {statusOptions.map((status) => (
-                  <option key={status} value={status}>
-                    {status}
-                  </option>
-                ))}
-              </select>
+                placeholder="Seleccionar estado"
+                onChange={(option) => setSelectedStatus(option.value)}
+              />
             </label>
           </div>
         </Card>
@@ -139,14 +147,48 @@ function AdminStudents() {
         <Card className="admin-students-table-card">
           {loading && <p>Cargando alumnos...</p>}
 
-          {error && <p>{error}</p>}
+          {error && <p className="admin-students-error">{error}</p>}
 
           {!loading && !error && (
-            <DataTable
-              columns={columns}
-              rows={filteredStudents}
-            />
+            <div className="admin-students-table-scroll">
+              <DataTable
+                columns={columns}
+                rows={filteredStudents}
+                emptyMessage="No hay alumnos cargados"
+              />
+            </div>
           )}
+        </Card>
+
+        <Card className="admin-students-context-card">
+          <div className="admin-students-selected">
+            {selectedStudent ? (
+              <>
+                Alumno seleccionado:{" "}
+                <strong>{selectedStudent.studentName}</strong>
+              </>
+            ) : (
+              "Seleccioná un alumno para habilitar acciones."
+            )}
+          </div>
+
+          <div className="admin-students-context-actions">
+            <Button
+              type="button"
+              disabled={!hasSelectedStudent}
+              onClick={handleViewStudent}
+            >
+              Ver detalle
+            </Button>
+
+            <Button
+              type="button"
+              disabled={!hasSelectedStudent}
+              onClick={handleEditStudent}
+            >
+              Editar
+            </Button>
+          </div>
         </Card>
       </section>
     </DashboardLayout>

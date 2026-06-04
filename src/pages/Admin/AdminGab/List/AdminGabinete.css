@@ -1,0 +1,46 @@
+.admin-gabinete {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-gabinete-filters-card,
+.admin-gabinete-table-card,
+.admin-gabinete-context-card {
+  width: 100%;
+}
+
+.admin-gabinete-search {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.admin-gabinete-error {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #fde8e8;
+  color: #9b1c1c;
+  font-weight: 700;
+}
+
+.admin-gabinete-context-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-gabinete-selected {
+  color: var(--color-text);
+}
+
+.admin-gabinete-context-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-gabinete-primary-button {
+  width: fit-content;
+}
