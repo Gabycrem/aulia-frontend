@@ -3,7 +3,7 @@ import {
   courseOptions,
   subjectOptions,
   teacherStudents,
-} from "../data/teacherStudentsMock";
+} from "../../data/teacherStudentsMock";
 
 function useTeacherStudents() {
   const [selectedCourse, setSelectedCourse] = useState("Todos");

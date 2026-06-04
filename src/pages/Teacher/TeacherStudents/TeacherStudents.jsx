@@ -3,7 +3,7 @@ import Card from "../../../components/Card/Card";
 import DataTable from "../../../components/DataTable/DataTable";
 import Badge from "../../../components/Badge/Badge";
 import "./TeacherStudents.css";
-import useTeacherStudents from "../../../hooks/useTeacherStudents";
+import useTeacherStudents from "../../../hooks/Teacher/useTeacherStudents";
 
 
 const columns = [

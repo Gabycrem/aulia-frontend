@@ -1,0 +1,99 @@
+.teacher-referral {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.teacher-referral-description {
+  color: var(--color-text-soft);
+}
+
+.teacher-referral-card {
+  width: 100%;
+}
+
+.teacher-referral-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.teacher-referral-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.teacher-referral-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.teacher-referral-field select,
+.teacher-referral-field textarea {
+  width: 100%;
+  border: 1px solid rgba(62, 62, 62, 0.18);
+  border-radius: var(--radius-sm);
+  background: var(--color-white-soft);
+  color: var(--color-text);
+  font: inherit;
+}
+
+.teacher-referral-field select {
+  min-height: 44px;
+  padding: 0 12px;
+}
+
+.teacher-referral-field textarea {
+  min-height: 180px;
+  padding: 12px;
+  resize: vertical;
+}
+
+.teacher-referral-selected {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-soft);
+  color: var(--color-text);
+}
+
+.teacher-referral-error,
+.teacher-referral-success {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+}
+
+.teacher-referral-error {
+  background: #fde8e8;
+  color: #9b1c1c;
+}
+
+.teacher-referral-success {
+  background: #e4f5eb;
+  color: #176b3a;
+}
+
+.teacher-referral-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.teacher-referral-secondary {
+  background: var(--color-background-soft);
+  color: var(--color-text);
+}
+
+@media (max-width: 760px) {
+  .teacher-referral-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .teacher-referral-actions {
+    flex-direction: column-reverse;
+  }
+}

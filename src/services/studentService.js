@@ -11,6 +11,10 @@ export function getStudentById(id) {
     return apiRequest(`/api/student/studentId/${id}`);
 }
 
+export function getStudentsByTeacher(teacherId, page = 1) {
+  return apiRequest(`/api/student/studentsByTeacher/${teacherId}?page=${page}`);
+}
+
 export function getActiveStudents(page = 1) {
     return apiRequest(`/api/student/activeStudents?page=${page}`);
 }

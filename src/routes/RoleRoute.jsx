@@ -5,7 +5,7 @@ const routesByRole = {
   Admin: '/dashboard/admin',
   Gabinete: '/dashboard/gabinete',
   Docente: '/dashboard/docente',
-  Estudiante: '/dashboard/estudiante',
+  Alumno: '/dashboard/estudiante',
   Directivo: '/dashboard/directivo',
 };
 
