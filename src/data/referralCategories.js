@@ -1,9 +1,10 @@
-// Categorías Hardcodeadas a falta de endpoint que las exponga
-/* Ejemplos que podrían ser: 
-GET /api/referrals/categories
-GET /api/enums/referral-categories
-GET /api/catalogs/referral-categories
-*/
+// Categorías hardcodeadas a falta de endpoint que las exponga.
+// El backend ya tiene endpoints de derivaciones, pero todavía no expone categorías.
+// Se elimina cuando el backend devuelva las categorías válidas para derivaciones.
+// Posibles endpoints futuros:
+// GET /api/referrals/categories
+// GET /api/enums/referral-categories
+// GET /api/catalogs/referral-categories
 
 export const referralCategories = [
   {

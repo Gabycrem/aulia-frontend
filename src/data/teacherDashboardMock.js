@@ -1,3 +1,8 @@
+// Mock temporal pendiente de integración con backend.
+// El dashboard docente puede armarse combinando endpoints existentes:
+// alumnos por docente, asignaciones y derivaciones.
+// Se elimina cuando TeacherDashboard tenga hook/service real.
+
 const teacherSummary = {
   assignedCourses: 3,
   totalStudents: 82,

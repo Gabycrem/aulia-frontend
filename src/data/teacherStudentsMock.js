@@ -1,3 +1,7 @@
+// Mock temporal pendiente de integración con backend.
+// El endpoint para alumnos por docente ya existe en studentService.
+// Se elimina cuando useTeacherStudents consuma datos reales y use mappers propios.
+
 export const courseOptions = ["Todos", "1° C", "2° B", "3° A", "4° A"];
 
 export const subjectOptions = ["Todas", "Lengua", "Historia", "Matemática"];

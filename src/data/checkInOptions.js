@@ -1,4 +1,5 @@
 // Opciones hardcodeadas a falta de endpoint que exponga enums de check-in
+// Se elimina cuando el backend devuelva estados emocionales y contextos válidos.
 /* Ejemplos que podrían ser:
 GET /api/checkIn/emotional-states
 GET /api/checkIn/contexts

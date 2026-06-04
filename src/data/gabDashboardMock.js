@@ -1,3 +1,8 @@
+// Mock temporal pendiente de integración con backend.
+// El dashboard de gabinete puede armarse combinando derivaciones, check-ins,
+// legajos e intervenciones existentes.
+// Se elimina cuando useGabDashboard consuma services reales.
+
 const dashboardSummary = {
   openCaseFiles: 12,
   activeAlerts: 5,
