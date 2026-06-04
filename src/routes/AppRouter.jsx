@@ -15,6 +15,10 @@ import AdminDashboard from '../pages/Admin/AdminDashboard/AdminDashboard';
 import AdminStudents from '../pages/Admin/AdminStudents/List/AdminStudents';
 import AdminStudentDetail from "../pages/Admin/AdminStudents/Detail/AdminStudentDetail";
 import AdminStudentForm from "../pages/Admin/AdminStudents/Form/AdminStudentForm";
+import AdminTeachers from "../pages/Admin/AdminTeachers/List/AdminTeachers";
+import AdminTeacherForm from "../pages/Admin/AdminTeachers/Form/AdminTeacherForm";
+import AdminTeacherDetail from "../pages/Admin/AdminTeachers/Detail/AdminTeacherDetail";
+import AdminTeacherAssignments from "../pages/Admin/AdminTeachers/Assignments/AdminTeacherAssignments";
 
 function AppRouter() {
   return (
@@ -65,7 +69,7 @@ function AppRouter() {
           element={
             <RoleRoute allowedRoles={['Docente']}>
               <TeacherReferral />
-            </RoleRoute> } />
+            </RoleRoute>} />
         <Route
           path="/dashboard/estudiante"
           element={
@@ -117,6 +121,51 @@ function AppRouter() {
           element={
             <RoleRoute allowedRoles={["Admin"]}>
               <AdminStudentForm />
+            </RoleRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/admin/gestionar-docentes"
+          element={
+            <RoleRoute allowedRoles={["Admin"]}>
+              <AdminTeachers />
+            </RoleRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/admin/docentes/nuevo"
+          element={
+            <RoleRoute allowedRoles={["Admin"]}>
+              <AdminTeacherForm />
+            </RoleRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/admin/docentes/:id/editar"
+          element={
+            <RoleRoute allowedRoles={["Admin"]}>
+              <AdminTeacherForm />
+            </RoleRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/admin/docentes/:id"
+          element={
+            <RoleRoute allowedRoles={["Admin"]}>
+              <AdminTeacherDetail />
+            </RoleRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/admin/docentes/:id/asignaciones"
+          element={
+            <RoleRoute allowedRoles={["Admin"]}>
+              <AdminTeacherAssignments />
             </RoleRoute>
           }
         />

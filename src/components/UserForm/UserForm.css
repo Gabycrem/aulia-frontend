@@ -39,6 +39,12 @@
   gap: 0.75rem;
 }
 
+.user-form-checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+
 @media (max-width: 768px) {
   .user-form-grid {
     grid-template-columns: 1fr;
