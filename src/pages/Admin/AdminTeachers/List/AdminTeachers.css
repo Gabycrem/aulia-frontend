@@ -1,0 +1,43 @@
+.admin-teachers {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-teachers-filters-card,
+.admin-teachers-table-card,
+.admin-teachers-context-card {
+  width: 100%;
+}
+
+.admin-teachers-search {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.admin-teachers-error {
+  color: #9b1c1c;
+  font-weight: 700;
+}
+
+.admin-teachers-context-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-teachers-selected {
+  color: var(--color-text);
+}
+
+.admin-teachers-context-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-teachers-primary-button {
+  width: fit-content;
+}

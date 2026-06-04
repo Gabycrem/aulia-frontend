@@ -1,0 +1,75 @@
+.admin-teacher-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-teacher-detail-card {
+  width: 100%;
+}
+
+.admin-teacher-detail-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.admin-teacher-detail-header h2 {
+  margin-bottom: 4px;
+  color: var(--color-text);
+}
+
+.admin-teacher-detail-header p {
+  color: var(--color-text-soft);
+}
+
+.admin-teacher-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.admin-teacher-detail-grid div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-soft);
+}
+
+.admin-teacher-detail-grid span {
+  color: var(--color-text-soft);
+  font-size: 14px;
+}
+
+.admin-teacher-detail-grid strong {
+  color: var(--color-text);
+}
+
+.admin-teacher-detail-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.admin-teacher-detail-error {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #fde8e8;
+  color: #9b1c1c;
+  font-weight: 700;
+}
+
+@media (max-width: 760px) {
+  .admin-teacher-detail-header {
+    flex-direction: column;
+  }
+
+  .admin-teacher-detail-grid {
+    grid-template-columns: 1fr;
+  }
+}

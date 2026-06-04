@@ -1,102 +1,67 @@
 .admin-students {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-}
-
-.admin-students-primary-button {
-  border: none;
-  border-radius: var(--radius-md);
-
-  padding: 0.75rem 1.2rem;
-
-  font-family: var(--font-main);
-  font-weight: 800;
-
-  background-color: var(--color-primary);
-  color: var(--color-white-soft);
-
-  cursor: pointer;
-
-  transition: 0.2s ease;
-}
-
-.admin-students-primary-button:hover {
-  opacity: 0.9;
+  gap: 16px;
 }
 
 .admin-students-filters-card,
-.admin-students-table-card {
-  padding: 1.5rem;
-
-  background-color: var(--color-surface);
-
-  box-shadow: var(--shadow-soft);
+.admin-students-table-card,
+.admin-students-context-card {
+  width: 100%;
 }
 
 .admin-students-filters {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr;
-  gap: 1rem;
+  gap: 16px;
 }
 
 .admin-students-filters label {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-
-  color: var(--color-text);
+  gap: 8px;
   font-weight: 700;
 }
 
-.admin-students-filters input,
-.admin-students-filters select {
-  border: none;
-  border-radius: var(--radius-md);
-
-  padding: 0.75rem 1rem;
-
-  font-family: var(--font-main);
-
-  color: var(--color-text);
-
-  background-color: var(--color-white-soft);
+.admin-students-table-scroll {
+  max-height: 420px;
+  overflow: auto;
 }
 
-.admin-students-actions {
+.admin-students-context-card {
   display: flex;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-students-selected {
+  color: var(--color-text);
+}
+
+.admin-students-context-actions {
+  display: flex;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
-.admin-students-actions button {
-  border: none;
-  border-radius: var(--radius-sm);
-
-  padding: 0.45rem 0.75rem;
-
-  font-family: var(--font-main);
-  font-weight: 700;
-
-  background-color: var(--color-background-soft);
-  color: var(--color-text);
-
-  cursor: pointer;
-
-  transition: 0.2s ease;
+.admin-students-primary-button {
+  width: fit-content;
 }
 
-.admin-students-actions button:hover {
-  opacity: 0.9;
+.admin-students-error {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #fde8e8;
+  color: #9b1c1c;
+  font-weight: 700;
 }
 
 @media (max-width: 900px) {
-  .admin-students-header {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
   .admin-students-filters {
     grid-template-columns: 1fr;
+  }
+
+  .admin-students-table-scroll {
+    max-height: 360px;
   }
 }

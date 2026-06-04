@@ -1,29 +1,41 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { saveStudent } from "../../services/studentService";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
+import { getActiveCourses } from "../../services/courseService";
+import {
+  getStudentById,
+  saveStudent,
+  updateStudent,
+} from "../../services/studentService";
+import { updateUser } from "../../services/userService";
 import useUserForm from "../useUserForm";
-
-const initialStudentData = {
-  birthDate: "",
-  familyConsent: false,
-  courseId: "",
-};
-
-const courseOptions = [
-  {
-    id: 1,
-    value: 1,
-    label: "3° Año A",
-  },
-];
+import {
+  initialStudentData,
+  mapCoursesToOptions,
+  mapStudentFormToPayload,
+  mapStudentFormToUpdatePayload,
+  mapStudentToEditFormData,
+  mapStudentUserFormToUpdatePayload,
+  normalizeCoursesResponse,
+  normalizeStudentResponse,
+} from "./adminStudentMappers";
 
 function useAdminStudentForm() {
   const navigate = useNavigate();
+  const { id } = useParams();
+
+  const isEditing = Boolean(id);
 
   const [currentStep, setCurrentStep] = useState(1);
+  const [editUserData, setEditUserData] = useState(null);
+  const [originalEditData, setOriginalEditData] = useState(null);
   const [studentData, setStudentData] = useState(initialStudentData);
-  const [studentError, setStudentError] = useState("");
+  const [courseOptions, setCourseOptions] = useState([]);
+
+  const [loadingCourses, setLoadingCourses] = useState(false);
   const [loadingStudent, setLoadingStudent] = useState(false);
+  const [loadingCurrentStudent, setLoadingCurrentStudent] = useState(false);
+  const [studentError, setStudentError] = useState("");
 
   const {
     userData,
@@ -36,6 +48,69 @@ function useAdminStudentForm() {
     role: "Alumno",
     onSuccess: () => setCurrentStep(2),
   });
+
+  useEffect(() => {
+    async function loadCourses() {
+      try {
+        setLoadingCourses(true);
+        setStudentError("");
+
+        const response = await getActiveCourses();
+        const courses = normalizeCoursesResponse(response);
+
+        setCourseOptions(mapCoursesToOptions(courses));
+      } catch (error) {
+        setStudentError(error.message || "Error al cargar cursos");
+      } finally {
+        setLoadingCourses(false);
+      }
+    }
+
+    loadCourses();
+  }, []);
+
+  useEffect(() => {
+    async function loadStudentForEdit() {
+      if (!isEditing) {
+        return;
+      }
+
+      try {
+        setLoadingCurrentStudent(true);
+        setStudentError("");
+
+        const response = await getStudentById(id);
+        const student = normalizeStudentResponse(response);
+
+        if (!student) {
+          throw new Error("No se encontró el alumno");
+        }
+
+        const mappedData = mapStudentToEditFormData(student);
+
+        setEditUserData(mappedData.userData);
+        setStudentData(mappedData.studentData);
+        setOriginalEditData(mappedData);
+      } catch (error) {
+        setStudentError(error.message || "Error al cargar el alumno");
+      } finally {
+        setLoadingCurrentStudent(false);
+      }
+    }
+
+    loadStudentForEdit();
+  }, [id, isEditing]);
+
+  function handleEditUserChange(event) {
+    const { name, value, type, checked } = event.target;
+
+    setEditUserData((currentUserData) => ({
+      ...currentUserData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+
+    if (studentError) setStudentError("");
+  }
 
   function handleStudentChange(event) {
     const { name, value, type, checked } = event.target;
@@ -57,6 +132,33 @@ function useAdminStudentForm() {
     if (studentError) setStudentError("");
   }
 
+  function hasUserChanges() {
+    if (!originalEditData || !editUserData) {
+      return false;
+    }
+
+    return (
+      editUserData.username !== originalEditData.userData.username ||
+      editUserData.firstName !== originalEditData.userData.firstName ||
+      editUserData.lastName !== originalEditData.userData.lastName ||
+      editUserData.email !== originalEditData.userData.email ||
+      editUserData.active !== originalEditData.userData.active ||
+      Boolean(editUserData.password.trim())
+    );
+  }
+
+  function hasStudentChanges() {
+    if (!originalEditData) {
+      return false;
+    }
+
+    return (
+      studentData.birthDate !== originalEditData.studentData.birthDate ||
+      studentData.familyConsent !== originalEditData.studentData.familyConsent ||
+      Number(studentData.courseId) !== Number(originalEditData.studentData.courseId)
+    );
+  }
+
   async function handleCreateStudent(event) {
     event.preventDefault();
 
@@ -66,22 +168,74 @@ function useAdminStudentForm() {
       return;
     }
 
+    if (!studentData.birthDate || !studentData.courseId) {
+      setStudentError("Completá fecha de nacimiento y curso");
+      return;
+    }
+
     try {
       setLoadingStudent(true);
       setStudentError("");
 
-      const newStudentData = {
-        userId: Number(createdUser.id),
-        birthDate: studentData.birthDate,
-        familyConsent: studentData.familyConsent,
-        courseId: Number(studentData.courseId),
-      };
-
-      await saveStudent(newStudentData);
+      await saveStudent(mapStudentFormToPayload(studentData, createdUser.id));
 
       navigate("/dashboard/admin/gestionar-alumnos");
     } catch (error) {
       setStudentError(error.message || "Error al crear el alumno");
+    } finally {
+      setLoadingStudent(false);
+    }
+  }
+
+  async function handleUpdateStudent(event) {
+    event.preventDefault();
+
+    if (!editUserData) {
+      setStudentError("No se pudieron cargar los datos del usuario");
+      return;
+    }
+
+    if (!studentData.birthDate || !studentData.courseId) {
+      setStudentError("Completá fecha de nacimiento y curso");
+      return;
+    }
+
+    const shouldUpdateUser = hasUserChanges();
+    const shouldUpdateStudent = hasStudentChanges();
+
+    if (!shouldUpdateUser && !shouldUpdateStudent) {
+      navigate("/dashboard/admin/gestionar-alumnos");
+      return;
+    }
+
+    try {
+      setLoadingStudent(true);
+      setStudentError("");
+
+      const response = await getStudentById(id);
+      const currentStudent = normalizeStudentResponse(response);
+
+      if (!currentStudent?.userId) {
+        throw new Error("No se pudo identificar el usuario del alumno");
+      }
+
+      if (shouldUpdateUser) {
+        await updateUser(
+          currentStudent.userId,
+          mapStudentUserFormToUpdatePayload(editUserData)
+        );
+      }
+
+      if (shouldUpdateStudent) {
+        await updateStudent(
+          id,
+          mapStudentFormToUpdatePayload(studentData)
+        );
+      }
+
+      navigate("/dashboard/admin/gestionar-alumnos");
+    } catch (error) {
+      setStudentError(error.message || "Error al actualizar el alumno");
     } finally {
       setLoadingStudent(false);
     }
@@ -96,22 +250,28 @@ function useAdminStudentForm() {
   }
 
   return {
+    isEditing,
     currentStep,
 
     userData,
+    editUserData,
     createdUser,
     loadingUser,
     userError,
     handleUserChange,
+    handleEditUserChange,
     handleCreateUser,
 
     studentData,
     courseOptions,
+    loadingCourses,
     loadingStudent,
+    loadingCurrentStudent,
     studentError,
     handleStudentChange,
     handleCourseChange,
     handleCreateStudent,
+    handleUpdateStudent,
 
     handleCancel,
     handleBackToUserStep,

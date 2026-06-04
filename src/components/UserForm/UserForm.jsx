@@ -4,22 +4,24 @@ import Input from "../Input/Input";
 import "./UserForm.css";
 
 function UserForm({
-  title = "Datos de usuario",
-  description = "Completá los datos de acceso.",
+  title,
+  description,
   userData,
   loading = false,
-  submitLabel = "Continuar",
+  mode = "create",
+  submitLabel = "Guardar",
   onChange,
   onSubmit,
   onCancel,
 }) {
+  const isEditMode = mode === "edit";
+
   return (
     <Card className="user-form-card">
-      <form className="user-form" onSubmit={onSubmit}>
-        <div className="user-form-header">
-          <h2>{title}</h2>
-          <p>{description}</p>
-        </div>
+      <form onSubmit={onSubmit}>
+        <h2>{title}</h2>
+
+        {description && <p>{description}</p>}
 
         <div className="user-form-grid">
           <label>
@@ -28,6 +30,7 @@ function UserForm({
               name="username"
               value={userData.username}
               onChange={onChange}
+              placeholder="Usuario"
               required
             />
           </label>
@@ -38,6 +41,7 @@ function UserForm({
               name="firstName"
               value={userData.firstName}
               onChange={onChange}
+              placeholder="Nombre"
               required
             />
           </label>
@@ -48,6 +52,7 @@ function UserForm({
               name="lastName"
               value={userData.lastName}
               onChange={onChange}
+              placeholder="Apellido"
               required
             />
           </label>
@@ -59,6 +64,7 @@ function UserForm({
               name="email"
               value={userData.email}
               onChange={onChange}
+              placeholder="email@ejemplo.com"
               required
             />
           </label>
@@ -70,9 +76,26 @@ function UserForm({
               name="password"
               value={userData.password}
               onChange={onChange}
-              required
+              placeholder={
+                isEditMode
+                  ? "Dejar vacío para mantener la actual"
+                  : "Contraseña"
+              }
+              required={!isEditMode}
             />
           </label>
+
+          {isEditMode && typeof userData.active === "boolean" && (
+            <label className="user-form-checkbox">
+              <input
+                type="checkbox"
+                name="active"
+                checked={userData.active}
+                onChange={onChange}
+              />
+              Usuario activo
+            </label>
+          )}
         </div>
 
         <div className="user-form-actions">
@@ -81,7 +104,7 @@ function UserForm({
           </Button>
 
           <Button type="submit" className="btn-primary" disabled={loading}>
-            {loading ? "Procesando..." : submitLabel}
+            {loading ? "Guardando..." : submitLabel}
           </Button>
         </div>
       </form>
