@@ -63,7 +63,7 @@ export function mapUserToFormData(user) {
     lastName: user.lastName || "",
     email: user.email || "",
     password: "",
-    active: Boolean(user.active),
+    active: user.active ?? true,
   };
 }
 
