@@ -1,3 +1,8 @@
+// Mock temporal de agenda pendiente de integración con backend.
+// Ya existe service de intervenciones; mapInterventionToAgendaItem puede quedarse como mapper
+// si se mueve a hooks/utils, pero agendaMock y todayAgendaMock deberían eliminarse.
+// Se elimina cuando GabAgenda y GabDashboard consuman intervenciones reales.
+
 export const agendaMock = [
   {
     id: 1,

@@ -1,3 +1,9 @@
+// Configuración local de navegación por rol.
+// No representa datos del backend: define qué opciones ve cada rol en el Sidebar.
+// Se mantiene en el frontend salvo que más adelante el backend exponga permisos/rutas dinámicas.
+// Posible endpoint futuro:
+// GET /api/navigation/menu-by-role
+
 export const menuByRole = {
   student: [
     { label: 'Check-in de emociones', path: '/dashboard/estudiante' },

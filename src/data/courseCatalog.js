@@ -1,4 +1,6 @@
 // Catálogos hardcodeados a falta de endpoint que exponga enums de cursos
+// El backend ya tiene CRUD/consulta de cursos, pero todavía no expone enums de nivel/grado.
+// Se elimina cuando el backend devuelva niveles y grados permitidos para crear cursos.
 /* Ejemplos que podrían ser:
 GET /api/course/levels
 GET /api/course/grades

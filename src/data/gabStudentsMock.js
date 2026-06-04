@@ -1,3 +1,8 @@
+// Mock temporal pendiente de integración con backend.
+// Gabinete ya tiene endpoints relacionados para derivaciones, solicitudes de ayuda y legajos,
+// pero esta vista todavía no los consume.
+// Se elimina cuando useGabStudents use services reales y mappers propios.
+
 export const cases = [
   {
     id: 1,
