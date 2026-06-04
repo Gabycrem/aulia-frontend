@@ -24,6 +24,22 @@ export const menuByRole = {
     { label: 'Gestionar Alumnos', path: '/dashboard/admin/gestionar-alumnos' },
     { label: 'Gestionar Gabinete', path: '/dashboard/admin/gestionar-gabinete' },
     { label: 'Gestionar Docentes', path: '/dashboard/admin/gestionar-docentes' },
-    { label: 'Configuración', path: '/dashboard/admin/configuración' },
+    {
+      label: 'Configuración',
+      children: [
+        {
+          label: 'Materias',
+          path: '/dashboard/admin/configuracion/materias',
+        },
+        {
+          label: 'Cursos',
+          path: '/dashboard/admin/configuracion/cursos',
+        },
+        {
+          label: 'Roles del sistema',
+          path: '/dashboard/admin/configuracion/roles',
+        },
+      ],
+    },
   ],
 };

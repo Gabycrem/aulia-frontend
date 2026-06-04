@@ -15,8 +15,39 @@ export function getSessionUser() {
       id: sessionUser.id || decodedToken?.id,
     };
   } catch {
+    clearSession();
     return null;
   }
+}
+
+export function getSessionToken() {
+  const sessionUser = getSessionUser();
+
+  return sessionUser?.token || null;
+}
+
+export function clearSession() {
+  sessionStorage.removeItem("aulia_user");
+}
+
+export function isTokenExpired(token) {
+  const decodedToken = decodeToken(token);
+
+  if (!decodedToken?.exp) {
+    return true;
+  }
+
+  return Date.now() >= decodedToken.exp * 1000;
+}
+
+export function hasValidSession() {
+  const token = getSessionToken();
+
+  if (!token) {
+    return false;
+  }
+
+  return !isTokenExpired(token);
 }
 
 function decodeToken(token) {

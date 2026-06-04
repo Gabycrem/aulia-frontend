@@ -22,6 +22,9 @@ import AdminTeacherAssignments from "../pages/Admin/AdminTeachers/Assignments/Ad
 import AdminGabinete from "../pages/Admin/AdminGab/List/AdminGabinete";
 import AdminGabineteForm from "../pages/Admin/AdminGab/Form/AdminGabineteForm";
 import AdminGabineteDetail from "../pages/Admin/AdminGab/Detail/AdminGabineteDetail";
+import AdminSubjects from "../pages/Admin/AdminSettings/Subjects/AdminSubjects";
+import AdminCourses from "../pages/Admin/AdminSettings/Courses/AdminCourses";
+import AdminRoles from "../pages/Admin/AdminSettings/Roles/AdminRoles";
 
 function AppRouter() {
   return (
@@ -205,6 +208,33 @@ function AppRouter() {
           element={
             <RoleRoute allowedRoles={["Admin"]}>
               <AdminGabineteForm />
+            </RoleRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/admin/configuracion/materias"
+          element={
+            <RoleRoute allowedRoles={["Admin"]}>
+              <AdminSubjects />
+            </RoleRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/admin/configuracion/cursos"
+          element={
+            <RoleRoute allowedRoles={["Admin"]}>
+              <AdminCourses />
+            </RoleRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/admin/configuracion/roles"
+          element={
+            <RoleRoute allowedRoles={["Admin"]}>
+              <AdminRoles />
             </RoleRoute>
           }
         />
