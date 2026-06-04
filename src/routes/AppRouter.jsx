@@ -8,6 +8,7 @@ import GabStudentCaseDetail from "../pages/Gabinete/GabStudents/Detail/GabStuden
 import GabAgenda from '../pages/Gabinete/GabAgenda/GabAgenda';
 import TeacherDashboard from '../pages/Teacher/TeacherDashboard/TeacherDashboard';
 import TeacherStudents from '../pages/Teacher/TeacherStudents/TeacherStudents';
+import TeacherReferral from '../pages/Teacher/TeacherReferral/TeacherReferral';
 import StudentDashboard from '../pages/StudentDashboard/StudentDashboard';
 import DirectDashboard from '../pages/DirectDashboard/DirectDashboard';
 import AdminDashboard from '../pages/Admin/AdminDashboard/AdminDashboard';
@@ -46,7 +47,7 @@ function AppRouter() {
           element={
             <RoleRoute allowedRoles={['Gabinete']}>
               <GabAgenda />
-            </RoleRoute> } />
+            </RoleRoute>} />
         <Route
           path="/dashboard/docente"
           element={
@@ -59,6 +60,12 @@ function AppRouter() {
             <RoleRoute allowedRoles={['Docente']}>
               <TeacherStudents />
             </RoleRoute>} />
+        <Route
+          path="/dashboard/docente/solicitar-intervencion"
+          element={
+            <RoleRoute allowedRoles={['Docente']}>
+              <TeacherReferral />
+            </RoleRoute> } />
         <Route
           path="/dashboard/estudiante"
           element={
