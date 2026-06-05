@@ -1,15 +1,15 @@
+.page-toolbar{
+  justify-content: center;
+}
 .teacher-referral {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 16px;
 }
 
-.teacher-referral-description {
-  color: var(--color-text-soft);
-}
-
 .teacher-referral-card {
-  width: 100%;
+  width: 80%;
 }
 
 .teacher-referral-form {
@@ -32,7 +32,6 @@
   color: var(--color-text);
 }
 
-.teacher-referral-field select,
 .teacher-referral-field textarea {
   width: 100%;
   border: 1px solid rgba(62, 62, 62, 0.18);
@@ -40,11 +39,6 @@
   background: var(--color-white-soft);
   color: var(--color-text);
   font: inherit;
-}
-
-.teacher-referral-field select {
-  min-height: 44px;
-  padding: 0 12px;
 }
 
 .teacher-referral-field textarea {

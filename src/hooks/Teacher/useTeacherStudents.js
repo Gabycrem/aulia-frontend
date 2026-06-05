@@ -1,58 +1,104 @@
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { getStudentsByTeacher } from "../../services/studentService";
+import { getSessionUser } from "../../utils/session";
 import {
-  courseOptions,
-  subjectOptions,
-  teacherStudents,
-} from "../../data/teacherStudentsMock";
+  buildCourseOptions,
+  buildSubjectOptions,
+  mapTeacherStudentToRow,
+  normalizeTeacherStudentsResponse,
+} from "./teacherStudentsMappers";
 
 function useTeacherStudents() {
-  const [selectedCourse, setSelectedCourse] = useState("Todos");
-  const [selectedSubject, setSelectedSubject] = useState("Todas");
+  const navigate = useNavigate();
 
-  /*
-  DESCOMENTAR AL INTEGRAR
+  const [selectedCourse, setSelectedCourse] = useState("");
+  const [selectedSubject, setSelectedSubject] = useState("");
+  const [studentsData, setStudentsData] = useState([]);
 
-  const [teacherStudentsData, setTeacherStudentsData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const sessionUser = useMemo(() => getSessionUser(), []);
+
   useEffect(() => {
     async function loadTeacherStudents() {
+      if (!sessionUser?.id) {
+        setError("No se pudo identificar al docente logueado.");
+        return;
+      }
+
       try {
         setLoading(true);
+        setError("");
 
-        // const data = await getTeacherStudents();
+        const response = await getStudentsByTeacher(sessionUser.id);
+        const mappedStudents = normalizeTeacherStudentsResponse(response).map(
+          mapTeacherStudentToRow
+        );
 
-        // setTeacherStudentsData(data.students || data.data || []);
+        setStudentsData(mappedStudents);
       } catch (error) {
-        setError(error.message);
+        setError(error.message || "Error al cargar alumnos asignados");
       } finally {
         setLoading(false);
       }
     }
 
     loadTeacherStudents();
-  }, []);
-  */
+  }, [sessionUser?.id]);
 
-  const filteredStudents = teacherStudents.filter((student) => {
-    const matchesCourse =
-      selectedCourse === "Todos" || student.course === selectedCourse;
+  const courseOptions = useMemo(
+    () => buildCourseOptions(studentsData),
+    [studentsData]
+  );
 
-    const matchesSubject =
-      selectedSubject === "Todas" || student.subject === selectedSubject;
+  const subjectOptions = useMemo(
+    () => buildSubjectOptions(studentsData),
+    [studentsData]
+  );
 
-    return matchesCourse && matchesSubject;
+  const filteredStudents = useMemo(() => {
+    return studentsData.filter((student) => {
+      const matchesCourse =
+        !selectedCourse || String(student.courseId || student.course) === String(selectedCourse);
+
+      const matchesSubject =
+        !selectedSubject ||
+        String(student.subjectId || student.subject) === String(selectedSubject);
+
+      return matchesCourse && matchesSubject;
+    });
+  }, [studentsData, selectedCourse, selectedSubject]);
+
+  function handleCourseChange(option) {
+    setSelectedCourse(option?.value || "");
+  }
+
+  function handleSubjectChange(option) {
+    setSelectedSubject(option?.value || "");
+  }
+
+  function handleRequestIntervention(studentId) {
+  navigate(`/dashboard/docente/solicitar-intervencion?studentId=${studentId}`, {
+    state: {
+      returnTo: "/dashboard/docente/mis-alumnos",
+    },
   });
+}
 
   return {
     selectedCourse,
-    setSelectedCourse,
     selectedSubject,
-    setSelectedSubject,
     courseOptions,
     subjectOptions,
     filteredStudents,
+    loading,
+    error,
+    handleCourseChange,
+    handleSubjectChange,
+    handleRequestIntervention,
   };
 }
 

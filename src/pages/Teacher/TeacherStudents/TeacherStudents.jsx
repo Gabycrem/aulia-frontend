@@ -1,85 +1,102 @@
 import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
+import PageToolbar from "../../../components/PageToolbar/PageToolbar";
 import Card from "../../../components/Card/Card";
 import DataTable from "../../../components/DataTable/DataTable";
 import Badge from "../../../components/Badge/Badge";
-import "./TeacherStudents.css";
+import Button from "../../../components/Button/Button";
+import Select from "../../../components/CustomSelect/CustomSelect";
 import useTeacherStudents from "../../../hooks/Teacher/useTeacherStudents";
+import "./TeacherStudents.css";
 
-
-const columns = [
+function createColumns({ handleRequestIntervention }) {
+  return [
     { key: "studentName", label: "Alumno" },
     { key: "course", label: "Curso" },
     { key: "subject", label: "Materia" },
     {
-        key: "lastRequest",
-        label: "Última solicitud",
-        render: (row) => <Badge>{row.lastRequest}</Badge>,
+      key: "lastRequest",
+      label: "Última solicitud",
+      render: (row) => <Badge>{row.lastRequest}</Badge>,
     },
     {
-        key: "action",
-        label: "Acción",
-        render: () => (
-            <button type="button" className="teacher-students-action">
-                Solicitar intervención
-            </button>
-        ),
+      key: "action",
+      label: "Acción",
+      render: (row) => (
+        <Button
+          type="button"
+          className="teacher-students-action"
+          onClick={() => handleRequestIntervention(row.id)}
+        >
+          Solicitar intervención
+        </Button>
+      ),
     },
-];
+  ];
+}
 
 function TeacherStudents() {
-    const {
-        selectedCourse,
-        setSelectedCourse,
-        selectedSubject,
-        setSelectedSubject,
-        courseOptions,
-        subjectOptions,
-        filteredStudents,
-    } = useTeacherStudents();
-    return (
-        <DashboardLayout role="teacher">
-            <section className="teacher-students">
-                <header className="teacher-students-header">
-                    <h1>Mis alumnos</h1>
-                    <p>Listado de alumnos asignados al docente.</p>
-                </header>
+  const {
+    selectedCourse,
+    selectedSubject,
+    courseOptions,
+    subjectOptions,
+    filteredStudents,
+    loading,
+    error,
+    handleCourseChange,
+    handleSubjectChange,
+    handleRequestIntervention,
+  } = useTeacherStudents();
 
-                <div className="teacher-students-filters">
-                    <label>
-                        Curso
-                        <select
-                            value={selectedCourse}
-                            onChange={(event) => setSelectedCourse(event.target.value)}
-                        >
-                            {courseOptions.map((course) => (
-                                <option key={course} value={course}>
-                                    {course}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
+  const columns = createColumns({ handleRequestIntervention });
 
-                    <label>
-                        Materia
-                        <select
-                            value={selectedSubject}
-                            onChange={(event) => setSelectedSubject(event.target.value)}
-                        >
-                            {subjectOptions.map((subject) => (
-                                <option key={subject} value={subject}>
-                                    {subject}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
-                </div>
+  return (
+    <DashboardLayout role="teacher">
+      <section className="teacher-students">
+        <PageToolbar title="Mis alumnos" />
 
-                <Card className="teacher-students-card">
-                    <DataTable columns={columns} rows={filteredStudents} />
-                </Card>
-            </section>
-        </DashboardLayout>
-    );
+        <Card className="teacher-students-filters-card">
+          <div className="teacher-students-filters">
+            <label>
+              Curso
+              <Select
+                options={courseOptions}
+                placeholder="Todos los cursos"
+                value={selectedCourse}
+                onChange={handleCourseChange}
+                allowEmpty
+              />
+            </label>
+
+            <label>
+              Materia
+              <Select
+                options={subjectOptions}
+                placeholder="Todas las materias"
+                value={selectedSubject}
+                onChange={handleSubjectChange}
+                allowEmpty
+              />
+            </label>
+          </div>
+        </Card>
+
+        <Card className="teacher-students-card">
+          {loading && <p>Cargando alumnos...</p>}
+
+          {error && <p className="teacher-students-error">{error}</p>}
+
+          {!loading && !error && (
+            <DataTable
+              columns={columns}
+              rows={filteredStudents}
+              emptyMessage="No tenés alumnos asignados"
+            />
+          )}
+        </Card>
+      </section>
+    </DashboardLayout>
+  );
 }
 
 export default TeacherStudents;

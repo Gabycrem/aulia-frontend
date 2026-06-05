@@ -11,9 +11,7 @@ function isSameMonth(date, currentMonth) {
   );
 }
 
-function useCalendarAgenda(items = []) {
-  const initialDate = new Date("2026-05-31T12:00:00");
-
+function useCalendarAgenda(items = [], initialDate = new Date("2026-05-31T12:00:00")) {
   const [selectedDate, setSelectedDate] = useState(initialDate);
   const [currentMonth, setCurrentMonth] = useState(
     new Date(initialDate.getFullYear(), initialDate.getMonth(), 1)

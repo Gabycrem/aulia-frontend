@@ -1,0 +1,21 @@
+.teacher-agenda {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 32px 32px;
+}
+
+.teacher-agenda-card {
+  padding: 24px;
+  overflow: hidden;
+}
+
+@media (max-width: 720px) {
+  .teacher-agenda {
+    padding: 16px;
+  }
+
+  .teacher-agenda-card {
+    padding: 16px;
+  }
+}
