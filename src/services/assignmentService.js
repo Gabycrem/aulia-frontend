@@ -11,6 +11,10 @@ export function getAssignmentById(id) {
   return apiRequest(`/api/assignment/findTeacher/${id}`);
 }
 
+export function getAssignmentsByTeacher(teacherId) {
+  return apiRequest(`/api/assignment/findTeacher/${teacherId}`);
+}
+
 export function getAllAssignments(page = 1) {
   return apiRequest(`/api/assignment/findTeachers?page=${page}`);
 }

@@ -88,6 +88,14 @@
   font-size: 0.9rem;
 }
 
+.teacher-dashboard-error {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #fde8e8;
+  color: #9b1c1c;
+  font-weight: 700;
+}
+
 @media (max-width: 1024px) {
   .teacher-dashboard-metrics,
   .teacher-dashboard-bottom {

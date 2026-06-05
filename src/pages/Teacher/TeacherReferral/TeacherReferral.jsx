@@ -2,6 +2,7 @@ import DashboardLayout from "../../../layouts/DashboardLayout/DashboardLayout";
 import Card from "../../../components/Card/Card";
 import Button from "../../../components/Button/Button";
 import PageToolbar from "../../../components/PageToolbar/PageToolbar";
+import Select from "../../../components/CustomSelect/CustomSelect";
 import useTeacherReferralForm from "../../../hooks/Teacher/useTeacherReferralForm";
 import "./TeacherReferral.css";
 
@@ -15,7 +16,9 @@ function TeacherReferral() {
     submitting,
     error,
     successMessage,
-    handleChange,
+    handleStudentChange,
+    handleCategoryChange,
+    handleDescriptionChange,
     handleSubmit,
     handleCancel,
   } = useTeacherReferralForm();
@@ -34,42 +37,26 @@ function TeacherReferral() {
             <div className="teacher-referral-grid">
               <label className="teacher-referral-field">
                 Alumno
-                <select
-                  name="studentId"
+                <Select
+                  options={students}
+                  placeholder={
+                    loadingStudents ? "Cargando alumnos..." : "Seleccionar alumno"
+                  }
                   value={formData.studentId}
-                  onChange={handleChange}
+                  onChange={handleStudentChange}
                   disabled={loadingStudents || submitting}
-                  required
-                >
-                  <option value="">
-                    {loadingStudents ? "Cargando alumnos..." : "Seleccionar alumno"}
-                  </option>
-
-                  {students.map((student) => (
-                    <option key={student.id} value={student.id}>
-                      {student.name} - {student.course}
-                    </option>
-                  ))}
-                </select>
+                />
               </label>
 
               <label className="teacher-referral-field">
                 Categoría
-                <select
-                  name="category"
+                <Select
+                  options={referralCategories}
+                  placeholder="Seleccionar categoría"
                   value={formData.category}
-                  onChange={handleChange}
+                  onChange={handleCategoryChange}
                   disabled={submitting}
-                  required
-                >
-                  <option value="">Seleccionar categoría</option>
-
-                  {referralCategories.map((category) => (
-                    <option key={category.value} value={category.value}>
-                      {category.label}
-                    </option>
-                  ))}
-                </select>
+                />
               </label>
             </div>
 
@@ -84,7 +71,7 @@ function TeacherReferral() {
               <textarea
                 name="description"
                 value={formData.description}
-                onChange={handleChange}
+                onChange={handleDescriptionChange}
                 placeholder="Describí la situación observada, antecedentes relevantes y motivo de la solicitud."
                 rows="8"
                 disabled={submitting}

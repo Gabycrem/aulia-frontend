@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 import { getCaseFileByStudentId } from "../../services/caseFileService";
 import { saveReferral } from "../../services/referralService";
@@ -53,6 +53,8 @@ function normalizeCaseFileResponse(response) {
 function useTeacherReferralForm() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const location = useLocation();
+  const returnTo = location.state?.returnTo || "/dashboard/docente";
 
   const sessionUser = useMemo(() => getSessionUser(), []);
 
@@ -80,13 +82,18 @@ function useTeacherReferralForm() {
         setError("");
 
         const response = await getStudentsByTeacher(sessionUser.id);
-        const mappedStudents = normalizeStudentsResponse(response).map(
-          (student) => ({
+        const mappedStudents = normalizeStudentsResponse(response).map((student) => {
+          const name = getStudentName(student);
+          const course = getStudentCourse(student);
+
+          return {
             id: student.id,
-            name: getStudentName(student),
-            course: getStudentCourse(student),
-          })
-        );
+            value: student.id,
+            label: `${name} - ${course}`,
+            name,
+            course,
+          };
+        });
 
         setStudents(mappedStudents);
       } catch (error) {
@@ -151,11 +158,9 @@ function useTeacherReferralForm() {
 
       setSuccessMessage("Solicitud de intervención enviada correctamente.");
 
-      setFormData({
-        studentId: "",
-        category: "",
-        description: "",
-      });
+      setTimeout(() => {
+        navigate(returnTo);
+      }, 1200);
     } catch (error) {
       setError(error.message || "Error al enviar la solicitud de intervención.");
     } finally {
@@ -164,7 +169,39 @@ function useTeacherReferralForm() {
   }
 
   function handleCancel() {
-    navigate("/dashboard/docente");
+    navigate(returnTo);
+  }
+
+  function handleStudentChange(option) {
+    setFormData((currentFormData) => ({
+      ...currentFormData,
+      studentId: option?.value || "",
+    }));
+
+    if (error) setError("");
+    if (successMessage) setSuccessMessage("");
+  }
+
+  function handleCategoryChange(option) {
+    setFormData((currentFormData) => ({
+      ...currentFormData,
+      category: option?.value || "",
+    }));
+
+    if (error) setError("");
+    if (successMessage) setSuccessMessage("");
+  }
+
+  function handleDescriptionChange(event) {
+    const { value } = event.target;
+
+    setFormData((currentFormData) => ({
+      ...currentFormData,
+      description: value,
+    }));
+
+    if (error) setError("");
+    if (successMessage) setSuccessMessage("");
   }
 
   return {
@@ -179,6 +216,9 @@ function useTeacherReferralForm() {
     handleChange,
     handleSubmit,
     handleCancel,
+    handleStudentChange,
+    handleCategoryChange,
+    handleDescriptionChange,
   };
 }
 
