@@ -17,15 +17,24 @@ function getAuthToken() {
 
 export async function apiRequest(endpoint, options = {}) {
     const token = getAuthToken();
-    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-        ...options,
-        credentials: 'include',
-        headers: {
-            'Content-Type': 'application/json',
-            ...(token ? { Authorization: `Bearer ${token}` } : {}),
-            ...options.headers,
-        },
-    });
+
+    let response;
+
+    try {
+        response = await fetch(`${API_BASE_URL}${endpoint}`, {
+            ...options,
+            credentials: 'include',
+            headers: {
+                'Content-Type': 'application/json',
+                ...(token ? { Authorization: `Bearer ${token}` } : {}),
+                ...options.headers,
+            },
+        });
+    } catch {
+        throw new Error(
+            'No se pudo conectar con el servidor. Verificá que el backend esté disponible e intentá nuevamente.'
+        );
+    }
 
     const data = await response.json().catch(() => null);
 
