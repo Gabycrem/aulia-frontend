@@ -62,6 +62,7 @@ export function mapStudentToDetail(student) {
     id: student.id,
     userId: student.userId,
     courseId: student.courseId,
+    username: user.username || "-",
     firstName: user.firstName || "",
     lastName: user.lastName || "",
     email: user.email || "-",
@@ -88,7 +89,7 @@ export function mapStudentFormToPayload(studentData, userId) {
 }
 
 export function mapStudentToEditFormData(student) {
-  const user = student.User || student.user || {};
+  const user = getStudentUser(student);
 
   return {
     userData: mapUserToFormData({
@@ -116,7 +117,14 @@ export function mapStudentUserFormToUpdatePayload(userData) {
 }
 
 function getStudentUser(student) {
-  return student.User || student.user || {};
+  return (
+    student.User ||
+    student.user ||
+    student.userData ||
+    student.usuario ||
+    student.Usuario ||
+    {}
+  );
 }
 
 function getStudentCourse(student) {

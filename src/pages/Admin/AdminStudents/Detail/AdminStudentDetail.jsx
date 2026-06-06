@@ -56,13 +56,8 @@ function AdminStudentDetail() {
 
                 <div className="admin-student-detail-grid">
                   <label>
-                    ID alumno
-                    <Input value={student.id} disabled readOnly />
-                  </label>
-
-                  <label>
-                    ID usuario
-                    <Input value={student.userId} disabled readOnly />
+                    Usuario
+                    <Input value={student.username} disabled readOnly />
                   </label>
 
                   <label>
