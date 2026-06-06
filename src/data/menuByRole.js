@@ -12,10 +12,10 @@ export const menuByRole = {
   gab: [
     { label: 'Dashboard', path: '/dashboard/gabinete' },
     { label: 'Alumnos', path: '/dashboard/gabinete/alumnos' },
+    { label: 'Derivaciones', path: '/dashboard/gabinete/derivaciones' },
     { label: 'Alertas', path: '/dashboard/gabinete/alertas' },
     { label: 'Intervenciones', path: '/dashboard/gabinete/intervenciones' },
     { label: 'Agenda', path: '/dashboard/gabinete/agenda' },
-    { label: 'Reporte', path: '/dashboard/gabinete/reporte' },
   ],
 
   teacher: [

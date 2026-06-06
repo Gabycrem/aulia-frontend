@@ -1,0 +1,97 @@
+.gab-referrals,
+.gab-referrals-table-card,
+.gab-referrals-context-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gab-referrals {
+  padding: 24px 32px 32px;
+}
+
+.gab-referrals-table-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.gab-referrals-context-card {
+  padding: 20px 24px;
+}
+
+.gab-referrals-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.gab-referrals-detail h2 {
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.gab-referrals-detail p {
+  color: var(--color-text);
+}
+
+.gab-referrals-notes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.gab-referrals-notes textarea {
+  width: 100%;
+  min-height: 90px;
+  padding: 12px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-background-soft);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  resize: vertical;
+}
+
+.gab-referrals-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.gab-referrals-actions button{
+    width: auto;
+}
+
+.gab-referrals-error,
+.gab-referrals-success {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+}
+
+.gab-referrals-error {
+  background: #fde8e8;
+  color: #9b1c1c;
+}
+
+.gab-referrals-success {
+  background: #e4f5eb;
+  color: #176b3a;
+}
+
+@media (max-width: 720px) {
+  .gab-referrals {
+    padding: 16px;
+  }
+
+  .gab-referrals-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

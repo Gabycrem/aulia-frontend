@@ -1,16 +1,16 @@
-.gab-agenda {
+.gab-interventions {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 16px;
   padding: 24px 32px 32px;
 }
 
-.gab-agenda-card {
-  padding: 24px;
+.gab-interventions-table-card {
+  padding: 0;
   overflow: hidden;
 }
 
-.gab-agenda-error {
+.gab-interventions-error {
   padding: 12px 14px;
   border-radius: var(--radius-sm);
   background: #fde8e8;
@@ -19,11 +19,7 @@
 }
 
 @media (max-width: 720px) {
-  .gab-agenda {
-    padding: 16px;
-  }
-
-  .gab-agenda-card {
+  .gab-interventions {
     padding: 16px;
   }
 }

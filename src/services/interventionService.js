@@ -15,8 +15,8 @@ export function getInterventionsByCaseFile(caseFileId) {
   return apiRequest(`/api/interventions/casefile/${caseFileId}`);
 }
 
-export function getInterventionsByProfessional(professionalId) {
-  return apiRequest(`/api/interventions/professional/${professionalId}`);
+export function getMyInterventions() {
+  return apiRequest("/api/interventions/professional/me");
 }
 
 export function getInterventionsByStudent(studentId) {

@@ -1,0 +1,77 @@
+.gab-intervention-form,
+.gab-intervention-form-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gab-intervention-form {
+  padding: 24px 32px 32px;
+}
+
+.gab-intervention-form-card {
+  padding: 20px 24px;
+}
+
+.gab-intervention-form-student {
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.gab-intervention-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.gab-intervention-form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.gab-intervention-form-full {
+  grid-column: 1 / -1;
+}
+
+.gab-intervention-form-full textarea {
+  min-height: 140px;
+  padding: 12px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-background-soft);
+  color: var(--color-text);
+  font-family: var(--font-main);
+  resize: vertical;
+}
+
+.gab-intervention-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.gab-intervention-form-error {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #fde8e8;
+  color: #9b1c1c;
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .gab-intervention-form {
+    padding: 16px;
+  }
+
+  .gab-intervention-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gab-intervention-form-actions {
+    flex-direction: column;
+  }
+}

@@ -74,7 +74,7 @@ function Sidebar({ role }) {
                 </nav>
 
                 <Button
-                    className="sidebar-btn-end sidebar-logout-desktop"
+                    className="sidebar-btn-end sidebar-logout-desktop button-full"
                     type="button"
                     onClick={handleLogout}
                 >
