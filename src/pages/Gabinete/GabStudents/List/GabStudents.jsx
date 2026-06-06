@@ -1,3 +1,4 @@
+import { Eye, Pencil, Search } from "lucide-react";
 import DashboardLayout from "../../../../layouts/DashboardLayout/DashboardLayout";
 import Card from "../../../../components/Card/Card";
 import DataTable from "../../../../components/DataTable/DataTable";
@@ -5,11 +6,10 @@ import Badge from "../../../../components/Badge/Badge";
 import Input from "../../../../components/Input/Input";
 import Button from "../../../../components/Button/Button";
 import PageToolbar from "../../../../components/PageToolbar/PageToolbar";
-import "./GabStudents.css";
-import { Eye, Pencil, Search } from "lucide-react";
 import useGabStudents from "../../../../hooks/Gabinete/useGabStudents";
+import "./GabStudents.css";
 
-function createColumns(handleViewCase, handleEditCase){
+function createColumns(handleViewCase, handleEditCase) {
   return [
     {
       key: "studentName",
@@ -71,18 +71,18 @@ function createColumns(handleViewCase, handleEditCase){
   ];
 }
 
-function GabStudents(){
-const {
-  cases,
-  searchTerm,
-  loading,
-  error,
-  handleSearchChange,
-  handleSearch,
-  handleViewCase,
-  handleEditCase,
-  handleCreateCase,
-} = useGabStudents();
+function GabStudents() {
+  const {
+    cases,
+    searchTerm,
+    loading,
+    error,
+    handleSearchChange,
+    handleSearch,
+    handleViewCase,
+    handleEditCase,
+    handleCreateCase,
+  } = useGabStudents();
 
   const columns = createColumns(handleViewCase, handleEditCase);
 
@@ -95,9 +95,10 @@ const {
               type="search"
               placeholder="Buscar alumno..."
               className="gab-students-search"
+              value={searchTerm}
               onChange={handleSearchChange}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
+              onKeyDown={(event) => {
+                if (event.key === "Enter") {
                   handleSearch();
                 }
               }}
@@ -124,7 +125,16 @@ const {
 
         <Card className="gab-students-table-card">
           {error && <p className="gab-students-error">{error}</p>}
-          <DataTable columns={columns} rows={cases} emptyMessage={loading ? "Cargando alumnos..." : "No hay alumnos disponibles"} />
+
+          <DataTable
+            columns={columns}
+            rows={cases}
+            emptyMessage={
+              loading
+                ? "Cargando alumnos..."
+                : "No hay alumnos o derivaciones disponibles"
+            }
+          />
         </Card>
       </section>
     </DashboardLayout>

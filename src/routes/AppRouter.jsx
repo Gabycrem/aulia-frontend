@@ -5,7 +5,12 @@ import Login from '../pages/Login/Login';
 import GabDashboard from '../pages/Gabinete/GabDashboard/GabDashboard';
 import GabStudents from "../pages/Gabinete/GabStudents/List/GabStudents";
 import GabStudentCaseDetail from "../pages/Gabinete/GabStudents/Detail/GabStudentCaseDetail";
+import GabNewCase from "../pages/Gabinete/GabStudents/NewCase/GabNewCase";
 import GabAgenda from '../pages/Gabinete/GabAgenda/GabAgenda';
+import GabReferrals from '../pages/Gabinete/GabReferrals/GabReferrals';
+import GabAlerts from '../pages/Gabinete/GabAlerts/GabAlerts';
+import GabInterventions from "../pages/Gabinete/GabInterventions/List/GabInterventions";
+import GabInterventionForm from "../pages/Gabinete/GabInterventions/Form/GabInterventionForm";
 import TeacherDashboard from '../pages/Teacher/TeacherDashboard/TeacherDashboard';
 import TeacherStudents from '../pages/Teacher/TeacherStudents/TeacherStudents';
 import TeacherReferral from '../pages/Teacher/TeacherReferral/TeacherReferral';
@@ -35,6 +40,7 @@ function AppRouter() {
 
         <Route path="/login" element={<Login />} />
 
+        {/* Rutas del Flujo de GABINETE */}
         <Route
           path="/dashboard/gabinete"
           element={
@@ -54,11 +60,63 @@ function AppRouter() {
               <GabStudentCaseDetail />
             </RoleRoute>} />
         <Route
+          path="/dashboard/gabinete/casos/nuevo"
+          element={
+            <RoleRoute allowedRoles={["Gabinete"]}>
+              <GabNewCase />
+            </RoleRoute>
+          }
+        />
+        <Route
           path="/dashboard/gabinete/agenda"
           element={
             <RoleRoute allowedRoles={['Gabinete']}>
               <GabAgenda />
             </RoleRoute>} />
+        <Route
+          path="/dashboard/gabinete/derivaciones"
+          element={
+            <RoleRoute allowedRoles={['Gabinete']}>
+              <GabReferrals />
+            </RoleRoute>
+          }
+        />
+        <Route
+          path="/dashboard/gabinete/alertas"
+          element={
+            <RoleRoute allowedRoles={['Gabinete']}>
+              <GabAlerts />
+            </RoleRoute>
+          }
+        />
+        <Route
+          path="/dashboard/gabinete/intervenciones"
+          element={
+            <RoleRoute allowedRoles={["Gabinete"]}>
+              <GabInterventions />
+            </RoleRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/gabinete/intervenciones/nueva"
+          element={
+            <RoleRoute allowedRoles={["Gabinete"]}>
+              <GabInterventionForm />
+            </RoleRoute>
+          }
+        />
+
+        <Route
+          path="/dashboard/gabinete/alumnos/:studentId/intervencion/nueva"
+          element={
+            <RoleRoute allowedRoles={["Gabinete"]}>
+              <GabInterventionForm />
+            </RoleRoute>
+          }
+        />
+        {/*---------------------------- */}
+        {/* Rutas del Flujo de DOCENTE */}
         <Route
           path="/dashboard/docente"
           element={
@@ -85,6 +143,8 @@ function AppRouter() {
             </RoleRoute>
           }
         />
+        {/*---------------------------- */}
+        {/* Rutas del Flujo de ALUMNO */}
         <Route
           path="/dashboard/estudiante"
           element={
@@ -92,6 +152,8 @@ function AppRouter() {
               <StudentDashboard />
             </RoleRoute>
           } />
+        {/*---------------------------- */}
+        {/* Rutas del Flujo de DIRECTIVO */}
         <Route
           path="/dashboard/directivo"
           element={
@@ -99,6 +161,8 @@ function AppRouter() {
               <DirectDashboard />
             </RoleRoute>
           } />
+        {/*---------------------------- */}
+        {/* Rutas del Flujo de ADMIN */}
         <Route
           path="/dashboard/admin"
           element={

@@ -3,139 +3,112 @@ import Card from "../../../components/Card/Card";
 import DashboardMetric from "../../../components/DashboardMetric/DashboardMetric";
 import DataTable from "../../../components/DataTable/DataTable";
 import Badge from "../../../components/Badge/Badge";
-import "./GabDashboard.css";
-import useGabDashboard from "../../../hooks/Gabinete/useGabDashboard";
-
-//Probando agenda
 import TodayAgenda from "../../../components/TodayAgenda/TodayAgenda";
-import { todayAgendaMock } from "../../../data/agendaMock";
-//---
-const columns = [
-  {
-    key: "studentName",
-    label: "Alumno",
-  },
-  {
-    key: "source",
-    label: "Origen",
-  },
-  {
-    key: "reason",
-    label: "Motivo",
-  },
-  {
-    key: "priority",
-    label: "Prioridad",
-    render: (row) => <Badge variant="muted">{row.priority}</Badge>,
-  },
-  {
-    key: "status",
-    label: "Estado",
-    render: (row) => <Badge>{row.status}</Badge>,
-  },
-  {
-    key: "lastUpdate",
-    label: "Última actualización",
-  },
-  {
-    key: "action",
-    label: "Acción",
-    render: () => (
-      <button type="button" className="gab-dashboard-table-action">
-        Ver
-      </button>
-    ),
-  },
-];
+import useGabDashboard from "../../../hooks/Gabinete/useGabDashboard";
+import "./GabDashboard.css";
+
+function createColumns(handleViewCase) {
+  return [
+    { key: "studentName", label: "Alumno" },
+    { key: "source", label: "Origen" },
+    { key: "reason", label: "Motivo" },
+    {
+      key: "priority",
+      label: "Prioridad",
+      render: (row) => <Badge variant="muted">{row.priority}</Badge>,
+    },
+    {
+      key: "status",
+      label: "Estado",
+      render: (row) => <Badge>{row.status}</Badge>,
+    },
+    { key: "lastUpdate", label: "Última actualización" },
+    {
+      key: "action",
+      label: "Acción",
+      render: (row) => (
+        <button
+          type="button"
+          className="gab-dashboard-table-action"
+          onClick={() => handleViewCase(row)}
+        >
+          Ver
+        </button>
+      ),
+    },
+  ];
+}
 
 function GabDashboard() {
   const {
     dashboardMetrics,
     priorityCases,
     recentActivity,
+    todayAgenda,
+    loading,
+    error,
+    handleViewCase,
+    handleSelectAgendaItem,
   } = useGabDashboard();
+
+  const columns = createColumns(handleViewCase);
+
   return (
     <DashboardLayout role="gab">
       <section className="gab-dashboard">
-        <div className="gab-dashboard-metrics">
-          {dashboardMetrics.map((metric) => (
-            <DashboardMetric
-              key={metric.id}
-              title={metric.title}
-              value={metric.value}
-            />
-          ))}
-          {/*
-          {dashboardMetricsData.map((metric) => (
-            <DashboardMetric
-              key={metric.id}
-              title={metric.title}
-              value={metric.value}
-            />
-          ))}
-            */}
-        </div>
+        {loading && <p>Cargando dashboard...</p>}
 
-        <Card className="gab-dashboard-table-card">
-          <DataTable columns={columns} rows={priorityCases} />
-          {/* <DataTable columns={columns} rows={priorityCasesData} /> */}
-        </Card>
+        {error && <p className="gab-dashboard-error">{error}</p>}
 
-        <div className="gab-dashboard-bottom">
-          <Card className="gab-dashboard-panel">
-            <h2>Actividad reciente</h2>
-
-            <ul className="gab-dashboard-activity-list">
-              {recentActivity.map((activity) => (
-                <li key={activity.id}>
-                  <span>{activity.description}</span>
-                  <small>
-                    {activity.detail} · {activity.createdAt}
-                  </small>
-                </li>
+        {!loading && !error && (
+          <>
+            <div className="gab-dashboard-metrics">
+              {dashboardMetrics.map((metric) => (
+                <DashboardMetric
+                  key={metric.id}
+                  title={metric.title}
+                  value={metric.value}
+                />
               ))}
-              {/*
-              {recentActivityData.map((activity) => (
-                <li key={activity.id}>
-                  <span>{activity.description}</span>
-                  <small>
-                    {activity.detail} · {activity.createdAt}
-                  </small>
-                </li>
-              ))}
-              */}
-            </ul>
-          </Card>
+            </div>
 
-          <Card className="gab-dashboard-panel">
-            <TodayAgenda items={todayAgendaMock} />
-          </Card>
+            <Card className="gab-dashboard-table-card">
+              <DataTable
+                columns={columns}
+                rows={priorityCases}
+                emptyMessage="No hay derivaciones pendientes"
+              />
+            </Card>
 
-          {/* <Card className="gab-dashboard-panel">
-            <h2>Agenda de hoy</h2>
+            <div className="gab-dashboard-bottom">
+              <Card className="gab-dashboard-panel">
+                <h2>Actividad reciente</h2>
 
-            <ul className="gab-dashboard-agenda-list">
-              {todayAgenda.map((agendaItem) => (
-                <li key={agendaItem.id}>
-                  <strong>{agendaItem.time}</strong>
-                  <span>
-                    {agendaItem.type} - {agendaItem.studentName}
-                  </span>
-                </li>
-              ))}
-              
-              {todayAgendaData.map((agendaItem) => (
-                <li key={agendaItem.id}>
-                  <strong>{agendaItem.time}</strong>
-                  <span>
-                    {agendaItem.type} - {agendaItem.studentName}
-                  </span>
-                </li>
-              ))}
-              
-            </ul>
-          </Card> */}
-        </div>
+                {recentActivity.length === 0 ? (
+                  <p>No hay actividad reciente.</p>
+                ) : (
+                  <ul className="gab-dashboard-activity-list">
+                    {recentActivity.map((activity) => (
+                      <li key={activity.id}>
+                        <span>{activity.description}</span>
+                        <small>
+                          {activity.detail} · {activity.createdAt}
+                        </small>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </Card>
+
+              <Card className="gab-dashboard-panel">
+                <TodayAgenda
+                  items={todayAgenda}
+                  onSelectItem={handleSelectAgendaItem}
+                />
+              </Card>
+            </div>
+          </>
+        )}
       </section>
     </DashboardLayout>
   );

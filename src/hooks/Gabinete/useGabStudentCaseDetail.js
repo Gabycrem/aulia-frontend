@@ -1,26 +1,19 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getStudentById } from "../../services/studentService";
+
 import {
   getCaseFileByStudentId,
   saveCaseFile,
 } from "../../services/caseFileService";
 import { getInterventionsByCaseFile } from "../../services/interventionService";
-
-function normalizeResponse(response, key) {
-  return response?.data || response?.[key] || response || null;
-}
-
-function normalizeListResponse(response, key) {
-  const data =
-    response?.data ||
-    response?.[key] ||
-    response?.rows ||
-    response ||
-    [];
-
-  return Array.isArray(data) ? data : [];
-}
+import { getStudentById } from "../../services/studentService";
+import {
+  mapCaseFileToDetail,
+  mapInterventionToDetailRow,
+  mapStudentToCaseDetail,
+  normalizeListResponse,
+  normalizeResponse,
+} from "./gabStudentCaseDetailMappers";
 
 function useGabStudentCaseDetail() {
   const { studentId } = useParams();
@@ -37,13 +30,12 @@ function useGabStudentCaseDetail() {
 
   async function loadInterventions(caseFileId) {
     const interventionsResponse = await getInterventionsByCaseFile(caseFileId);
-
     const interventionsData = normalizeListResponse(
       interventionsResponse,
       "interventions"
     );
 
-    setInterventions(interventionsData);
+    setInterventions(interventionsData.map(mapInterventionToDetailRow));
   }
 
   useEffect(() => {
@@ -64,13 +56,13 @@ function useGabStudentCaseDetail() {
         const studentResponse = await getStudentById(studentId);
         const studentData = normalizeResponse(studentResponse, "student");
 
-        setStudent(studentData);
+        setStudent(mapStudentToCaseDetail(studentData));
 
         try {
           const caseFileResponse = await getCaseFileByStudentId(studentId);
           const caseFileData = normalizeResponse(caseFileResponse, "caseFile");
 
-          setCaseFile(caseFileData || null);
+          setCaseFile(mapCaseFileToDetail(caseFileData));
 
           if (caseFileData?.id) {
             try {
@@ -115,7 +107,7 @@ function useGabStudentCaseDetail() {
       const response = await saveCaseFile({ studentId: Number(studentId) });
       const createdCaseFile = normalizeResponse(response, "caseFile");
 
-      setCaseFile(createdCaseFile || null);
+      setCaseFile(mapCaseFileToDetail(createdCaseFile));
       setInterventions([]);
 
       if (createdCaseFile?.id) {

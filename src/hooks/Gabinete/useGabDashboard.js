@@ -1,28 +1,27 @@
-import {
-  dashboardMetrics,
-  priorityCases,
-  recentActivity,
-  todayAgenda,
-} from "../../data/gabDashboardMock";
-
-/*
-DESCOMENTAR AL INTEGRAR
-
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import {
-  getHelpRequests,
   getDailyCheckInSummary,
-} from "../services/checkInService";
-*/
+  getHelpRequests,
+} from "../../services/checkInService";
+import { getReferrals } from "../../services/referralService";
+import {
+  buildGabDashboardMetrics,
+  buildRecentActivity,
+  mapReferralsToPriorityCases,
+  normalizeCheckInSummaryResponse,
+  normalizeHelpRequestsResponse,
+  normalizeReferralsResponse,
+} from "./gabDashboardMappers";
 
 function useGabDashboard() {
-  /*
-  DESCOMENTAR AL INTEGRAR
+  const navigate = useNavigate();
 
-  const [dashboardMetricsData, setDashboardMetricsData] = useState(dashboardMetrics);
-  const [priorityCasesData, setPriorityCasesData] = useState(priorityCases);
-  const [recentActivityData, setRecentActivityData] = useState(recentActivity);
-  const [todayAgendaData, setTodayAgendaData] = useState(todayAgenda);
+  const [dashboardMetrics, setDashboardMetrics] = useState([]);
+  const [priorityCases, setPriorityCases] = useState([]);
+  const [recentActivity, setRecentActivity] = useState([]);
+  const [todayAgenda, setTodayAgenda] = useState([]);
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -31,19 +30,31 @@ function useGabDashboard() {
     async function loadDashboardData() {
       try {
         setLoading(true);
+        setError("");
 
-        const helpRequests = await getHelpRequests();
-        const checkInSummary = await getDailyCheckInSummary();
+        const [referralsResponse, helpRequestsResponse, summaryResponse] =
+          await Promise.all([
+            getReferrals(),
+            getHelpRequests(),
+            getDailyCheckInSummary(),
+          ]);
 
-        console.log(helpRequests);
-        console.log(checkInSummary);
+        const referrals = normalizeReferralsResponse(referralsResponse);
+        const helpRequests = normalizeHelpRequestsResponse(helpRequestsResponse);
+        const checkInSummary = normalizeCheckInSummaryResponse(summaryResponse);
 
-        // setDashboardMetricsData(...)
-        // setPriorityCasesData(...)
-        // setRecentActivityData(...)
-        // setTodayAgendaData(...)
+        setDashboardMetrics(
+          buildGabDashboardMetrics({
+            referrals,
+            helpRequests,
+            checkInSummary,
+          })
+        );
+        setPriorityCases(mapReferralsToPriorityCases(referrals));
+        setRecentActivity(buildRecentActivity({ referrals, helpRequests }));
+        setTodayAgenda([]);
       } catch (error) {
-        setError(error.message);
+        setError(error.message || "Error al cargar el dashboard de gabinete");
       } finally {
         setLoading(false);
       }
@@ -51,13 +62,29 @@ function useGabDashboard() {
 
     loadDashboardData();
   }, []);
-  */
+
+  function handleViewCase(caseItem) {
+    if (!caseItem.studentId) {
+      setError("No se pudo identificar el alumno asociado");
+      return;
+    }
+
+    navigate(`/dashboard/gabinete/alumnos/${caseItem.studentId}/caso`);
+  }
+
+  function handleSelectAgendaItem(item) {
+    window.alert(item.title);
+  }
 
   return {
     dashboardMetrics,
     priorityCases,
     recentActivity,
     todayAgenda,
+    loading,
+    error,
+    handleViewCase,
+    handleSelectAgendaItem,
   };
 }
 
