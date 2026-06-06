@@ -7,7 +7,8 @@ import {
   saveStudent,
   updateStudent,
 } from "../../services/studentService";
-import { updateUser } from "../../services/userService";
+import { getUserById, updateUser } from "../../services/userService";
+import { normalizeUserResponse } from "../../utils/userMappers";
 import useUserForm from "../useUserForm";
 import {
   initialStudentData,
@@ -81,12 +82,40 @@ function useAdminStudentForm() {
 
         const response = await getStudentById(id);
         const student = normalizeStudentResponse(response);
+        console.log("student edit response", student);
 
         if (!student) {
           throw new Error("No se encontró el alumno");
         }
 
-        const mappedData = mapStudentToEditFormData(student);
+        const embeddedUser = student.User || student.user || null;
+        const studentUserId = student.userId || student.UserId || embeddedUser?.id;
+
+        let studentForForm = student;
+
+        if ((!embeddedUser?.username || !embeddedUser?.email) && studentUserId) {
+          const userResponse = await getUserById(studentUserId);
+          const user = normalizeUserResponse(userResponse);
+          console.log("student user raw response", userResponse);
+          console.log("student user normalized response", user);
+
+          if (!user) {
+            throw new Error("No se encontró el usuario del alumno");
+          }
+
+          const fullUser = {
+            ...embeddedUser,
+            ...user,
+          };
+
+          studentForForm = {
+            ...student,
+            User: fullUser,
+            user: fullUser,
+          };
+        }
+
+        const mappedData = mapStudentToEditFormData(studentForForm);
 
         setEditUserData(mappedData.userData);
         setStudentData(mappedData.studentData);
