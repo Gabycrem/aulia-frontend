@@ -13,23 +13,14 @@ export function normalizeInterventionsResponse(response) {
 }
 
 export function mapInterventionToAgendaItem(intervention) {
-  const date = intervention.interventionDate
-    ? new Date(intervention.interventionDate)
-    : null;
-
-  const dateKey = date ? date.toISOString().slice(0, 10) : "";
+  const dateKey = getDateOnly(intervention.interventionDate);
 
   return {
     id: intervention.id,
     source: "intervention",
     sourceId: intervention.id,
     date: dateKey,
-    time: date
-      ? date.toLocaleTimeString("es-AR", {
-          hour: "2-digit",
-          minute: "2-digit",
-        })
-      : "-",
+    time: "-",
     title: intervention.type || intervention.title || "Intervención",
     description: intervention.description || intervention.title || "",
     status: intervention.status || "Programada",
@@ -38,4 +29,12 @@ export function mapInterventionToAgendaItem(intervention) {
     professionalId: intervention.professionalId,
     raw: intervention,
   };
+}
+
+function getDateOnly(value) {
+  if (!value) {
+    return "";
+  }
+
+  return value.slice(0, 10);
 }

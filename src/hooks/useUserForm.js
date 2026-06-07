@@ -53,7 +53,6 @@ function useUserFormStep({ role, onSuccess }) {
       }
     } catch (error) {
       setUserError(error.message || "Error al crear el usuario");
-      console.log(error.data);
     } finally {
       setLoadingUser(false);
     }

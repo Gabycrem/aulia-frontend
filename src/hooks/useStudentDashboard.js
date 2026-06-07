@@ -73,10 +73,10 @@ function useStudentDashboard() {
       return;
     }
 
-    if (!formData.comment.trim()) {
-      setError("Escribí un comentario para guardar el check-in");
-      return;
-    }
+    // if (!formData.comment.trim()) {
+    //   setError("Escribí un comentario para guardar el check-in");
+    //   return;
+    // }
 
     const studentData = {
       studentId: sessionUser?.studentId,

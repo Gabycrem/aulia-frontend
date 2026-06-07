@@ -137,8 +137,6 @@ function useGabInterventionForm() {
         caseFile,
       });
 
-      console.log("INTERVENTION PAYLOAD:", payload);
-
       await saveIntervention(
         mapInterventionFormToPayload({
           interventionData,

@@ -871,10 +871,10 @@ Validar en desktop y mobile cuando corresponda:
 Antes de entregar:
 
 - [ ] Ejecutar todos los casos criticos.
-- [ ] Ejecutar `npm run build`.
+- [X] Ejecutar `npm run build`.
 - [ ] Revisar consola sin errores importantes.
-- [ ] Confirmar que no quedan mocks visibles en pantallas integradas.
-- [ ] Confirmar que los pendientes al back estan documentados.
+- [X] Confirmar que no quedan mocks visibles en pantallas integradas.
+- [X] Confirmar que los pendientes al back estan documentados.
 - [ ] Confirmar que manuales de usuario estan actualizados.
 
 ## Nota
