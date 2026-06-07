@@ -23,6 +23,8 @@ function useAdminCourses() {
   const [deletingId, setDeletingId] = useState(null);
   const [error, setError] = useState("");
 
+  const [showDeactivateConfirm, setShowDeactivateConfirm] = useState(false);
+
   const selectedCourse = coursesData.find(
     (course) => course.id === selectedCourseId
   );
@@ -136,12 +138,20 @@ function useAdminCourses() {
     }
   }
 
-  async function handleDeactivateCourse() {
+  function handleOpenDeactivateConfirm() {
     if (!selectedCourseId) return;
 
-    const confirmed = window.confirm("¿Querés desactivar este curso?");
+    setShowDeactivateConfirm(true);
+  }
 
-    if (!confirmed) return;
+  function handleCloseDeactivateConfirm() {
+    if (deletingId) return;
+
+    setShowDeactivateConfirm(false);
+  }
+
+  async function handleConfirmDeactivateCourse() {
+    if (!selectedCourseId) return;
 
     try {
       setDeletingId(selectedCourseId);
@@ -150,14 +160,15 @@ function useAdminCourses() {
       await deactivateCourse(selectedCourseId);
 
       setSelectedCourseId(null);
+      setShowDeactivateConfirm(false);
       await loadCourses();
     } catch (error) {
+      setShowDeactivateConfirm(false);
       setError(error.message || "Error al desactivar el curso");
     } finally {
       setDeletingId(null);
     }
   }
-
   return {
     courseData,
     filteredCourses,
@@ -177,7 +188,10 @@ function useAdminCourses() {
     handleSelectCourse,
     handleClearForm,
     handleSubmit,
-    handleDeactivateCourse,
+    showDeactivateConfirm,
+    handleOpenDeactivateConfirm,
+    handleCloseDeactivateConfirm,
+    handleConfirmDeactivateCourse,
   };
 }
 

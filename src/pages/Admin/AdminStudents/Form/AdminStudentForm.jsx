@@ -15,7 +15,6 @@ function AdminStudentForm() {
 
     userData,
     editUserData,
-    createdUser,
     loadingUser,
     userError,
     handleUserChange,
@@ -244,14 +243,6 @@ function AdminStudentForm() {
             <Card className="admin-student-form-card">
               <form onSubmit={handleCreateStudent}>
                 <h2>Datos del alumno</h2>
-
-                <div className="admin-student-form-created-user">
-                  Usuario creado:{" "}
-                  <strong>
-                    {createdUser?.firstName} {createdUser?.lastName}
-                  </strong>
-                </div>
-
                 <div className="admin-student-form-grid">
                   <label>
                     Fecha de nacimiento

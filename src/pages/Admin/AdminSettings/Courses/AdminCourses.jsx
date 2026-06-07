@@ -6,6 +6,7 @@ import Input from "../../../../components/Input/Input";
 import Select from "../../../../components/CustomSelect/CustomSelect";
 import DataTable from "../../../../components/DataTable/DataTable";
 import Badge from "../../../../components/Badge/Badge";
+import FeedbackModal from "../../../../components/FeedbackModal/FeedbackModal";
 import {
   courseLevelOptions,
   schoolGradeOptions,
@@ -76,7 +77,10 @@ function AdminCourses() {
     handleSelectCourse,
     handleClearForm,
     handleSubmit,
-    handleDeactivateCourse,
+    showDeactivateConfirm,
+    handleOpenDeactivateConfirm,
+    handleCloseDeactivateConfirm,
+    handleConfirmDeactivateCourse,
   } = useAdminCourses();
 
   const columns = createColumns({
@@ -87,7 +91,6 @@ function AdminCourses() {
   return (
     <DashboardLayout role="admin">
       <section className="admin-courses">
-        <PageToolbar title="Cursos" />
 
         {error && <p className="admin-courses-error">{error}</p>}
 
@@ -152,10 +155,10 @@ function AdminCourses() {
                 Limpiar
               </Button>
 
-              <Button 
-              type="submit" 
-              className="admin-courses-form-button"
-              disabled={saving}>
+              <Button
+                type="submit"
+                className="admin-courses-form-button"
+                disabled={saving}>
                 {saving ? "Guardando..." : "Crear curso"}
               </Button>
             </div>
@@ -206,13 +209,28 @@ function AdminCourses() {
             <Button
               type="button"
               disabled={!selectedCourse || deletingId === selectedCourseId}
-              onClick={handleDeactivateCourse}
+              onClick={handleOpenDeactivateConfirm}
             >
               {deletingId === selectedCourseId ? "Desactivando..." : "Desactivar"}
             </Button>
           </div>
         </Card>
       </section>
+      <FeedbackModal
+        isOpen={showDeactivateConfirm}
+        type="warning"
+        title="Desactivar curso"
+        message={
+          selectedCourse
+            ? `¿Querés desactivar ${selectedCourse.grade} ${selectedCourse.division} - ${selectedCourse.level}?`
+            : "¿Querés desactivar este curso?"
+        }
+        confirmLabel="Desactivar"
+        cancelLabel="Cancelar"
+        loading={deletingId === selectedCourseId}
+        onConfirm={handleConfirmDeactivateCourse}
+        onCancel={handleCloseDeactivateConfirm}
+      />
     </DashboardLayout>
   );
 }

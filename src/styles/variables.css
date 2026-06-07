@@ -10,8 +10,18 @@
   --color-text: #3e3e3e;
   --color-text-soft: #7a7272;
 
-
   --color-white-soft: #faf8f6;
+  --color-overlay: rgba(62, 62, 62, 0.45);
+
+  --color-warning: #b7791f;
+  --color-danger: #b91c1c;
+  --color-success: var(--color-primary);
+  --color-info: #4f7f9f;
+
+  --color-warning-soft: #f7ead2;
+  --color-danger-soft: #f5dada;
+  --color-success-soft: var(--color-accent-soft);
+  --color-info-soft: #dce8ef;
 
   --font-main: 'Nunito', 'Segoe UI', sans-serif;
 
@@ -21,4 +31,5 @@
   --radius-xl: 24px;
 
   --shadow-soft: 0 16px 40px rgba(62, 62, 62, 0.16);
+  --shadow-modal: 0 18px 48px rgba(62, 62, 62, 0.22);
 }

@@ -91,15 +91,28 @@ export function mapInterventionFormToPayload({
     title: interventionData.title.trim(),
     type: interventionData.type,
     description: interventionData.description.trim(),
-    // interventionDate: new Date(interventionData.interventionDate).toISOString(), cuando el back acepte datetime descomentar
-    interventionDate: interventionData.interventionDate.slice(0, 10),
+    // Cuando el backend acepte datetime, reemplazar por:
+    // interventionDate: new Date(interventionData.interventionDate).toISOString(),
+    interventionDate: toDateOnly(interventionData.interventionDate),
     caseFileId: Number(caseFile.id),
     professionalId: Number(professionalId),
   };
 }
 
+function toDateOnly(value) {
+  return value ? value.slice(0, 10) : "";
+}
+
 function formatDate(date) {
   if (!date) return "-";
+
+  const dateOnly = date.slice(0, 10);
+
+  if (/^\d{4}-\d{2}-\d{2}$/.test(dateOnly)) {
+    const [year, month, day] = dateOnly.split("-");
+    return `${day}/${month}/${year}`;
+  }
+
   return new Date(date).toLocaleString("es-AR", {
     dateStyle: "short",
     timeStyle: "short",

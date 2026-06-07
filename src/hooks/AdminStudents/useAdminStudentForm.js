@@ -82,7 +82,6 @@ function useAdminStudentForm() {
 
         const response = await getStudentById(id);
         const student = normalizeStudentResponse(response);
-        console.log("student edit response", student);
 
         if (!student) {
           throw new Error("No se encontró el alumno");
@@ -96,8 +95,6 @@ function useAdminStudentForm() {
         if ((!embeddedUser?.username || !embeddedUser?.email) && studentUserId) {
           const userResponse = await getUserById(studentUserId);
           const user = normalizeUserResponse(userResponse);
-          console.log("student user raw response", userResponse);
-          console.log("student user normalized response", user);
 
           if (!user) {
             throw new Error("No se encontró el usuario del alumno");
