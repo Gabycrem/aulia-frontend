@@ -15,11 +15,9 @@ function AdminStudentForm() {
 
     userData,
     editUserData,
-    loadingUser,
-    userError,
     handleUserChange,
     handleEditUserChange,
-    handleCreateUser,
+    handleContinueToStudentStep,
 
     studentData,
     courseOptions,
@@ -199,11 +197,11 @@ function AdminStudentForm() {
       <section className="admin-student-form">
         <PageToolbar title="Nuevo alumno" />
 
-        <p className="admin-student-form-description">
+        {/* <p className="admin-student-form-description">
           {currentStep === 1
-            ? "Primero creá el usuario del alumno."
+            ? "Primero completá los datos de acceso del alumno."
             : "Ahora completá los datos escolares del alumno."}
-        </p>
+        </p> */}
 
         <div className="admin-student-form-steps">
           <span className={currentStep === 1 ? "step-active" : ""}>
@@ -216,8 +214,8 @@ function AdminStudentForm() {
 
         {currentStep === 1 && (
           <>
-            {userError && (
-              <p className="admin-student-form-error">{userError}</p>
+            {studentError && (
+              <p className="admin-student-form-error">{studentError}</p>
             )}
 
             <UserForm
@@ -225,10 +223,10 @@ function AdminStudentForm() {
               title="Datos de acceso"
               description="Completá los datos del usuario que usará el alumno para ingresar al sistema."
               userData={userData}
-              loading={loadingUser}
+              loading={false}
               submitLabel="Continuar"
               onChange={handleUserChange}
-              onSubmit={handleCreateUser}
+              onSubmit={handleContinueToStudentStep}
               onCancel={handleCancel}
             />
           </>

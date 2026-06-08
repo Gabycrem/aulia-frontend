@@ -47,15 +47,22 @@ function Login() {
                 username: credentials.username.trim(),
                 password: credentials.password,
             });
-            
+            console.log("login response", data);
             if (!data.token) {
                 throw new Error("No se recibió token de autenticación");
             }
             const sessionUser = {
+                id: data.userId,
+                userId: data.userId,
+                email: data.email,
                 role: data.role,
                 token: data.token,
-            }
+            };
             sessionStorage.setItem("aulia_user", JSON.stringify(sessionUser));
+            console.log(
+                "stored session user",
+                JSON.parse(sessionStorage.getItem("aulia_user"))
+            );
 
             const redirectPath = routesByRole[data.role] || "/login";
 

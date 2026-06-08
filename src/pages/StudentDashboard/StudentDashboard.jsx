@@ -64,7 +64,6 @@ function StudentDashboard() {
               value={formData.context?.value || ""}
               onChange={handleContextChange}
               disabled={loading}
-              allowEmpty
             />
 
             <p className="emotion-options-txt">

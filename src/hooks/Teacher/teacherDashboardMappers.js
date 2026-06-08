@@ -56,3 +56,35 @@ export function buildTeacherAssignmentsFromStudents(students) {
 
   return Array.from(assignmentsMap.values()).slice(0, 4);
 }
+
+export function normalizeTeacherAssignmentsResponse(response) {
+  const assignments =
+    response?.foundAssignments ||
+    response?.assignments?.rows ||
+    response?.assignments?.data ||
+    response?.assignments ||
+    response?.data?.rows ||
+    response?.data ||
+    response?.rows ||
+    response ||
+    [];
+
+  return Array.isArray(assignments) ? assignments : [];
+}
+
+export function mapTeacherAssignmentToSummary(assignment) {
+  const course = assignment.Course || assignment.course;
+  const subject = assignment.Subject || assignment.subject;
+
+  const courseLabel = course
+    ? [course.grade, course.division, course.level].filter(Boolean).join(" ")
+    : assignment.courseId
+      ? `Curso ID ${assignment.courseId}`
+      : "Sin curso";
+
+  return {
+    id: assignment.id,
+    course: courseLabel,
+    subject: subject?.name || "Sin materia",
+  };
+}

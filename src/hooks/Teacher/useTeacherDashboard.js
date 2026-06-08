@@ -1,12 +1,14 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { getAssignmentsByUser } from "../../services/assignmentService";
 import { getStudentsByTeacher } from "../../services/studentService";
 import { getSessionUser } from "../../utils/session";
 import {
-  buildTeacherAssignmentsFromStudents,
   buildTeacherMetricsFromStudents,
+  mapTeacherAssignmentToSummary,
   mapTeacherDashboardStudents,
+  normalizeTeacherAssignmentsResponse,
 } from "./teacherDashboardMappers";
 
 function useTeacherDashboard() {
@@ -32,11 +34,18 @@ function useTeacherDashboard() {
         setLoading(true);
         setError("");
 
-        const studentsResponse = await getStudentsByTeacher(sessionUser.id);
+        const [studentsResponse, assignmentsResponse] = await Promise.all([
+          getStudentsByTeacher(sessionUser.id),
+          getAssignmentsByUser(sessionUser.id),
+        ]);
+
         const mappedStudents = mapTeacherDashboardStudents(studentsResponse);
+        const mappedAssignments = normalizeTeacherAssignmentsResponse(
+          assignmentsResponse
+        ).map(mapTeacherAssignmentToSummary);
 
         setAssignedStudents(mappedStudents.slice(0, 5));
-        setAssignments(buildTeacherAssignmentsFromStudents(mappedStudents));
+        setAssignments(mappedAssignments.slice(0, 4));
         setSentRequests([]);
         setMetrics(buildTeacherMetricsFromStudents(mappedStudents));
       } catch (error) {

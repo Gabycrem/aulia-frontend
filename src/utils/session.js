@@ -64,3 +64,20 @@ function decodeToken(token) {
     return null;
   }
 }
+
+export function updateSessionUser(userData) {
+  const currentUser = getSessionUser();
+
+  if (!currentUser) {
+    return;
+  }
+
+  sessionStorage.setItem(
+    "aulia_user",
+    JSON.stringify({
+      ...currentUser,
+      ...userData,
+      token: currentUser.token,
+    })
+  );
+}

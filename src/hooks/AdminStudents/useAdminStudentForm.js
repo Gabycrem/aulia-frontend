@@ -13,9 +13,9 @@ import useUserForm from "../useUserForm";
 import {
   initialStudentData,
   mapCoursesToOptions,
-  mapStudentFormToPayload,
   mapStudentFormToUpdatePayload,
   mapStudentToEditFormData,
+  mapStudentCreateFormToPayload,
   mapStudentUserFormToUpdatePayload,
   normalizeCoursesResponse,
   normalizeStudentResponse,
@@ -40,14 +40,9 @@ function useAdminStudentForm() {
 
   const {
     userData,
-    createdUser,
-    loadingUser,
-    userError,
     handleUserChange,
-    handleCreateUser,
   } = useUserForm({
     role: "Alumno",
-    onSuccess: () => setCurrentStep(2),
   });
 
   useEffect(() => {
@@ -158,6 +153,24 @@ function useAdminStudentForm() {
     if (studentError) setStudentError("");
   }
 
+  function handleContinueToStudentStep(event) {
+    event.preventDefault();
+
+    if (
+      !userData.username.trim() ||
+      !userData.firstName.trim() ||
+      !userData.lastName.trim() ||
+      !userData.email.trim() ||
+      !userData.password
+    ) {
+      setStudentError("Completá los datos de acceso del alumno");
+      return;
+    }
+
+    setStudentError("");
+    setCurrentStep(2);
+  }
+
   function hasUserChanges() {
     if (!originalEditData || !editUserData) {
       return false;
@@ -188,14 +201,16 @@ function useAdminStudentForm() {
   async function handleCreateStudent(event) {
     event.preventDefault();
 
-    if (!createdUser?.id) {
-      setStudentError("Primero tenés que crear el usuario del alumno");
-      setCurrentStep(1);
-      return;
-    }
-
-    if (!studentData.birthDate || !studentData.courseId) {
-      setStudentError("Completá fecha de nacimiento y curso");
+    if (
+      !userData.username.trim() ||
+      !userData.firstName.trim() ||
+      !userData.lastName.trim() ||
+      !userData.email.trim() ||
+      !userData.password ||
+      !studentData.birthDate ||
+      !studentData.courseId
+    ) {
+      setStudentError("Completá todos los datos");
       return;
     }
 
@@ -203,11 +218,16 @@ function useAdminStudentForm() {
       setLoadingStudent(true);
       setStudentError("");
 
-      await saveStudent(mapStudentFormToPayload(studentData, createdUser.id));
+      await saveStudent(
+        mapStudentCreateFormToPayload({
+          userData,
+          studentData,
+        })
+      );
 
       navigate("/dashboard/admin/gestionar-alumnos");
     } catch (error) {
-      setStudentError(error.message || "Error al crear el alumno");
+      setStudentError(error.message || "Error al guardar el alumno");
     } finally {
       setLoadingStudent(false);
     }
@@ -281,12 +301,9 @@ function useAdminStudentForm() {
 
     userData,
     editUserData,
-    createdUser,
-    loadingUser,
-    userError,
     handleUserChange,
     handleEditUserChange,
-    handleCreateUser,
+    handleContinueToStudentStep,
 
     studentData,
     courseOptions,
