@@ -88,6 +88,22 @@ export function mapStudentFormToPayload(studentData, userId) {
   };
 }
 
+export function mapStudentCreateFormToPayload({ userData, studentData }) {
+  return {
+    birthDate: studentData.birthDate,
+    familyConsent: studentData.familyConsent,
+    courseId: Number(studentData.courseId),
+    user: {
+      username: userData.username.trim(),
+      firstName: userData.firstName.trim(),
+      lastName: userData.lastName.trim(),
+      email: userData.email.trim(),
+      password: userData.password,
+      role: "Alumno",
+    },
+  };
+}
+
 export function mapStudentToEditFormData(student) {
   const user = getStudentUser(student);
 

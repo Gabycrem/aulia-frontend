@@ -7,6 +7,10 @@ export function saveAssignment(assignmentData) {
   });
 }
 
+export function getAssignmentsByUser(userId) {
+  return apiRequest(`/api/assignment/findByUser/${userId}`);
+}
+
 export function getAssignmentById(id) {
   return apiRequest(`/api/assignment/findTeacher/${id}`);
 }

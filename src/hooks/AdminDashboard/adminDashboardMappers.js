@@ -13,6 +13,7 @@ export function buildAdminMetrics({
   users,
   roles,
   courses,
+  totals,
 }) {
   const teacherRoleId = getRoleIdByName(roles, "Docente");
   const gabineteRoleId = getRoleIdByName(roles, "Gabinete");
@@ -29,7 +30,7 @@ export function buildAdminMetrics({
     {
       id: "registered-students",
       title: "Alumnos registrados",
-      value: students.length,
+      value: totals?.students ?? students.length,
     },
     {
       id: "active-teachers",
@@ -44,7 +45,7 @@ export function buildAdminMetrics({
     {
       id: "active-courses",
       title: "Cursos activos",
-      value: courses.length,
+      value: totals?.courses ?? courses.length,
     },
   ];
 }
@@ -91,13 +92,34 @@ export function normalizeAdminDashboardData({
   coursesResponse,
   subjectsResponse,
 }) {
+  const users = normalizeUsersResponse(usersResponse);
+  const roles = normalizeRolesResponse(rolesResponse);
+  const students = normalizeStudentsResponse(studentsResponse);
+  const courses = normalizeCoursesResponse(coursesResponse);
+  const subjects = normalizeSubjectsResponse(subjectsResponse);
+
   return {
-    users: normalizeUsersResponse(usersResponse),
-    roles: normalizeRolesResponse(rolesResponse),
-    students: normalizeStudentsResponse(studentsResponse),
-    courses: normalizeCoursesResponse(coursesResponse),
-    subjects: normalizeSubjectsResponse(subjectsResponse),
+    users,
+    roles,
+    students,
+    courses,
+    subjects,
+    totals: {
+      users: getResponseTotal(usersResponse, users),
+      students: getResponseTotal(studentsResponse, students),
+      courses: getResponseTotal(coursesResponse, courses),
+      subjects: getResponseTotal(subjectsResponse, subjects),
+    },
   };
+}
+
+function getResponseTotal(response, fallbackItems) {
+  return (
+    response?.totalItems ??
+    response?.total ??
+    response?.count ??
+    fallbackItems.length
+  );
 }
 
 function mapUserToCardItem(user) {

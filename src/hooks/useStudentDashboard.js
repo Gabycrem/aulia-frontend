@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import {
   contextOptions,
   emotionOptions,
 } from "../data/checkInOptions";
 import { saveCheckIn } from "../services/checkInService";
+import { getStudentByUserId } from "../services/studentService";
 import { getSessionUser } from "../utils/session";
 import {
   initialCheckInData,
@@ -18,6 +19,40 @@ function useStudentDashboard() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [studentData, setStudentData] = useState(null);
+
+  useEffect(() => {
+    async function loadStudent() {
+      if (!sessionUser?.id) {
+        setError("No se pudo identificar el usuario logueado");
+        return;
+      }
+
+      try {
+        setLoading(true);
+        setError("");
+
+        const response = await getStudentByUserId(sessionUser.id);
+        const student = response?.student || response?.data || response;
+
+        if (!student?.id || !student?.courseId) {
+          setError("No se pudo identificar el alumno o curso para guardar el check-in");
+          return;
+        }
+
+        setStudentData({
+          studentId: student.id,
+          courseId: student.courseId,
+        });
+      } catch (error) {
+        setError(error.message || "Error al cargar datos del alumno");
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadStudent();
+  }, [sessionUser?.id]);
 
   function handleEmotionSelect(emotionalState) {
     setFormData((prevFormData) => ({
@@ -32,7 +67,7 @@ function useStudentDashboard() {
   function handleContextChange(option) {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      context: option,
+      context: option?.value || "",
     }));
 
     if (error) setError("");
@@ -73,17 +108,19 @@ function useStudentDashboard() {
       return;
     }
 
-    // if (!formData.comment.trim()) {
-    //   setError("Escribí un comentario para guardar el check-in");
-    //   return;
-    // }
+    if (!formData.context?.value) {
+      setError("Debes seleccionar el contexto en el que te sentiste así");
+      return;
+    }
 
-    const studentData = {
-      studentId: sessionUser?.studentId,
-      courseId: sessionUser?.courseId,
-    };
+    if (!formData.comment.trim()) {
+      setError("Escribí un comentario para guardar el check-in");
+      return;
+    }
 
-    if (!studentData.studentId || !studentData.courseId) {
+
+
+    if (!studentData?.studentId || !studentData?.courseId) {
       setError("No se pudo identificar el alumno o curso para guardar el check-in");
       return;
     }

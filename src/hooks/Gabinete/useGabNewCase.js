@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { saveCaseFile } from "../../services/caseFileService";
-import { getActiveStudents } from "../../services/studentService";
+import { getStudentsWithoutActiveCase } from "../../services/studentService";
 import {
   mapStudentToOption,
   normalizeStudentsResponse,
@@ -25,7 +25,7 @@ function useGabNewCase() {
         setLoadingStudents(true);
         setError("");
 
-        const response = await getActiveStudents();
+        const response = await getStudentsWithoutActiveCase();
         const students = normalizeStudentsResponse(response);
 
         setStudentOptions(students.map(mapStudentToOption));

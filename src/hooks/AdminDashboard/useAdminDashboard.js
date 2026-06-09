@@ -54,12 +54,12 @@ function useAdminDashboard() {
         setAdminActivity([
           {
             id: "students",
-            description: `${dashboardData.students.length} alumnos registrados`,
+            description: `${dashboardData.totals.students} alumnos registrados`,
             createdAt: "Datos actuales",
           },
           {
             id: "users",
-            description: `${dashboardData.users.length} usuarios cargados`,
+            description: `${dashboardData.totals.users} usuarios cargados`,
             createdAt: "Datos actuales",
           },
         ]);
@@ -68,12 +68,12 @@ function useAdminDashboard() {
           {
             id: "courses",
             time: "Cursos",
-            description: `${dashboardData.courses.length} cursos activos`,
+            description: `${dashboardData.totals.courses} cursos activos`,
           },
           {
             id: "subjects",
             time: "Materias",
-            description: `${dashboardData.subjects.length} materias cargadas`,
+            description: `${dashboardData.totals.subjects} materias cargadas`,
           },
         ]);
       } catch (error) {
