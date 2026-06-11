@@ -104,13 +104,13 @@ function Login() {
                         required
                     />
 
-                    {error && (
-                        <p className="login-error">
-                            {error}
-                        </p>
-                    )}
 
-                    <Button type='submit'>
+                    <p className={`login-error ${error ? "login-error-visible" : ""}`}>
+                        {error || " "}
+                    </p>
+
+
+                    <Button className='login-button' type='submit'>
                         Iniciar sesión
                     </Button>
                 </form>

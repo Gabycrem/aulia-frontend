@@ -29,12 +29,12 @@ export function buildTeacherMetricsFromStudents(students) {
     {
       id: "intervention-requests",
       title: "Solicitudes enviadas",
-      value: "-",
+      value: "N/D",
     },
     {
       id: "pending-requests",
       title: "Solicitudes pendientes",
-      value: "-",
+      value: "N/D",
     },
   ];
 }

@@ -18,6 +18,10 @@ function SidebarNavItem({ item }) {
   }
 
   function handleClick() {
+    if (item.disabled) {
+      return;
+    }
+
     if (hasChildren) {
       setIsOpen((currentIsOpen) => !currentIsOpen);
       return;
@@ -26,14 +30,26 @@ function SidebarNavItem({ item }) {
     navigate(item.path);
   }
 
+  function handleChildClick(child) {
+    if (child.disabled) {
+      return;
+    }
+
+    navigate(child.path);
+  }
+
   return (
     <div className="sidebar-nav-group">
       <button
         type="button"
-        className={`sidebar-nav-item ${isActivePath(item.path) ? "active" : ""} ${
-          groupIsActive ? "active" : ""
+        className={`sidebar-nav-item ${
+          isActivePath(item.path) ? "active" : ""
+        } ${groupIsActive ? "active" : ""} ${
+          item.disabled ? "sidebar-nav-item-disabled" : ""
         }`}
         onClick={handleClick}
+        disabled={item.disabled}
+        title={item.disabledReason || undefined}
       >
         <span>{item.label}</span>
 
@@ -52,8 +68,10 @@ function SidebarNavItem({ item }) {
               type="button"
               className={`sidebar-nav-child ${
                 isActivePath(child.path) ? "active" : ""
-              }`}
-              onClick={() => navigate(child.path)}
+              } ${child.disabled ? "sidebar-nav-child-disabled" : ""}`}
+              onClick={() => handleChildClick(child)}
+              disabled={child.disabled}
+              title={child.disabledReason || undefined}
             >
               {child.label}
             </button>

@@ -16,11 +16,11 @@ export function mapReferralToGabCaseRow(referral, studentOverride = null) {
   const student = studentOverride || getReferralStudent(referral);
   const user = student?.User || student?.user;
   const course = student?.Course || student?.course;
+  const courseParts = getCourseParts(course, student?.courseId || referral.courseId);
 
   const studentName =
-    `${user?.firstName || student?.firstName || ""} ${
-      user?.lastName || student?.lastName || ""
-    }`.trim() || "Alumno sin nombre";
+    `${user?.firstName || student?.firstName || ""} ${user?.lastName || student?.lastName || ""
+      }`.trim() || "Alumno sin nombre";
 
   return {
     id: referral.id,
@@ -29,6 +29,8 @@ export function mapReferralToGabCaseRow(referral, studentOverride = null) {
     caseFileId: referral.caseFileId,
     studentName,
     course: getCourseLabel(course, student?.courseId || referral.courseId),
+    courseGrade: courseParts.courseGrade,
+    courseLevel: courseParts.courseLevel,
     source: "Derivación",
     reason: referral.category || referral.reason || "Sin categoría",
     priority: getPriorityFromReferral(referral),
@@ -81,4 +83,28 @@ function formatDate(date) {
   }
 
   return new Date(date).toLocaleDateString("es-AR");
+}
+
+function getCourseParts(course, fallbackCourseId) {
+  if (course) {
+    const grade = [course.grade, course.division].filter(Boolean).join(" ");
+    const level = course.level || "";
+
+    return {
+      courseGrade: grade || "Sin curso",
+      courseLevel: level,
+    };
+  }
+
+  if (fallbackCourseId) {
+    return {
+      courseGrade: `Curso ID ${fallbackCourseId}`,
+      courseLevel: "",
+    };
+  }
+
+  return {
+    courseGrade: "Sin curso",
+    courseLevel: "",
+  };
 }

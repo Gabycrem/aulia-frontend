@@ -87,6 +87,25 @@
     color: var(--color-white-soft);
 }
 
+.sidebar-nav-item:disabled,
+.sidebar-nav-child:disabled,
+.sidebar-nav-item-disabled,
+.sidebar-nav-child-disabled {
+    opacity: 0.45;
+    cursor: default;
+    pointer-events: auto;
+}
+
+.sidebar-nav-item:disabled:hover,
+.sidebar-nav-child:disabled:hover,
+.sidebar-nav-item-disabled:hover,
+.sidebar-nav-child-disabled:hover {
+    transform: none;
+    font-weight: inherit;
+    background: transparent;
+    cursor: default;
+}
+
 @media (max-width: 768px) {
     .sidebar-nav-group .sidebar-nav-item,
     .sidebar-nav-child {

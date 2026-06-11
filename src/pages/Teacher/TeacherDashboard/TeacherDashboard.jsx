@@ -24,7 +24,7 @@ function createColumns({ handleRequestIntervention }) {
     {
       key: "lastRequest",
       label: "Última solicitud",
-      render: (row) => <Badge>{row.lastRequest}</Badge>,
+      render: () => <Badge variant="muted">N/D</Badge>,
     },
     {
       key: "action",
@@ -33,7 +33,7 @@ function createColumns({ handleRequestIntervention }) {
         <Button
           type="button"
           className="teacher-dashboard-table-action"
-          onClick={() => handleRequestIntervention(row.id)}
+          onClick={() => handleRequestIntervention(row.studentId || row.id)}
         >
           Solicitar intervención
         </Button>
@@ -84,7 +84,7 @@ function TeacherDashboard() {
 
             <div className="teacher-dashboard-bottom">
               <Card className="teacher-dashboard-panel">
-                <h2>Solicitudes enviadas</h2>
+                <h2>Seguimiento de solicitudes</h2>
 
                 {sentRequests.length === 0 ? (
                   <p>No hay solicitudes enviadas.</p>
@@ -92,11 +92,19 @@ function TeacherDashboard() {
                   <ul className="teacher-dashboard-request-list">
                     {sentRequests.map((request) => (
                       <li key={request.id}>
-                        <span>{request.studentName}</span>
-                        <small>
-                          {request.reason} · {request.status} ·{" "}
-                          {request.createdAt}
-                        </small>
+                        {request.unavailable ? (
+                          <>
+                            <span>{request.description}</span>
+                            <small>{request.detail}</small>
+                          </>
+                        ) : (
+                          <>
+                            <span>{request.studentName}</span>
+                            <small>
+                              {request.reason} · {request.status} · {request.createdAt}
+                            </small>
+                          </>
+                        )}
                       </li>
                     ))}
                   </ul>

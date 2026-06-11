@@ -29,10 +29,20 @@
     gap: 24px;
 }
 
+.login-button{
+    margin-bottom: 2rem;
+}
+
 .login-error {
+    min-height: 24px;
     color: var(--color-text);
     font-family: var(--font-main);
     font-size: 0.9rem;
     font-weight: 700;
     text-align: center;
+    visibility: hidden;
+}
+
+.login-error-visible {
+  visibility: visible;
 }
