@@ -18,6 +18,12 @@ function createColumns(handleViewCase, handleEditCase) {
     {
       key: "course",
       label: "Curso",
+      render: (row) => (
+        <span className="gab-students-course-cell">
+          <span>{row.courseGrade || row.course}</span>
+          {row.courseLevel && <small>{row.courseLevel}</small>}
+        </span>
+      ),
     },
     {
       key: "source",

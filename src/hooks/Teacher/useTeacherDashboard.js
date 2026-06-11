@@ -5,10 +5,12 @@ import { getAssignmentsByUser } from "../../services/assignmentService";
 import { getStudentsByTeacher } from "../../services/studentService";
 import { getSessionUser } from "../../utils/session";
 import {
-  buildTeacherMetricsFromStudents,
   mapTeacherAssignmentToSummary,
-  mapTeacherDashboardStudents,
+  mapTeacherStudentsWithAssignments,
   normalizeTeacherAssignmentsResponse,
+} from "./teacherStudentsMappers";
+import {
+  buildTeacherMetricsFromStudents,
 } from "./teacherDashboardMappers";
 
 function useTeacherDashboard() {
@@ -39,14 +41,26 @@ function useTeacherDashboard() {
           getAssignmentsByUser(sessionUser.id),
         ]);
 
-        const mappedStudents = mapTeacherDashboardStudents(studentsResponse);
+        const mappedStudents = mapTeacherStudentsWithAssignments(
+          studentsResponse,
+          assignmentsResponse
+        );
+
         const mappedAssignments = normalizeTeacherAssignmentsResponse(
           assignmentsResponse
         ).map(mapTeacherAssignmentToSummary);
 
         setAssignedStudents(mappedStudents.slice(0, 5));
         setAssignments(mappedAssignments.slice(0, 4));
-        setSentRequests([]);
+        setSentRequests([
+          {
+            id: "tracking-unavailable",
+            unavailable: true,
+            description: "Seguimiento no disponible en esta etapa.",
+            detail:
+              "Las solicitudes se envían correctamente, pero el historial docente queda fuera del MVP actual.",
+          },
+        ]);
         setMetrics(buildTeacherMetricsFromStudents(mappedStudents));
       } catch (error) {
         setError(error.message || "Error al cargar el dashboard docente");

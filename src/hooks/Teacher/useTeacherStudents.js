@@ -1,13 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { getAssignmentsByUser } from "../../services/assignmentService";
 import { getStudentsByTeacher } from "../../services/studentService";
 import { getSessionUser } from "../../utils/session";
 import {
   buildCourseOptions,
   buildSubjectOptions,
-  mapTeacherStudentToRow,
-  normalizeTeacherStudentsResponse,
+  mapTeacherStudentsWithAssignments,
 } from "./teacherStudentsMappers";
 
 function useTeacherStudents() {
@@ -33,12 +32,14 @@ function useTeacherStudents() {
         setLoading(true);
         setError("");
 
-        const response = await getStudentsByTeacher(sessionUser.id);
-        const mappedStudents = normalizeTeacherStudentsResponse(response).map(
-          mapTeacherStudentToRow
-        );
+        const [studentsResponse, assignmentsResponse] = await Promise.all([
+          getStudentsByTeacher(sessionUser.id),
+          getAssignmentsByUser(sessionUser.id),
+        ]);
 
-        setStudentsData(mappedStudents);
+        setStudentsData(
+          mapTeacherStudentsWithAssignments(studentsResponse, assignmentsResponse)
+        );
       } catch (error) {
         setError(error.message || "Error al cargar alumnos asignados");
       } finally {
@@ -81,12 +82,12 @@ function useTeacherStudents() {
   }
 
   function handleRequestIntervention(studentId) {
-  navigate(`/dashboard/docente/solicitar-intervencion?studentId=${studentId}`, {
-    state: {
-      returnTo: "/dashboard/docente/mis-alumnos",
-    },
-  });
-}
+    navigate(`/dashboard/docente/solicitar-intervencion?studentId=${studentId}`, {
+      state: {
+        returnTo: "/dashboard/docente/mis-alumnos",
+      },
+    });
+  }
 
   return {
     selectedCourse,

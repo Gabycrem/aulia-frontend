@@ -55,6 +55,18 @@
   gap: 8px;
 }
 
+.gab-students-course-cell {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.2;
+}
+
+.gab-students-course-cell small {
+  color: var(--color-text-soft);
+  font-size: 0.85rem;
+}
+
 .gab-students-icon-button {
   width: 32px;
   height: 32px;

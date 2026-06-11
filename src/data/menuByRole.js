@@ -13,16 +13,31 @@ export const menuByRole = {
     { label: 'Dashboard', path: '/dashboard/gabinete' },
     { label: 'Alumnos', path: '/dashboard/gabinete/alumnos' },
     { label: 'Derivaciones', path: '/dashboard/gabinete/derivaciones' },
-    { label: 'Alertas', path: '/dashboard/gabinete/alertas' },
+    {
+      label: 'Alertas',
+      path: '/dashboard/gabinete/alertas',
+      disabled: true,
+      disabledReason: "Fuera de alcance MVP",
+    },
     { label: 'Intervenciones', path: '/dashboard/gabinete/intervenciones' },
-    { label: 'Agenda', path: '/dashboard/gabinete/agenda' },
+    {
+      label: 'Agenda',
+      path: '/dashboard/gabinete/agenda',
+      disabled: true,
+      disabledReason: "Fuera de alcance MVP",
+    },
   ],
 
   teacher: [
     { label: 'Dashboard', path: '/dashboard/docente' },
     { label: 'Mis Alumnos', path: '/dashboard/docente/mis-alumnos' },
     { label: 'Solicitar Intervención', path: '/dashboard/docente/solicitar-intervencion' },
-    { label: 'Agenda', path: '/dashboard/docente/agenda' },
+    {
+      label: 'Agenda',
+      path: '/dashboard/docente/agenda',
+      disabled: true,
+      disabledReason: "Fuera de alcance MVP",
+    },
   ],
 
   admin: [

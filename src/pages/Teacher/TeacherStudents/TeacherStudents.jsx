@@ -25,7 +25,7 @@ function createColumns({ handleRequestIntervention }) {
         <Button
           type="button"
           className="teacher-students-action"
-          onClick={() => handleRequestIntervention(row.id)}
+          onClick={() => handleRequestIntervention(row.studentId || row.id)}
         >
           Solicitar intervención
         </Button>

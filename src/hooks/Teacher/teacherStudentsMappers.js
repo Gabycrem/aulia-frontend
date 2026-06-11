@@ -105,3 +105,71 @@ function getUniqueOptions(options) {
 
   return Array.from(uniqueOptions.values());
 }
+
+export function normalizeTeacherAssignmentsResponse(response) {
+  const assignments =
+    response?.foundAssignments ||
+    response?.assignments?.rows ||
+    response?.assignments?.data ||
+    response?.assignments ||
+    response?.data?.rows ||
+    response?.data ||
+    response?.rows ||
+    response ||
+    [];
+
+  return Array.isArray(assignments) ? assignments : [];
+}
+
+export function mapTeacherAssignmentToSummary(assignment) {
+  const course = assignment.Course || assignment.course;
+  const subject = assignment.Subject || assignment.subject;
+
+  const courseLabel = course
+    ? [course.grade, course.division, course.level].filter(Boolean).join(" ")
+    : assignment.courseId
+      ? `Curso ID ${assignment.courseId}`
+      : "Sin curso";
+
+  return {
+    id: assignment.id,
+    courseId: assignment.courseId,
+    subjectId: assignment.subjectId,
+    course: courseLabel,
+    subject: subject?.name || "Sin materia",
+  };
+}
+
+export function mapTeacherStudentsWithAssignments(studentsResponse, assignmentsResponse) {
+  const students = normalizeTeacherStudentsResponse(studentsResponse).map(
+    mapTeacherStudentToRow
+  );
+
+  const assignments = normalizeTeacherAssignmentsResponse(assignmentsResponse).map(
+    mapTeacherAssignmentToSummary
+  );
+
+  if (!assignments.length) {
+    return students;
+  }
+
+  return students.flatMap((student) => {
+    const studentAssignments = assignments.filter(
+      (assignment) => String(assignment.courseId) === String(student.courseId)
+    );
+
+    if (!studentAssignments.length) {
+      return [student];
+    }
+
+    return studentAssignments.map((assignment) => ({
+      ...student,
+      id: `${student.id}-${assignment.id}`,
+      studentId: student.id,
+      courseId: assignment.courseId,
+      course: assignment.course,
+      subjectId: assignment.subjectId,
+      subject: assignment.subject,
+    }));
+  });
+}
