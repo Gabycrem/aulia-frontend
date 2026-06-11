@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import {
   getDailyCheckInSummary,
   getHelpRequests,
@@ -72,8 +71,8 @@ function useGabDashboard() {
     navigate(`/dashboard/gabinete/alumnos/${caseItem.studentId}/caso`);
   }
 
-  function handleSelectAgendaItem(item) {
-    window.alert(item.title);
+  function handleSelectAgendaItem() {
+    return;
   }
 
   return {

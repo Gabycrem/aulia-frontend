@@ -69,8 +69,8 @@ function useCalendarAgenda(items = [], initialDate = new Date("2026-05-31T12:00:
     });
   }
 
-  function handleSelectItem(item) {
-    window.alert(item.title);
+  function handleSelectItem() {
+    return;
   }
 
   return {

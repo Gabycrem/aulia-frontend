@@ -67,7 +67,7 @@ function useStudentDashboard() {
   function handleContextChange(option) {
     setFormData((prevFormData) => ({
       ...prevFormData,
-      context: option?.value || "",
+      context: option,
     }));
 
     if (error) setError("");

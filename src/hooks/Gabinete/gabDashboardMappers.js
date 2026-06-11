@@ -39,7 +39,7 @@ export function buildGabDashboardMetrics({
     {
       id: "open-case-files",
       title: "Legajos abiertos",
-      value: "-",
+      value: "N/D",
     },
     {
       id: "active-alerts",
@@ -60,7 +60,9 @@ export function buildGabDashboardMetrics({
 }
 
 export function mapReferralsToPriorityCases(referrals) {
-  return referrals.map(mapReferralToGabCaseRow).slice(0, 6);
+  return referrals
+    .map((referral) => mapReferralToGabCaseRow(referral))
+    .slice(0, 6);
 }
 
 export function buildRecentActivity({ referrals, helpRequests }) {
@@ -84,11 +86,15 @@ export function buildRecentActivity({ referrals, helpRequests }) {
 }
 
 function getSummaryTotal(summary) {
+  if (Array.isArray(summary)) {
+    return summary.length;
+  }
+
   return (
-    summary.total ||
-    summary.totalCheckIns ||
-    summary.checkInsToday ||
-    summary.count ||
+    summary?.total ||
+    summary?.totalCheckIns ||
+    summary?.checkInsToday ||
+    summary?.count ||
     "-"
   );
 }
