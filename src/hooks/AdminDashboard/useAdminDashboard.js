@@ -5,6 +5,7 @@ import { getAllRoles } from "../../services/roleService";
 import { getAllStudents } from "../../services/studentService";
 import { getAllSubjects } from "../../services/subjectService";
 import { getAllUsers } from "../../services/userService";
+import { getAllUsersPages } from "../../services/userService";
 import {
   buildAdminMetrics,
   buildManagementCards,
@@ -26,26 +27,28 @@ function useAdminDashboard() {
         setLoading(true);
         setError("");
 
-        const [
-          usersResponse,
-          rolesResponse,
-          studentsResponse,
-          coursesResponse,
-          subjectsResponse,
-        ] = await Promise.all([
-          getAllUsers(1),
+        const results = await Promise.allSettled([
+          getAllUsersPages(),
           getAllRoles(1),
           getAllStudents(1),
           getActiveCourses(),
           getAllSubjects(),
         ]);
 
+        const [
+          usersResult,
+          rolesResult,
+          studentsResult,
+          coursesResult,
+          subjectsResult,
+        ] = results;
+
         const dashboardData = normalizeAdminDashboardData({
-          usersResponse,
-          rolesResponse,
-          studentsResponse,
-          coursesResponse,
-          subjectsResponse,
+          usersResponse: usersResult.status === "fulfilled" ? usersResult.value : [],
+          rolesResponse: rolesResult.status === "fulfilled" ? rolesResult.value : [],
+          studentsResponse: studentsResult.status === "fulfilled" ? studentsResult.value : [],
+          coursesResponse: coursesResult.status === "fulfilled" ? coursesResult.value : [],
+          subjectsResponse: subjectsResult.status === "fulfilled" ? subjectsResult.value : [],
         });
 
         setAdminMetrics(buildAdminMetrics(dashboardData));

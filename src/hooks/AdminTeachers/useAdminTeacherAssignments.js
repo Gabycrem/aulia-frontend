@@ -77,7 +77,12 @@ function useAdminTeacherAssignments() {
 
         await loadAssignments();
       } catch (error) {
-        setError(error.message || "Error al cargar asignaciones");
+        setCourseOptions([]);
+        setSubjectOptions([]);
+        setError(
+          error.message ||
+          "No se pudieron cargar los datos necesarios para asignar el docente"
+        );
       } finally {
         setLoading(false);
       }
@@ -117,6 +122,16 @@ function useAdminTeacherAssignments() {
 
   async function handleSaveAssignment(event) {
     event.preventDefault();
+
+        if (courseOptions.length === 0) {
+      setError("No hay cursos activos disponibles para crear asignaciones");
+      return;
+    }
+
+    if (subjectOptions.length === 0) {
+      setError("No hay materias disponibles para crear asignaciones");
+      return;
+    }
 
     if (
       !assignmentData.academicYear ||

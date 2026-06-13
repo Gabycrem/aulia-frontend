@@ -56,7 +56,10 @@ function useAdminStudentForm() {
 
         setCourseOptions(mapCoursesToOptions(courses));
       } catch (error) {
-        setStudentError(error.message || "Error al cargar cursos");
+        setCourseOptions([]);
+        setStudentError(
+          "No se pudieron cargar cursos activos. Para crear o editar alumnos, primero debe existir al menos un curso activo."
+        );
       } finally {
         setLoadingCourses(false);
       }
@@ -201,6 +204,10 @@ function useAdminStudentForm() {
   async function handleCreateStudent(event) {
     event.preventDefault();
 
+    if (courseOptions.length === 0) {
+      setStudentError("No hay cursos activos disponibles para asignar al alumno");
+      return;
+    }
     if (
       !userData.username.trim() ||
       !userData.firstName.trim() ||
@@ -238,6 +245,11 @@ function useAdminStudentForm() {
 
     if (!editUserData) {
       setStudentError("No se pudieron cargar los datos del usuario");
+      return;
+    }
+
+    if (courseOptions.length === 0) {
+      setStudentError("No hay cursos activos disponibles para asignar al alumno");
       return;
     }
 

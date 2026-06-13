@@ -2,6 +2,7 @@ import {
   getRoleIdByName,
   isUserInRole,
   normalizeRolesResponse,
+  normalizeUsersPagesResponse,
   normalizeUsersResponse,
 } from "../../utils/userMappers";
 import { normalizeStudentsResponse } from "../AdminStudents/adminStudentMappers";
@@ -92,7 +93,9 @@ export function normalizeAdminDashboardData({
   coursesResponse,
   subjectsResponse,
 }) {
-  const users = normalizeUsersResponse(usersResponse);
+  const users = Array.isArray(usersResponse)
+    ? normalizeUsersPagesResponse(usersResponse)
+    : normalizeUsersResponse(usersResponse);
   const roles = normalizeRolesResponse(rolesResponse);
   const students = normalizeStudentsResponse(studentsResponse);
   const courses = normalizeCoursesResponse(coursesResponse);
@@ -105,7 +108,9 @@ export function normalizeAdminDashboardData({
     courses,
     subjects,
     totals: {
-      users: getResponseTotal(usersResponse, users),
+      users: Array.isArray(usersResponse)
+        ? users.length
+        : getResponseTotal(usersResponse, users),
       students: getResponseTotal(studentsResponse, students),
       courses: getResponseTotal(coursesResponse, courses),
       subjects: getResponseTotal(subjectsResponse, subjects),

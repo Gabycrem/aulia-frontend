@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { getUserById } from "../../services/userService";
+import { normalizeUserResponse } from "../../utils/userMappers";
 import { getAllStudents } from "../../services/studentService";
 import {
   mapStudentToTableRow,
@@ -27,9 +28,39 @@ function useAdminStudents() {
       setError("");
 
       const response = await getAllStudents(1);
-      const mappedStudents = normalizeStudentsResponse(response).map(
-        mapStudentToTableRow
+      const students = normalizeStudentsResponse(response);
+
+      const studentsWithUsers = await Promise.all(
+        students.map(async (student) => {
+          const embeddedUser = student.User || student.user;
+          const studentUserId = student.userId || student.UserId || embeddedUser?.id;
+
+          if (embeddedUser?.email || !studentUserId) {
+            return student;
+          }
+
+          try {
+            const userResponse = await getUserById(studentUserId);
+            const user = normalizeUserResponse(userResponse);
+
+            return {
+              ...student,
+              User: {
+                ...embeddedUser,
+                ...user,
+              },
+              user: {
+                ...embeddedUser,
+                ...user,
+              },
+            };
+          } catch {
+            return student;
+          }
+        })
       );
+
+      const mappedStudents = studentsWithUsers.map(mapStudentToTableRow);
 
       setStudentsData(mappedStudents);
     } catch (error) {
