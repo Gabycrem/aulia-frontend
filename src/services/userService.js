@@ -19,6 +19,25 @@ export function getAllUsers(page = 1) {
     return apiRequest(`/api/user/findUsers?page=${page}`);
 }
 
+export async function getAllUsersPages() {
+  const firstResponse = await getAllUsers(1);
+  const totalPages = firstResponse?.totalPages || 1;
+
+  if (totalPages <= 1) {
+    return [firstResponse];
+  }
+
+  const pageRequests = [];
+
+  for (let page = 2; page <= totalPages; page += 1) {
+    pageRequests.push(getAllUsers(page));
+  }
+
+  const responses = await Promise.all(pageRequests);
+
+  return [firstResponse, ...responses];
+}
+
 export function updateUser(id, userData) {
     return apiRequest(`/api/user/updateUser/${id}`, {
         method: 'PUT',

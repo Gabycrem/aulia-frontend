@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { getAllUsersPages } from "../../services/userService";
 import { getAllAssignments } from "../../services/assignmentService";
 import { getAllRoles } from "../../services/roleService";
-import { getAllUsers } from "../../services/userService";
 import {
   countAssignmentsByTeacher,
   getTeacherRoleId,
@@ -14,6 +13,7 @@ import {
 import {
   normalizeRolesResponse,
   normalizeUsersResponse,
+  normalizeUsersPagesResponse,
 } from "../../utils/userMappers";
 
 function useAdminTeachers() {
@@ -33,12 +33,12 @@ function useAdminTeachers() {
 
       const [usersResponse, rolesResponse, assignmentsResponse] =
         await Promise.all([
-          getAllUsers(1),
+          getAllUsersPages(),
           getAllRoles(1),
           getAllAssignments(1),
         ]);
 
-      const users = normalizeUsersResponse(usersResponse);
+      const users = normalizeUsersPagesResponse(usersResponse);
       const roles = normalizeRolesResponse(rolesResponse);
       const assignments = normalizeAssignmentsResponse(assignmentsResponse);
 

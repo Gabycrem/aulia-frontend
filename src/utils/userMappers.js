@@ -36,6 +36,14 @@ export function normalizeRolesResponse(response) {
   return Array.isArray(roles) ? roles : [];
 }
 
+export function normalizeUsersPagesResponse(responses) {
+  if (!Array.isArray(responses)) {
+    return normalizeUsersResponse(responses);
+  }
+
+  return responses.flatMap((response) => normalizeUsersResponse(response));
+}
+
 export function getRoleIdByName(roles, roleName) {
   const role = roles.find((role) => role.name === roleName);
 

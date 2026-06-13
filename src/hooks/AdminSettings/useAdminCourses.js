@@ -38,7 +38,15 @@ function useAdminCourses() {
       const courses = normalizeCoursesResponse(response).map(mapCourseToRow);
 
       setCoursesData(courses);
-    } catch (error) {
+        } catch (error) {
+      if (
+        error.status === 400 &&
+        error.message === "No courses found"
+      ) {
+        setCoursesData([]);
+        return;
+      }
+
       setError(error.message || "Error al cargar cursos");
     } finally {
       setLoading(false);
