@@ -10,7 +10,7 @@ import "./GabInterventions.css";
 const columns = [
   { key: "title", label: "Título" },
   { key: "type", label: "Tipo" },
-  { key: "studentId", label: "Alumno" },
+  { key: "studentName", label: "Alumno" },
   { key: "interventionDate", label: "Fecha" },
   {
     key: "status",

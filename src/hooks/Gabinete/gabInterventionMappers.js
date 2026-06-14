@@ -71,11 +71,14 @@ export function mapStudentToSummary(student) {
 }
 
 export function mapInterventionToRow(intervention) {
+  const studentName = getInterventionStudentName(intervention);
+
   return {
     id: intervention.id,
     title: intervention.title || "Intervención sin título",
     type: intervention.type || "-",
     studentId: intervention.studentId || "-",
+    studentName,
     caseFileId: intervention.caseFileId || "-",
     interventionDate: formatDate(intervention.interventionDate),
     status: intervention.status || "Registrada",
@@ -97,6 +100,22 @@ export function mapInterventionFormToPayload({
     caseFileId: Number(caseFile.id),
     professionalId: Number(professionalId),
   };
+}
+
+function getInterventionStudentName(intervention) {
+  const student =
+    intervention.Student ||
+    intervention.student ||
+    intervention.CaseFile?.Student ||
+    intervention.caseFile?.student;
+
+  const user = student?.User || student?.user;
+
+  return (
+    `${user?.firstName || ""} ${user?.lastName || ""}`.trim() ||
+    `${student?.firstName || ""} ${student?.lastName || ""}`.trim() ||
+    "-"
+  );
 }
 
 function toDateOnly(value) {
