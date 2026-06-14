@@ -7,7 +7,6 @@ export function saveReferral(referralData) {
   });
 }
 
-//Pedir endpoint
 export function getReferrals() {
   return apiRequest('/api/referrals');
 }
@@ -35,4 +34,8 @@ export function requestReferralInfo(id, notes) {
     method: "PATCH",
     body: JSON.stringify({ notes }),
   });
+}
+
+export function getReferralsByTeacher(teacherId) {
+  return apiRequest(`/api/referrals/byTeacher/${teacherId}`);
 }

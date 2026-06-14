@@ -84,6 +84,33 @@
   background-color: var(--color-background-soft);
 }
 
+@media (max-width: 1337px) {
+  .gab-students-table-card table th:nth-child(4),
+  .gab-students-table-card table td:nth-child(4) {
+    width: 120px;
+    max-width: 120px;
+    white-space: normal;
+    line-height: 1.25;
+  }
+
+  .gab-students-table-card table th:nth-child(5),
+  .gab-students-table-card table td:nth-child(5),
+  .gab-students-table-card table th:nth-child(6),
+  .gab-students-table-card table td:nth-child(6) {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 1270px) {
+  .gab-students-table-card table th:nth-child(6),
+  .gab-students-table-card table td:nth-child(6) {
+    width: 120px;
+    max-width: 120px;
+    white-space: normal;
+    line-height: 1.25;
+  }
+}
+
 @media (max-width: 720px) {
   .gab-students {
     padding: 16px;

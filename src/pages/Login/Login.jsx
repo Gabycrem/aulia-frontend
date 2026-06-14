@@ -16,6 +16,7 @@ function Login() {
         password: '',
     });
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const routesByRole = {
         Admin: '/dashboard/admin',
@@ -42,6 +43,7 @@ function Login() {
         event.preventDefault();
 
         try {
+            setLoading(true);
             setError("");
             const data = await login({
                 username: credentials.username.trim(),
@@ -73,6 +75,8 @@ function Login() {
                 ...currentCredentials,
                 password: "",
             }));
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -92,7 +96,8 @@ function Login() {
                         placeholder="Usuario"
                         value={credentials.username}
                         onChange={handleInputChange}
-                        required />
+                        required
+                        disabled={loading} />
 
                     <Input
                         id="password"
@@ -102,16 +107,23 @@ function Login() {
                         value={credentials.password}
                         onChange={handleInputChange}
                         required
+                        disabled={loading}
                     />
 
 
-                    <p className={`login-error ${error ? "login-error-visible" : ""}`}>
-                        {error || " "}
+                    <p
+                        className={`login-error ${error || loading ? "login-error-visible" : ""
+                            } ${loading ? "login-loading" : ""}`}
+                    >
+                        {loading
+                            ? "Conectando con el servidor..."
+                            : error || " "}
                     </p>
 
 
-                    <Button className='login-button' type='submit'>
-                        Iniciar sesión
+                    <Button className='login-button' type='submit' disabled={loading}>
+                        {loading && <span className="login-spinner" aria-hidden="true" />}
+                        {loading ? "Conectando..." : "Iniciar sesión"}
                     </Button>
                 </form>
             </Card>

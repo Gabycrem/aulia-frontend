@@ -84,7 +84,7 @@ function TeacherDashboard() {
 
             <div className="teacher-dashboard-bottom">
               <Card className="teacher-dashboard-panel">
-                <h2>Seguimiento de solicitudes</h2>
+                <h2>Solicitudes enviadas</h2>
 
                 {sentRequests.length === 0 ? (
                   <p>No hay solicitudes enviadas.</p>
@@ -92,19 +92,11 @@ function TeacherDashboard() {
                   <ul className="teacher-dashboard-request-list">
                     {sentRequests.map((request) => (
                       <li key={request.id}>
-                        {request.unavailable ? (
-                          <>
-                            <span>{request.description}</span>
-                            <small>{request.detail}</small>
-                          </>
-                        ) : (
-                          <>
-                            <span>{request.studentName}</span>
-                            <small>
-                              {request.reason} · {request.status} · {request.createdAt}
-                            </small>
-                          </>
-                        )}
+                        <strong>{request.studentName}</strong>
+                        <span>{request.reason}</span>
+                        <small>
+                          {request.status} · {request.createdAt}
+                        </small>
                       </li>
                     ))}
                   </ul>

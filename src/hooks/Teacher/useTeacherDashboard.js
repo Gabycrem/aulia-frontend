@@ -2,16 +2,19 @@ import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { getAssignmentsByUser } from "../../services/assignmentService";
+import { getReferralsByTeacher } from "../../services/referralService";
 import { getStudentsByTeacher } from "../../services/studentService";
 import { getSessionUser } from "../../utils/session";
 import {
+  buildTeacherMetrics,
   mapTeacherAssignmentToSummary,
-  mapTeacherStudentsWithAssignments,
+  mapTeacherReferralToSummary,
   normalizeTeacherAssignmentsResponse,
-} from "./teacherStudentsMappers";
-import {
-  buildTeacherMetricsFromStudents,
+  normalizeTeacherReferralsResponse,
 } from "./teacherDashboardMappers";
+import {
+  mapTeacherStudentsWithAssignments,
+} from "./teacherStudentsMappers";
 
 function useTeacherDashboard() {
   const navigate = useNavigate();
@@ -36,10 +39,12 @@ function useTeacherDashboard() {
         setLoading(true);
         setError("");
 
-        const [studentsResponse, assignmentsResponse] = await Promise.all([
-          getStudentsByTeacher(sessionUser.id),
-          getAssignmentsByUser(sessionUser.id),
-        ]);
+        const [studentsResponse, assignmentsResponse, referralsResponse] =
+          await Promise.all([
+            getStudentsByTeacher(sessionUser.id),
+            getAssignmentsByUser(sessionUser.id),
+            getReferralsByTeacher(sessionUser.id),
+          ]);
 
         const mappedStudents = mapTeacherStudentsWithAssignments(
           studentsResponse,
@@ -50,18 +55,19 @@ function useTeacherDashboard() {
           assignmentsResponse
         ).map(mapTeacherAssignmentToSummary);
 
+        const teacherReferrals = normalizeTeacherReferralsResponse(referralsResponse);
+
         setAssignedStudents(mappedStudents.slice(0, 5));
         setAssignments(mappedAssignments.slice(0, 4));
-        setSentRequests([
-          {
-            id: "tracking-unavailable",
-            unavailable: true,
-            description: "Seguimiento no disponible en esta etapa.",
-            detail:
-              "Las solicitudes se envían correctamente, pero el historial docente queda fuera del MVP actual.",
-          },
-        ]);
-        setMetrics(buildTeacherMetricsFromStudents(mappedStudents));
+        setSentRequests(
+          teacherReferrals.map(mapTeacherReferralToSummary).slice(0, 4)
+        );
+        setMetrics(
+          buildTeacherMetrics({
+            students: mappedStudents,
+            referrals: teacherReferrals,
+          })
+        );
       } catch (error) {
         setError(error.message || "Error al cargar el dashboard docente");
       } finally {
