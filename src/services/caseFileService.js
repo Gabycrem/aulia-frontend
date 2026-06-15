@@ -7,6 +7,10 @@ export function saveCaseFile(caseFileData) {
   });
 }
 
+export function getOpenCaseFiles() {
+  return apiRequest("/api/caseFiles");
+}
+
 export function getCaseFileByStudentId(studentId) {
   return apiRequest(`/api/casefiles/student/${studentId}`);
 }

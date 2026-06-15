@@ -5,6 +5,7 @@ import {
   getHelpRequests,
 } from "../../services/checkInService";
 import { getReferrals } from "../../services/referralService";
+import { getOpenCaseFiles } from "../../services/caseFileService";
 import {
   buildGabDashboardMetrics,
   buildRecentActivity,
@@ -12,6 +13,7 @@ import {
   normalizeCheckInSummaryResponse,
   normalizeHelpRequestsResponse,
   normalizeReferralsResponse,
+  normalizeOpenCaseFilesResponse,
 } from "./gabDashboardMappers";
 
 function useGabDashboard() {
@@ -31,22 +33,25 @@ function useGabDashboard() {
         setLoading(true);
         setError("");
 
-        const [referralsResponse, helpRequestsResponse, summaryResponse] =
+        const [referralsResponse, helpRequestsResponse, summaryResponse, openCaseFilesResponse,] =
           await Promise.all([
             getReferrals(),
             getHelpRequests(),
             getDailyCheckInSummary(),
+            getOpenCaseFiles(),
           ]);
 
         const referrals = normalizeReferralsResponse(referralsResponse);
         const helpRequests = normalizeHelpRequestsResponse(helpRequestsResponse);
         const checkInSummary = normalizeCheckInSummaryResponse(summaryResponse);
+        const openCaseFiles = normalizeOpenCaseFilesResponse(openCaseFilesResponse);
 
         setDashboardMetrics(
           buildGabDashboardMetrics({
             referrals,
             helpRequests,
             checkInSummary,
+            openCaseFilesCount: openCaseFiles.count,
           })
         );
         setPriorityCases(mapReferralsToPriorityCases(referrals));
