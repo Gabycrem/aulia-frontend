@@ -11,6 +11,7 @@ import {
   mapTeacherReferralToSummary,
   normalizeTeacherAssignmentsResponse,
   normalizeTeacherReferralsResponse,
+  mergeStudentsWithLatestReferrals,
 } from "./teacherDashboardMappers";
 import {
   mapTeacherStudentsWithAssignments,
@@ -57,7 +58,12 @@ function useTeacherDashboard() {
 
         const teacherReferrals = normalizeTeacherReferralsResponse(referralsResponse);
 
-        setAssignedStudents(mappedStudents.slice(0, 5));
+        const studentsWithRequests = mergeStudentsWithLatestReferrals(
+          mappedStudents,
+          teacherReferrals
+        );
+
+        setAssignedStudents(studentsWithRequests.slice(0, 5));
         setAssignments(mappedAssignments.slice(0, 4));
         setSentRequests(
           teacherReferrals.map(mapTeacherReferralToSummary).slice(0, 4)

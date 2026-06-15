@@ -126,6 +126,54 @@ export function mapTeacherReferralToSummary(referral) {
   };
 }
 
+export function mergeStudentsWithLatestReferrals(students, referrals) {
+  const latestReferralByStudent = new Map();
+
+  referrals.forEach((referral) => {
+    const studentId = Number(referral.studentId);
+
+    if (!studentId) return;
+
+    const currentReferral = latestReferralByStudent.get(studentId);
+    const referralDate = new Date(referral.createdAt);
+    const currentDate = currentReferral
+      ? new Date(currentReferral.createdAt)
+      : null;
+
+    if (!currentReferral || referralDate > currentDate) {
+      latestReferralByStudent.set(studentId, referral);
+    }
+  });
+
+  return students
+    .map((student) => {
+      const studentId = Number(student.studentId || student.id);
+      const latestReferral = latestReferralByStudent.get(studentId);
+
+      if (!latestReferral) {
+        return {
+          ...student,
+          lastRequest: "Sin solicitud",
+        };
+      }
+
+      return {
+        ...student,
+        lastRequest: formatDate(latestReferral.createdAt),
+      };
+    })
+    .sort((a, b) => {
+      const aReferral = latestReferralByStudent.get(Number(a.studentId || a.id));
+      const bReferral = latestReferralByStudent.get(Number(b.studentId || b.id));
+
+      if (aReferral && !bReferral) return -1;
+      if (!aReferral && bReferral) return 1;
+      if (!aReferral && !bReferral) return 0;
+
+      return new Date(bReferral.createdAt) - new Date(aReferral.createdAt);
+    });
+}
+
 export function buildTeacherMetrics({ students, referrals }) {
   const uniqueCourses = new Set(
     students

@@ -24,7 +24,11 @@ function createColumns({ handleRequestIntervention }) {
     {
       key: "lastRequest",
       label: "Última solicitud",
-      render: () => <Badge variant="muted">N/D</Badge>,
+      render: (row) => (
+        <Badge variant="muted">
+          {row.lastRequest || "Sin solicitud"}
+        </Badge>
+      ),
     },
     {
       key: "action",
