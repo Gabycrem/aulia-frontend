@@ -130,7 +130,7 @@ export function mergeStudentsWithLatestReferrals(students, referrals) {
   const latestReferralByStudent = new Map();
 
   referrals.forEach((referral) => {
-    const studentId = Number(referral.studentId);
+    const studentId = getReferralStudentId(referral);
 
     if (!studentId) return;
 
@@ -147,24 +147,19 @@ export function mergeStudentsWithLatestReferrals(students, referrals) {
 
   return students
     .map((student) => {
-      const studentId = Number(student.studentId || student.id);
+      const studentId = getStudentRowId(student);
       const latestReferral = latestReferralByStudent.get(studentId);
-
-      if (!latestReferral) {
-        return {
-          ...student,
-          lastRequest: "Sin solicitud",
-        };
-      }
 
       return {
         ...student,
-        lastRequest: formatDate(latestReferral.createdAt),
+        lastRequest: latestReferral
+          ? formatDate(latestReferral.createdAt)
+          : "Sin solicitud",
       };
     })
     .sort((a, b) => {
-      const aReferral = latestReferralByStudent.get(Number(a.studentId || a.id));
-      const bReferral = latestReferralByStudent.get(Number(b.studentId || b.id));
+      const aReferral = latestReferralByStudent.get(getStudentRowId(a));
+      const bReferral = latestReferralByStudent.get(getStudentRowId(b));
 
       if (aReferral && !bReferral) return -1;
       if (!aReferral && bReferral) return 1;
@@ -172,6 +167,23 @@ export function mergeStudentsWithLatestReferrals(students, referrals) {
 
       return new Date(bReferral.createdAt) - new Date(aReferral.createdAt);
     });
+}
+
+function getReferralStudentId(referral) {
+  return Number(
+    referral.studentId ||
+      referral.Student?.id ||
+      referral.student?.id
+  );
+}
+
+function getStudentRowId(student) {
+  return Number(
+    student.studentId ||
+      student.id ||
+      student.Student?.id ||
+      student.student?.id
+  );
 }
 
 export function buildTeacherMetrics({ students, referrals }) {

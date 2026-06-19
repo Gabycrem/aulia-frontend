@@ -9,6 +9,7 @@ import {
   buildTeacherMetrics,
   mapTeacherAssignmentToSummary,
   mapTeacherReferralToSummary,
+  mergeStudentsWithLatestReferrals,
   normalizeTeacherAssignmentsResponse,
   normalizeTeacherReferralsResponse,
   mergeStudentsWithLatestReferrals,
@@ -62,7 +63,7 @@ function useTeacherDashboard() {
           mappedStudents,
           teacherReferrals
         );
-
+        
         setAssignedStudents(studentsWithRequests.slice(0, 5));
         setAssignments(mappedAssignments.slice(0, 4));
         setSentRequests(
