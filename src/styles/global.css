@@ -6,7 +6,10 @@
 
 body {
   min-height: 100vh;
-  background-color: var(--color-background);
+  background: linear-gradient(120deg,
+      var(--color-background) 0%,
+      var(--color-background-gradient-center) 50%,
+      var(--color-background-gradient-end) 100%);
   color: var(--color-text);
   font-family: var(--font-main);
 }
