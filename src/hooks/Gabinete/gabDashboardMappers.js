@@ -5,6 +5,28 @@ import {
 
 export { normalizeReferralsResponse };
 
+export function normalizeOpenCaseFilesResponse(response) {
+  const caseFiles =
+    response?.caseFiles?.rows ||
+    response?.caseFiles?.data ||
+    response?.caseFiles ||
+    response?.data?.rows ||
+    response?.data ||
+    response?.rows ||
+    [];
+
+  const count =
+    response?.count ||
+    response?.caseFiles?.count ||
+    response?.data?.count ||
+    caseFiles.length;
+
+  return {
+    caseFiles: Array.isArray(caseFiles) ? caseFiles : [],
+    count,
+  };
+}
+
 export function normalizeHelpRequestsResponse(response) {
   const requests =
     response?.requests?.rows ||
@@ -30,6 +52,7 @@ export function buildGabDashboardMetrics({
   referrals,
   helpRequests,
   checkInSummary,
+  openCaseFilesCount,
 }) {
   const pendingReferrals = referrals.filter((referral) =>
     String(referral.status || "").toLowerCase().includes("pendiente")
@@ -39,7 +62,7 @@ export function buildGabDashboardMetrics({
     {
       id: "open-case-files",
       title: "Legajos abiertos",
-      value: "N/D",
+      value: openCaseFilesCount,
     },
     {
       id: "active-alerts",
