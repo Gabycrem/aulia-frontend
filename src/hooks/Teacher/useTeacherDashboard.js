@@ -12,7 +12,6 @@ import {
   mergeStudentsWithLatestReferrals,
   normalizeTeacherAssignmentsResponse,
   normalizeTeacherReferralsResponse,
-  mergeStudentsWithLatestReferrals,
 } from "./teacherDashboardMappers";
 import {
   mapTeacherStudentsWithAssignments,
