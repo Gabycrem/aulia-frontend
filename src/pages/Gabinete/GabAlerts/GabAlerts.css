@@ -1,0 +1,28 @@
+.gab-alerts {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 32px 32px;
+}
+
+.gab-alerts-card {
+  padding: 20px 24px;
+}
+
+.gab-alerts-card h2 {
+  margin-bottom: 8px;
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.gab-alerts-card p {
+  color: var(--color-text);
+}
+
+@media (max-width: 720px) {
+  .gab-alerts {
+    padding: 16px;
+  }
+}

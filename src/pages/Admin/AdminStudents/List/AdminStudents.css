@@ -1,0 +1,67 @@
+.admin-students {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-students-filters-card,
+.admin-students-table-card,
+.admin-students-context-card {
+  width: 100%;
+}
+
+.admin-students-filters {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 16px;
+}
+
+.admin-students-filters label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.admin-students-table-scroll {
+  max-height: 420px;
+  overflow: auto;
+}
+
+.admin-students-context-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-students-selected {
+  color: var(--color-text);
+}
+
+.admin-students-context-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-students-primary-button {
+  width: fit-content;
+}
+
+.admin-students-error {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #fde8e8;
+  color: #9b1c1c;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .admin-students-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-students-table-scroll {
+    max-height: 360px;
+  }
+}

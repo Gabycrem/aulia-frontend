@@ -1,0 +1,37 @@
+import { apiRequest } from "./api";
+
+export function saveAssignment(assignmentData) {
+  return apiRequest("/api/assignment/saveAssignment", {
+    method: "POST",
+    body: JSON.stringify(assignmentData),
+  });
+}
+
+export function getAssignmentsByUser(userId) {
+  return apiRequest(`/api/assignment/findByUser/${userId}`);
+}
+
+export function getAssignmentById(id) {
+  return apiRequest(`/api/assignment/findTeacher/${id}`);
+}
+
+export function getAssignmentsByTeacher(teacherId) {
+  return apiRequest(`/api/assignment/findTeacher/${teacherId}`);
+}
+
+export function getAllAssignments(page = 1) {
+  return apiRequest(`/api/assignment/findTeachers?page=${page}`);
+}
+
+export function updateAssignment(id, assignmentData) {
+  return apiRequest(`/api/assignment/updateAssignment/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(assignmentData),
+  });
+}
+
+export function deleteAssignment(id) {
+  return apiRequest(`/api/assignment/deleteAssignment/${id}`, {
+    method: "DELETE",
+  });
+}

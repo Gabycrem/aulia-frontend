@@ -1,0 +1,25 @@
+.gab-interventions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px 32px 32px;
+}
+
+.gab-interventions-table-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.gab-interventions-error {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #fde8e8;
+  color: #9b1c1c;
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .gab-interventions {
+    padding: 16px;
+  }
+}

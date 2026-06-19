@@ -1,0 +1,159 @@
+.gab-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px 32px 32px;
+}
+
+.gab-dashboard-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.gab-dashboard-table-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.gab-dashboard-table-action {
+  border: none;
+  background: transparent;
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.gab-dashboard-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: 16px;
+  min-height: 0;
+}
+
+.gab-dashboard-panel {
+  min-height: 0;
+  max-height: 220px;
+  padding: 18px 24px;
+  overflow: hidden;
+}
+
+.gab-dashboard-panel h2 {
+  margin-bottom: 12px;
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.gab-dashboard-activity-list,
+.gab-dashboard-agenda-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+}
+
+.gab-dashboard-activity-list {
+  max-height: 150px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.gab-dashboard-activity-list li {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(120px, 1fr);
+  align-items: baseline;
+  gap: 8px;
+  padding-bottom: 6px;
+  color: var(--color-text);
+  font-family: var(--font-main);
+}
+
+.gab-dashboard-activity-list span {
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 0.88rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.gab-dashboard-activity-list small {
+  min-width: 0;
+  color: var(--color-text-soft);
+  font-family: var(--font-main);
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.gab-dashboard-agenda-list li {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 12px;
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.gab-dashboard-agenda-list strong {
+  color: var(--color-text);
+}
+
+.gab-dashboard-panel .today-agenda {
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+.gab-dashboard-panel .today-agenda h2 {
+  margin-bottom: 12px;
+  font-size: 1.15rem;
+}
+
+.gab-dashboard-panel .today-agenda-empty {
+  font-size: 0.88rem;
+  line-height: 1.35;
+}
+
+.gab-dashboard-error {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #fde8e8;
+  color: #9b1c1c;
+  font-weight: 700;
+}
+
+@media (max-width: 1100px) {
+  .gab-dashboard-metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .gab-dashboard-bottom {
+    grid-template-columns: 1fr;
+  }
+
+  .gab-dashboard-panel {
+    max-height: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .gab-dashboard {
+    padding: 16px;
+  }
+
+  .gab-dashboard-metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .gab-dashboard-activity-list li {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+
+  .gab-dashboard-activity-list span {
+    white-space: normal;
+  }
+}

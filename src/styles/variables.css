@@ -1,8 +1,9 @@
 :root {
   --color-primary: #559e9a;
-  --color-secondary: #8e8282;
+  --color-secondary: #f4f1ee;
 
-  --color-background: #f4f1ee;
+  --color-background: #8e8282;
+  --color-background-soft: #cdc9c9;
   --color-surface: #eae5e1;
   --color-accent-soft: #d7edea;
 
@@ -10,6 +11,17 @@
   --color-text-soft: #7a7272;
 
   --color-white-soft: #faf8f6;
+  --color-overlay: rgba(62, 62, 62, 0.45);
+
+  --color-warning: #b7791f;
+  --color-danger: #b91c1c;
+  --color-success: var(--color-primary);
+  --color-info: #4f7f9f;
+
+  --color-warning-soft: #f7ead2;
+  --color-danger-soft: #f5dada;
+  --color-success-soft: var(--color-accent-soft);
+  --color-info-soft: #dce8ef;
 
   --font-main: 'Nunito', 'Segoe UI', sans-serif;
 
@@ -18,5 +30,6 @@
   --radius-lg: 16px;
   --radius-xl: 24px;
 
-  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.06);
+  --shadow-soft: 0 16px 40px rgba(62, 62, 62, 0.16);
+  --shadow-modal: 0 18px 48px rgba(62, 62, 62, 0.22);
 }

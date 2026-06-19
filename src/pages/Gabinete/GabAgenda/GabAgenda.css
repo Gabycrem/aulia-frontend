@@ -1,0 +1,29 @@
+.gab-agenda {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px 32px 32px;
+}
+
+.gab-agenda-card {
+  padding: 24px;
+  overflow: hidden;
+}
+
+.gab-agenda-error {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #fde8e8;
+  color: #9b1c1c;
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .gab-agenda {
+    padding: 16px;
+  }
+
+  .gab-agenda-card {
+    padding: 16px;
+  }
+}

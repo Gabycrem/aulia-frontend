@@ -1,0 +1,95 @@
+.admin-student-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-student-form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-student-form-description {
+  color: var(--color-text-soft);
+}
+
+.admin-student-form-steps {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-student-form-steps span {
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--color-background-soft);
+  color: var(--color-text-soft);
+  font-weight: 700;
+}
+
+.admin-student-form-steps .step-active {
+  background: var(--color-accent-soft);
+  color: var(--color-text);
+}
+
+.admin-student-form-card {
+  width: 100%;
+}
+
+.admin-student-form-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.admin-student-form-card h2 {
+  color: var(--color-text);
+}
+
+.admin-student-form-created-user {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent-soft);
+  color: var(--color-text);
+}
+
+.admin-student-form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.admin-student-form-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.admin-student-form-checkbox {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 8px;
+}
+
+.admin-student-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-student-form-error {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #fde8e8;
+  color: #9b1c1c;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .admin-student-form-grid {
+    grid-template-columns: 1fr;
+  }
+}

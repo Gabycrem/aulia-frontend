@@ -1,0 +1,13 @@
+.admin-gabinete-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin-gabinete-form-error {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #fde8e8;
+  color: #9b1c1c;
+  font-weight: 700;
+}

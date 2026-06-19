@@ -1,8 +1,12 @@
-function DirectDashboard(){
+import DashboardLayout from "../../layouts/DashboardLayout/DashboardLayout";
+import './DirectDashboard.css';
+function DirectDashboard() {
     return (
-        <main>
-            <h1>Dashboard de Directivos</h1>
-        </main>
+        <DashboardLayout role="direct">
+            <section className="direct-dashboard">
+                <h1>Dashboard de Directivos</h1>
+            </section>
+        </DashboardLayout>
     );
 }
 

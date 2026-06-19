@@ -1,0 +1,124 @@
+.gab-students {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 24px 32px 32px;
+}
+
+.gab-students-search-field {
+  max-width: 320px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.gab-students-search {
+  padding-right: 44px;
+}
+
+.gab-students-search-button {
+  width: 36px;
+  height: 36px;
+  position: absolute;
+  right: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  color: var(--color-white-soft);
+  cursor: pointer;
+}
+
+.gab-students-search-button:hover {
+  background-color: var(--color-background-soft);
+  color: var(--color-text);
+}
+
+
+.gab-students-new-case-button {
+  width: auto;
+  min-width: 160px;
+  padding: 12px 18px;
+}
+
+.gab-students-table-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.gab-students-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gab-students-course-cell {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.2;
+}
+
+.gab-students-course-cell small {
+  color: var(--color-text-soft);
+  font-size: 0.85rem;
+}
+
+.gab-students-icon-button {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-accent-soft);
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.gab-students-icon-button:hover {
+  background-color: var(--color-background-soft);
+}
+
+@media (max-width: 1337px) {
+  .gab-students-table-card table th:nth-child(4),
+  .gab-students-table-card table td:nth-child(4) {
+    width: 120px;
+    max-width: 120px;
+    white-space: normal;
+    line-height: 1.25;
+  }
+
+  .gab-students-table-card table th:nth-child(5),
+  .gab-students-table-card table td:nth-child(5),
+  .gab-students-table-card table th:nth-child(6),
+  .gab-students-table-card table td:nth-child(6) {
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 1270px) {
+  .gab-students-table-card table th:nth-child(6),
+  .gab-students-table-card table td:nth-child(6) {
+    width: 120px;
+    max-width: 120px;
+    white-space: normal;
+    line-height: 1.25;
+  }
+}
+
+@media (max-width: 720px) {
+  .gab-students {
+    padding: 16px;
+  }
+
+  .gab-students-search-field,
+  .gab-students-new-case-button {
+    max-width: none;
+    width: 100%;
+  }
+}

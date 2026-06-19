@@ -1,0 +1,47 @@
+.gab-new-case,
+.gab-new-case-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.gab-new-case {
+  padding: 24px 32px 32px;
+}
+
+.gab-new-case-card {
+  padding: 20px 24px;
+}
+
+.gab-new-case-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--color-text);
+  font-weight: 700;
+}
+
+.gab-new-case-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.gab-new-case-error {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #fde8e8;
+  color: #9b1c1c;
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .gab-new-case {
+    padding: 16px;
+  }
+
+  .gab-new-case-actions {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,138 @@
+.admin-dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 24px 32px 32px;
+}
+
+.admin-dashboard-metrics {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.admin-dashboard-management {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.admin-dashboard-management-card {
+  min-height: 190px;
+  padding: 18px;
+}
+
+.admin-dashboard-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.admin-dashboard-card-header h2,
+.admin-dashboard-panel h2 {
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.admin-dashboard-link-button {
+  width: fit-content;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+}
+
+.admin-dashboard-user-list,
+.admin-dashboard-activity-list,
+.admin-dashboard-system-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+}
+
+.admin-dashboard-user-list li,
+.admin-dashboard-system-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.admin-dashboard-user-info,
+.admin-dashboard-activity-list li {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-dashboard-user-info span,
+.admin-dashboard-activity-list span,
+.admin-dashboard-system-list span {
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.admin-dashboard-user-info small,
+.admin-dashboard-activity-list small {
+  color: var(--color-text-soft);
+  font-family: var(--font-main);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.admin-dashboard-bottom {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: 16px;
+}
+
+.admin-dashboard-panel {
+  min-height: 180px;
+  padding: 20px 24px;
+}
+
+.admin-dashboard-panel h2 {
+  margin-bottom: 14px;
+}
+
+.admin-dashboard-system-list strong {
+  color: var(--color-text);
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.admin-dashboard-error {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: #fde8e8;
+  color: #9b1c1c;
+  font-weight: 700;
+}
+
+@media (max-width: 1100px) {
+  .admin-dashboard-metrics,
+  .admin-dashboard-management {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-dashboard-bottom {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 720px) {
+  .admin-dashboard {
+    padding: 16px;
+  }
+
+  .admin-dashboard-metrics,
+  .admin-dashboard-management {
+    grid-template-columns: 1fr;
+  }
+}
