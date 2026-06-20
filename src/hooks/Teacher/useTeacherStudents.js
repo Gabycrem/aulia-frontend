@@ -3,11 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { getAssignmentsByUser } from "../../services/assignmentService";
 import { getStudentsByTeacher } from "../../services/studentService";
 import { getSessionUser } from "../../utils/session";
+import { getReferralsByTeacher } from "../../services/referralService";
 import {
   buildCourseOptions,
   buildSubjectOptions,
   mapTeacherStudentsWithAssignments,
 } from "./teacherStudentsMappers";
+import {
+  mergeStudentsWithLatestReferrals,
+  normalizeTeacherReferralsResponse,
+} from "./teacherDashboardMappers";
 
 function useTeacherStudents() {
   const navigate = useNavigate();
@@ -32,14 +37,26 @@ function useTeacherStudents() {
         setLoading(true);
         setError("");
 
-        const [studentsResponse, assignmentsResponse] = await Promise.all([
-          getStudentsByTeacher(sessionUser.id),
-          getAssignmentsByUser(sessionUser.id),
-        ]);
+        const [studentsResponse, assignmentsResponse, referralsResponse] =
+          await Promise.all([
+            getStudentsByTeacher(sessionUser.id),
+            getAssignmentsByUser(sessionUser.id),
+            getReferralsByTeacher(sessionUser.id),
+          ]);
 
-        setStudentsData(
-          mapTeacherStudentsWithAssignments(studentsResponse, assignmentsResponse)
+        const mappedStudents = mapTeacherStudentsWithAssignments(
+          studentsResponse,
+          assignmentsResponse
         );
+
+        const teacherReferrals = normalizeTeacherReferralsResponse(referralsResponse);
+
+        const studentsWithRequests = mergeStudentsWithLatestReferrals(
+          mappedStudents,
+          teacherReferrals
+        );
+
+        setStudentsData(studentsWithRequests);
       } catch (error) {
         setError(error.message || "Error al cargar alumnos asignados");
       } finally {
