@@ -1,8 +1,8 @@
 # AULIA Frontend
 
-Frontend oficial de AULIA, una plataforma académica orientada al acompañamiento socioemocional y la gestión educativa para equipos de orientación escolar.
+Frontend oficial de **AULIA**, una plataforma académica orientada al acompañamiento socioemocional y la gestión educativa para equipos de orientación escolar.
 
-El proyecto busca facilitar la detección temprana, el seguimiento y la intervención institucional mediante una experiencia digital moderna, accesible y centrada en las personas.
+La aplicación permite administrar usuarios y datos escolares, registrar check-ins emocionales, solicitar intervenciones docentes y gestionar derivaciones, legajos e intervenciones desde el equipo de gabinete.
 
 ---
 
@@ -14,6 +14,13 @@ El proyecto busca facilitar la detección temprana, el seguimiento y la interven
 - Lucide React
 - JavaScript (ES6+)
 - CSS
+
+---
+
+## Requisitos
+
+- Node.js
+- npm
 
 ---
 
@@ -45,29 +52,91 @@ npm run dev
 
 ---
 
-## Usuarios de prueba
+## Scripts disponibles
 
-Mientras la autenticación con backend está en desarrollo, el login utiliza usuarios mock para probar los distintos roles.
+```bash
+npm run dev
+```
 
-| Rol | Usuario | Contraseña |
-| --- | --- | --- |
-| Admin | admin | admin123 |
-| Gabinete | gabinete | gab123 |
-| Docente | docente | docente123 |
-| Alumno | alumno | alumno123 |
-| Directivo | directivo | directivo123 |
+Inicia el entorno local de desarrollo.
 
-Estos datos son solo para entorno de desarrollo y serán reemplazados cuando se integre la autenticación con backend.
+```bash
+npm run build
+```
+
+Genera la versión de producción.
+
+```bash
+npm run preview
+```
+
+Permite previsualizar localmente el build generado.
+
+---
+
+## Variables de entorno
+
+El frontend consume la API del backend mediante la URL configurada en el proyecto.
+
+Para entorno local, revisar la configuración de API correspondiente antes de ejecutar la aplicación.
+
+---
+
+## Funcionalidades principales
+
+### Administrador
+
+- Gestión de alumnos.
+- Gestión de docentes.
+- Gestión de integrantes de gabinete.
+- Gestión de cursos.
+- Gestión de materias.
+- Consulta de roles.
+
+### Docente
+
+- Consulta de alumnos asignados.
+- Solicitud de intervención para alumnos.
+- Seguimiento de solicitudes enviadas.
+
+### Gabinete
+
+- Visualización de derivaciones.
+- Gestión de casos o legajos.
+- Registro de intervenciones.
+- Consulta de métricas operativas.
+
+### Alumno
+
+- Registro de check-in emocional diario.
+- Solicitud de contacto con gabinete.
+
+---
+
+## Documentación
+
+La documentación funcional del sistema se encuentra en:
+
+[Manual de usuario](./docs/user-manual/index.md)
+
+Incluye el manual de usuario modular por rol y los flujos principales del MVP.
 
 ---
 
 ## Convenciones del proyecto
 
-- Arquitectura modular y escalable.
+- Arquitectura modular por páginas, componentes, hooks, servicios y mappers.
 - Componentes reutilizables.
-- CSS desacoplado de JSX.
+- CSS separado de JSX.
 - Uso de variables globales para estilos y colores.
-- Flujo de trabajo basado en ramas (`main`, `develop`, `feature/*`).
+- Integración con backend mediante servicios centralizados.
+- Flujo de trabajo basado en ramas protegidas y pull requests.
+
+---
+
+## Estado del proyecto
+
+Versión MVP integrada con backend desplegado.
 
 ---
 
@@ -78,9 +147,3 @@ Proyecto desarrollado como trabajo académico integrador para la carrera de Desa
 - Nazarena Macre
 - Andrea Purriños
 - Martín Lemberger
-
----
-
-## Estado del proyecto
-
-🚧 En desarrollo.
